@@ -98,6 +98,24 @@ export default {
       ],
     },
     {
+      path: '/productCenter',
+      component: '../layouts/ProductCenterLayOut',
+      routes: [
+        {
+          path: '/productCenter',
+          name: 'productCenter',
+          icon: 'smile',
+          component: './ProductCenter',
+          // routes: [
+          //   {
+          //     path: '/stone',
+          //     component: "./ProductCenter"
+          //   }
+          // ]
+        },
+      ],
+    },
+    {
       path: '/',
       component: '../layouts/SecurityLayout',
       routes: [
@@ -108,13 +126,13 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/welcome',
+              redirect: '/productCenter',
             },
             {
-              path: '/welcome',
-              name: 'welcome',
+              path: '/productCenter',
+              name: 'productCenter',
               icon: 'smile',
-              component: './Welcome',
+              component: './ProductCenter',
             },
             {
               component: './404',
