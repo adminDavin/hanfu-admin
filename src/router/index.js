@@ -7,7 +7,7 @@ const router = new VueRouter({
   routes: [{
       // path: '/',
       // redirect: '/hf-user/login'
-       path: '/index',
+      path: '/index',
     },
     {
       name: 'award',
@@ -17,7 +17,22 @@ const router = new VueRouter({
         title: '奖品'
       }
     },
-
+    {
+      name: 'activityDetail',
+      path: '/activityDetail',
+      component: resolve => require(['@/components/active/detail.vue'], resolve),
+      meta: {
+        title: '策略规则'
+      }
+    },
+{
+    name: 'strategyRule',
+    path: '/strategyRule',
+    component: resolve => require(['@/components/strategyRule/index.vue'], resolve),
+    meta: {
+      title: '策略规则'
+    }
+  },
     {
       name: 'usercenter',
       path: '/usercenter',
@@ -104,13 +119,13 @@ const router = new VueRouter({
       }
     },
 
-	{
-	  path: '/hf-user/register',
-	  component: resolve => require(['@/components/hf-user/register'], resolve),
-	  meta: {
-	    title: '用户注册'
-	  }
-	},
+    {
+      path: '/hf-user/register',
+      component: resolve => require(['@/components/hf-user/register'], resolve),
+      meta: {
+        title: '用户注册'
+      }
+    },
     {
       path: '/hf-user/login',
       component: resolve => require(['@/components/hf-user/login'], resolve),
@@ -132,7 +147,7 @@ const router = new VueRouter({
         title: '仓库中心'
       }
     },
-   {
+    {
       path: '/test',
       component: resolve => require(['../components/test/index.vue'], resolve),
       meta: {

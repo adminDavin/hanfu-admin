@@ -33,6 +33,15 @@ const dynamicRouter = [
     }
   },
   {
+    name: 'strategyRule',
+    path: '/strategyRule',
+    component: resolve => require(['@/components/strategyRule/index.vue'], resolve),
+    meta: {
+      title: '策略规则'
+    }
+  },
+
+  {
     name: 'usercenter',
     path: '/usercenter',
     component: resolve => require(['@/components/usercenter/index.vue'], resolve),

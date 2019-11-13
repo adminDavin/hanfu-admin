@@ -23,8 +23,8 @@
         <br>
         <el-form-item prop="activiyType" label="活动策略" label-width="120px">
           <el-select v-model="value" placeholder="请选择" @change="changedata()">
-            <el-option v-for="item in strategyData" :label="item.strategyName" :value="item.strategyName">
-            </el-option>
+           <!-- <el-option v-for="item in strategyData" :value="item.strategyName">
+            </el-option> -->
           </el-select>
         </el-form-item>
       </el-form>
@@ -34,6 +34,36 @@
       </div>
     </el-dialog>
 
+    <el-dialog title="修改活动" :visible.sync="editFormVisible" :close-on-click-modal="false">
+      <el-form :inline="true" :model='editForm' label-width="80px" :rules="bianRules" ref="addForm">
+        <el-form-item label="活动描述" prop="activityDesc" label-width="120px">
+          <el-input v-model="editForm.activityDesc" auto-complete="off"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="活动名称" prop="activityName" label-width="120px">
+          <el-input v-model="editForm.activityName" auto-complete="off"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="活动状态" prop="activityStatus" label-width="120px">
+          <el-input v-model="editForm.activityStatus" auto-complete="off"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="活动类型" prop="activiyType" label-width="120px">
+          <el-input v-model="editForm.activiyType" auto-complete="off"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item prop="activiyType" label="活动策略" label-width="120px">
+          <el-select v-model="value" placeholder="请选择" @change="changedata()">
+           <!-- <el-option v-for="item in strategyData" :value="item.strategyName">
+            </el-option> -->
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editFormVisible=false">取消</el-button>
+        <el-button type="primary" @click="addjiSubmit">提交</el-button>
+      </div>
+    </el-dialog>
     <!-- 表格 -->
 
     <el-table :data="activeData" style="width: 100%;margin-top: 30px;" >
@@ -48,6 +78,14 @@
       </el-table-column>
       <el-table-column prop="strategyId" label="活动策略" width="300" align="center">
       </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" width="300" align="center">
+      </el-table-column>
+      <el-table-column  label="操作" width="300" align="center">
+        <template slot-scope="scope">
+          <el-button type="primary" icon="el-icon-edit" size="mini" @click="editActive(scope.row.id)">编辑</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
+        </template>
+      </el-table-column>
 
     </el-table>
 
@@ -60,6 +98,8 @@
 
     data() {
       return {
+        editForm:{},
+        editFormVisible:false,
         activeData:[],
         value: '',
         strategyData: [],
@@ -102,7 +142,18 @@
       this.getActive();
     },
     methods: {
-
+      editActive:function(id){
+        
+          this.$router.push({name:'activityDetail',query:{'id':id}});
+      },
+      //删除活动
+      delecteActive:function(id){
+        console.log(id);
+          api.deleteActivityStrategy(id).then(response => {
+            console.log('活动列表',response);
+            // this.activeData = response.data.data;
+          })
+      },
       getActive:function(){
         api.getActivity().then(response => {
           console.log('活动列表',response);
