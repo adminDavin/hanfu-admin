@@ -12,7 +12,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         target:'http://192.168.1.103:9200',//小方
-        // target:'http://192.168.1.103:9095',//小方
+        // target:'http://192.168.1.101:9200',//王博朋
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

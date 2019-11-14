@@ -25,7 +25,7 @@
         <i class="el-icon-menu"></i>
         <span slot="title">活动</span>
       </el-menu-item>
-      
+
       <!-- <el-menu-item index="hf-order">
         <i class="el-icon-tickets"></i>
         <span slot="title">订单中心</span>
@@ -38,15 +38,14 @@
         <i class="el-icon-menu"></i>
         <span slot="title">用户中心</span>
       </el-menu-item>
+     <!-- <el-menu-item index="activityDetail">
+        <i class="el-icon-menu"></i>
+        <span slot="title">策略规则</span>
+      </el-menu-item> -->
       <!--   <el-menu-item index="hf-boss">
         <i class="el-icon-tickets"></i>
         <span slot="title">商家管理</span>
       </el-menu-item> -->
-      <el-menu-item index="strategyRule">
-        <i class="el-icon-menu"></i>
-        <span slot="title">策略规则</span>
-      </el-menu-item>
-      
       <el-menu-item index="Strategy">
         <i class="el-icon-tickets"></i>
         <span slot="title">活动策略</span>

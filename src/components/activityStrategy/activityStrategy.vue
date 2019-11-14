@@ -1,9 +1,12 @@
 <template>
   <div>
-     <el-button type="success" @click="addStrategy">添加策略</el-button>
+
+      <el-button type="success" @click="addStrategy">添加活动策略</el-button>
+       <el-button type="success" @click="addcerule" style="margin-left: 43%;margin-top: 20px;">添加策略规则</el-button>
 
 
-     <el-dialog title="添加策略" :visible.sync="addeditFormVisible" :close-on-click-modal="false">
+
+     <el-dialog title="添加活动策略" :visible.sync="addeditFormVisible" :close-on-click-modal="false">
        <el-form :inline="true"  :model='addForm' label-width="80px" :rules="bianRules" ref="addForm">
           <el-form-item label="活动策略描述" prop="strategyDesc" label-width="120px">
             <el-input v-model="addForm.strategyDesc" auto-complete="off"></el-input>
@@ -20,49 +23,69 @@
           <el-form-item label="活动策略类型" prop="strategyType" label-width="120px">
             <el-input v-model="addForm.strategyType" auto-complete="off"></el-input>
           </el-form-item>
-
-
-
        </el-form>
        <div slot="footer" class="dialog-footer">
          <el-button @click="addeditFormVisible=false">取消</el-button>
          <el-button type="primary" @click="addjiSubmit" >提交</el-button>
        </div>
      </el-dialog>
-    <el-table :data="strategyData" style="width: 100%;margin-top: 30px;" >
-      <el-table-column prop="strategyName" label="活动名称" fixed width="120" align="center">
-      </el-table-column>
-      <el-table-column  prop="strategyStatus" label="策略状态" width="150" align="center">
-      </el-table-column>
+     <div style="display: flex;">
+       <el-table :data="strategyData" style="width: 50%;margin-top: 20px;" height="450">
+         <el-table-column prop="strategyName" label="策略名称" fixed width="120" align="center">
+         </el-table-column>
+         <el-table-column  prop="strategyStatus" label="策略状态" width="150" align="center">
+         </el-table-column>
 
-      <el-table-column prop="strategyType" label="策略类型" width="120" align="center">
-      </el-table-column>
-      <el-table-column prop="strategyDesc" label="策略描述" width="300" align="center">
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" width="300" align="center">
-      </el-table-column>
-      <el-table-column  label="操作" width="300" align="center">
-        <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleRole(scope.row.id)">编辑</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-     <el-button type="success" @click="addcerule">增加策略规则</el-button>
+         <el-table-column prop="strategyType" label="策略类型" width="120" align="center">
+         </el-table-column>
+         <el-table-column prop="strategyDesc" label="策略描述" width="300" align="center">
+         </el-table-column>
+         <el-table-column prop="createTime" label="创建时间" width="300" align="center">
+         </el-table-column>
+         <el-table-column  label="操作" width="220" align="center"  fixed="right">
+           <template slot-scope="scope">
+             <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleRole(scope.row.id)">编辑</el-button>
+             <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
+           </template>
+         </el-table-column>
+       </el-table>
+       <el-table :data="StrategyRule" style="width: 45%;margin-top: 20px;margin-left: 20px;" height="450">
+         <el-table-column prop="ruleName" label="规则名称" fixed width="120" align="center">
+         </el-table-column>
+         <el-table-column  prop="ruleStatus" label="规则状态" width="150" align="center">
+         </el-table-column>
+          <el-table-column  prop="ruleDesc" label="规则描述" width="150" align="center">
+          </el-table-column>
+
+         <el-table-column prop="ruleType" label="规则类型" width="300" align="center">
+         </el-table-column>
+         <el-table-column prop="createTime" label="创建时间" width="300" align="center">
+         </el-table-column>
+         <el-table-column  label="操作" width="220" align="center"  fixed="right">
+           <template slot-scope="scope">
+             <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleRole(scope.row.id)">编辑</el-button>
+             <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
+           </template>
+         </el-table-column>
+       </el-table>
+     </div>
+
+
      <el-dialog title="增加策略规则" :visible.sync="addeditFormVisiblerule" :close-on-click-modal="false">
        <el-form :inline="true"  :model='addrule' label-width="80px" :rules="Rules" ref="addrules">
-          <el-form-item label="规则描述" prop="ruleDesc" label-width="120px">
-            <el-input v-model="addrule.ruleDesc" auto-complete="off"></el-input>
-          </el-form-item>
-          <br>
+
           <el-form-item label="规则名字" prop="ruleName" label-width="120px">
             <el-input v-model="addrule.ruleName" auto-complete="off"></el-input>
           </el-form-item>
           <br>
-        <!-- <el-form-item label="规则状态" prop="ruleStatus" label-width="120px">
-           <el-input v-model="addrule.ruleStatus" auto-complete="off"></el-input>
-         </el-form-item>
-         <br> -->
+          <el-form-item label="规则描述" prop="ruleDesc" label-width="120px">
+            <el-input v-model="addrule.ruleDesc" auto-complete="off"></el-input>
+          </el-form-item>
+          <br>
+          <el-form-item label="规则状态" prop="ruleStatus" label-width="120px">
+             <el-input v-model="addrule.ruleStatus" auto-complete="off"></el-input>
+           </el-form-item>
+           <br>
           <el-form-item label="规则类型" prop="ruleType" label-width="120px">
             <el-input v-model="addrule.ruleType" auto-complete="off"></el-input>
           </el-form-item>
@@ -88,6 +111,7 @@
 
     data() {
       return {
+        StrategyRule:[],
         strategyData:[],
         Rules:{
           ruleDesc: [{
@@ -151,6 +175,7 @@
     },
     mounted(){
       this.getStrategy();
+      this.getStrategyRule();
     },
     methods: {
      // 获取策略
@@ -160,15 +185,23 @@
          this.strategyData = response.data.data;
        })
      },
+     //获取策略规则
+     getStrategyRule: function() {
+       api.getStrategyRule().then(response => {
+         console.log('获取策略规则',response);
+         this.StrategyRule = response.data.data;
+       })
+     },
+
       // 添加策略规则
       addRule:function(){
         this.$refs.addrules.validate(valid => {
           if (valid) {
             this.$confirm("确认提交吗？", "提示", {}).then(() => {
               // this.addLoading = true;
-              console.log(this.Rules);
+              console.log(this.addrule);
 
-              api.addStrategyRule(this.Rules).then(response => {
+              api.addStrategyRule(this.addrule).then(response => {
                 console.log(response)
                 if (response.status === 200) {
                   this.$message({
@@ -177,6 +210,7 @@
                   });
 
                   this.addeditFormVisiblerule = false;
+                   this.getStrategyRule();
                 } else {
                   this.$message({
                     message: "提交失败",
@@ -211,7 +245,7 @@
                     message: "提交成功",
                     type: "success"
                   });
-
+                   this.getStrategy();
                   this.addeditFormVisible = false;
                 } else {
                   this.$message({
