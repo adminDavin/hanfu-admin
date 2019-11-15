@@ -25,6 +25,14 @@ const router = new VueRouter({
         title: '策略规则'
       }
     },
+    {
+        name: 'Rule',
+        path: '/Rule',
+        component: resolve => require(['@/components/active/strategy.vue'], resolve),
+        meta: {
+          title: '策略规则'
+        }
+      },
 {
     name: 'strategyRule',
     path: '/strategyRule',

@@ -37,8 +37,9 @@ function addStrategy(params) {
 
 }
 // 添加策略规则
-function addStrategyRule(params) {
 
+function addStrategyRule(params) {
+console.log(params);
   let fd = new FormData();
   fd.append('id', 1);
   fd.append('requestId', 1);
@@ -47,7 +48,7 @@ function addStrategyRule(params) {
   fd.append('ruleStatus', params.ruleStatus);
   fd.append('ruleType', params.ruleType);
   fd.append('ruleValueType', params.ruleValueType);
-  // fd.append('empNum', params.empNum);
+  fd.append('strategyId', params.strategyId);
   return Axios.post("/api/wareHouse/addStrategyRule", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
@@ -103,22 +104,41 @@ function deleteActivity(params) {
   return Axios.post("/api/activity/deleteActivity", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
-function addActivity(params) {
 
+function getActivityDetail(id) {
+    let params = {
+      params: {
+        activityId: id,
+      }
+    }
+  return Axios.get("/api/wareHouse/findActivityResult",params);
+}
+function addActivity(params) {
+console.log(params)
   let fd = new FormData();
   fd.append('activityDesc ', params.activityDesc);
   fd.append('activityName ',  params.activityName);
-  fd.append('strategyDesc', params.activityName );
-  fd.append('strategyName', params.strategyName);
-  fd.append('strategyStatus', params.strategyStatus);
-  fd.append('strategyType', params.strategyType);
-  // fd.append('empNum', params.empNum);
+  fd.append('activityDesc', params.activityDesc );
+  fd.append('activiyType', params.activiyType);
+  fd.append('activityStatus', params.activityStatus);
+  fd.append('userId', 1);
+  fd.append('strategyId', params.strategyId);
   return Axios.post("/api/wareHouse/addActivity", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 获取用户列表
 function getuser(params) {
   return Axios.get("/user/user/userList");
+}
+// 修改规则值
+
+function updateStrategyRule(params) {
+
+  let fd = new FormData();
+  fd.append('ruleType ', params.ruleType);
+  fd.append('id ', params.id);
+  return Axios.post("/api/strategy/updateStrategyRule", fd, { responseType: 'arraybuffer' });
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 //查询活动
 function getActivity() {
@@ -137,19 +157,26 @@ function getActiveShi() {
 
 }
 // 获取策略规则
-function getStrategyRule() {
-  return Axios.get("/api/strategy/listStrategyRule");
+function getStrategyRule(id) {
+
+    let params = {
+      params: {
+        strategyId: id,
+
+      }
+    }
+
+  return Axios.get("/api/wareHouse/findStrategyRule", params);
 }
+
 // 添加活动的参与者
 function addpreson(params) {
 
   let fd = new FormData();
   fd.append('activityId ', params.activityId);
   fd.append('ruleId ',  params.ruleId);
-  fd.append('ruleInstanceId', params.ruleInstanceId );
   fd.append('userIds', params.userIds);
-  fd.append('isElected', params.flag);
-  fd.append('isRelateUser', params.isRelateUser);
+  
   // fd.append('empNum', params.empNum);
   return Axios.post("/api/wareHouse/addActivityUser", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
@@ -209,5 +236,7 @@ export default {
    setActivityRules:setActivityRules,
    getActiveShi:getActiveShi,
    addpreson:addpreson,
-   count:count
+   count:count,
+   updateStrategyRule:updateStrategyRule,
+   getActivityDetail:getActivityDetail
 };

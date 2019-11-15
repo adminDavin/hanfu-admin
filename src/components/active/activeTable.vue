@@ -23,8 +23,8 @@
         <br>
         <el-form-item prop="activiyType" label="活动策略" label-width="120px">
           <el-select v-model="value" placeholder="请选择" @change="changedata()">
-           <!-- <el-option v-for="item in strategyData" :value="item.strategyName">
-            </el-option> -->
+           <el-option v-for="(item,index) in strategyData" :key="index" :value="item.strategyName">
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -54,8 +54,8 @@
         <br>
         <el-form-item prop="activiyType" label="活动策略" label-width="120px">
           <el-select v-model="value" placeholder="请选择" @change="changedata()">
-           <!-- <el-option v-for="item in strategyData" :value="item.strategyName">
-            </el-option> -->
+           <el-option v-for="(item,index) in strategyData" :key="index"  :value="item.strategyName">
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -76,14 +76,15 @@
       </el-table-column>
       <el-table-column prop="activiyType" label="活动类型" width="120" align="center">
       </el-table-column>
-      <el-table-column prop="strategyId" label="活动策略" width="300" align="center">
-      </el-table-column>
+     <!-- <el-table-column prop="strategyId" label="活动策略" width="300" align="center">
+      </el-table-column> -->
       <el-table-column prop="createTime" label="创建时间" width="300" align="center">
       </el-table-column>
-      <el-table-column  label="操作" width="300" align="center">
+      <el-table-column  label="操作"  align="center">
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" size="mini" @click="editActive(scope.row.id)">编辑</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
+          <el-button type="primary" icon="el-icon-edit" size="mini" @click="strategy(scope.row.strategyId,scope.row.id)">策略设置</el-button>
+          <el-button type="primary"  size="mini" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
+          <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
         </template>
       </el-table-column>
 
@@ -142,9 +143,12 @@
       this.getActive();
     },
     methods: {
-      editActive:function(id){
-        
-          this.$router.push({name:'activityDetail',query:{'id':id}});
+
+      strategy:function(id,activeid){
+          this.$router.push({name:'Rule',query:{'id':id,'active':activeid}});
+      },
+      editActive:function(id,strategyId){
+       this.$router.push({name:'activityDetail',query:{'id':id,'strategyId':strategyId}});
       },
       //删除活动
       delecteActive:function(id){
@@ -177,6 +181,7 @@
         api.getStrategy().then(response => {
           console.log('获取策略',response);
           this.strategyData = response.data.data;
+          console.log( this.strategyData);
         })
       },
       addStrategy: function() {

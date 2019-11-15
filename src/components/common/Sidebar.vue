@@ -34,10 +34,10 @@
         <i class="el-icon-menu"></i>
         <span slot="title">用户中心</span>
       </el-menu-item>-->
-      <el-menu-item index="awardIndex">
+      <!-- <el-menu-item index="awardIndex">
         <i class="el-icon-menu"></i>
         <span slot="title">用户中心</span>
-      </el-menu-item>
+      </el-menu-item> -->
      <!-- <el-menu-item index="activityDetail">
         <i class="el-icon-menu"></i>
         <span slot="title">策略规则</span>

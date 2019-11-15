@@ -4,15 +4,42 @@
     <v-sidebar></v-sidebar>
     <div class="content-box" :class="{'content-collapse':collapse}">
 
-      <el-select v-model="value" placeholder="请选择策略规则" @change="getData()">
-        <el-option v-for="(item,index) in rules" :key="index" :value="item.ruleName">
-        </el-option>
-      </el-select>
-      <el-select v-model="value1" placeholder="请选择策略" @change="getDataStary()">
-        <el-option v-for="(item,index) in staryData" :key="index" :value="item.strategyName">
-        </el-option>
-      </el-select>
-      <el-button type="primary" @click="setActivityRules">设置活动规则</el-button>
+      <el-form :inline="true" :model="detaildata" class="demo-form-inline" style="margin-left: 50px;margin-top: 40px;" label="活动详情">
+        <el-form-item  label="活动名称">
+          <el-input v-model="detaildata.activityName"   placeholder="审批人"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item  label="活动描述">
+          <el-input v-model="detaildata.activityDesc" placeholder="审批人"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item  label="活动状态">
+          <el-input v-model="detaildata.activityStatus" placeholder="审批人"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item  label="活动类型">
+          <el-input v-model="detaildata.activiyType" placeholder="审批人"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item  label="创建时间">
+          <el-input v-model="detaildata.createTime" placeholder="审批人"></el-input>
+        </el-form-item>
+      </el-form>
+      <div style="margin-left: 30px;margin-top: 30px;font-weight: bold;">规则列表</div>
+      <el-table :data="StrategyRule" style="margin-top: 20px;margin-left: 20px;width: 80%;" height="300" title="规则列表">
+        <el-table-column prop="ruleName" label="规则名称" fixed width="120" align="center">
+        </el-table-column>
+        <el-table-column prop="ruleStatus" label="规则状态" width="150" align="center">
+        </el-table-column>
+        <el-table-column prop="ruleDesc" label="规则描述" width="150" align="center">
+        </el-table-column>
+        <el-table-column prop="ruleType" label="规则值" width="300" align="center">
+        </el-table-column>
+        <el-table-column prop="ruelValueType" label="规则值类型" width="300" align="center">
+        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" width="300" align="center">
+        </el-table-column>
+      </el-table>
     </div>
   </div>
 </template>
@@ -28,96 +55,33 @@
     },
     data() {
       return {
-        staryData:[],
-        ruleData:{},
-        rules: [],
+        detaildata: {},
         id: '',
         collapse: false,
         selectedStone: 1,
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: '',
-        value1:''
+        StrategyRule:[]
       }
     },
     mounted() {
       this.id = this.$route.query.id;
-      this.ruleData.activityId=this.$route.query.id;
-      this.getRule();
-      this.getstaryData();
+      this.getDetail();
+      this.getStrategyRule();
     },
     methods: {
-      getDataStary:function(){
-        let obj = {};
-        obj = this.staryData.find((item) => { //这里的selectList就是上面遍历的数据源
-          //筛选出匹配数据
-          if (item.strategyName == this.value1) {
-           return item;
-          }
-        });
-         this.ruleData.strategyId=obj.id;
-         console.log( this.ruleData.strategyId);
-      },
-      getData:function(){
-        let obj = {};
-        obj = this.rules.find((item) => { //这里的selectList就是上面遍历的数据源
-          //筛选出匹配数据
-          if (item.ruleName == this.value) {
-           return item;
-          }
-        });
-        // 活动策略里的规则id
-         this.ruleData.ruleId = obj.id;
-         this.ruleData.ruleName=obj.ruleName;
-         this.ruleData.ruleSDesc=obj.ruleDesc;
-         this.ruleData.ruleValue=obj.ruelValueType;
-      },
-      selectedStoneHandler(res) {
-        this.selectedStone = res;
-      },
-      setActivityRules: function() {
-        console.log(this.ruleData);
-        api.setActivityRules(this.ruleData).then(response => {
-          console.log('设置活动规则',response);
-          if(response.status==200){
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
-
-          }
-           this.$router.push({name:'activeIndex'});
+      getDetail: function() {
+        api.getActivityDetail(this.id).then(response => {
+          console.log('活动详情', response);
+          this.detaildata = response.data.data;
         })
       },
-      //获取活动规则
-      getstaryData: function() {
-        api.getStrategy().then(response => {
-          console.log('获取策略', response);
-          this.staryData = response.data.data;
-        })
-      },
-      getRule: function() {
-        api.getStrategyRule(this.ruleData).then(response => {
-          console.log('活动策略规则', response);
+      //获取策略规则
+      getStrategyRule: function() {
 
-          this.rules = response.data.data;
+        api.getStrategyRule(this.id).then(response => {
+          console.log('获取策略规则', response);
+          this.StrategyRule = response.data.data;
         })
       }
-
     }
   }
 </script>
