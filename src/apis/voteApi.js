@@ -137,7 +137,7 @@ function creatrCode(id) {
   let fd = new FormData();
   fd.append('usersId', id);
 
-  return Axios.post("/api/wareHouse/creatrCode", fd, { responseType: 'arraybuffer' });
+  return Axios.post("/api/wareHouse/creatrCode", fd);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 function updateStrategyRule(params) {

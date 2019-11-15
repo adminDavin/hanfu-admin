@@ -148,7 +148,7 @@
           console.log('设置活动参与者', response);
           if(response.status==200){
             api.creatrCode(this.datalist.userIds).then(response => {
-              console.log('码', response);
+              console.log('码', response.data);
 
               // this.rules = response.data.data;
             })
