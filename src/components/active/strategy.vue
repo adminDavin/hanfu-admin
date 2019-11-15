@@ -141,10 +141,18 @@
         }
 
 
-        console.log(this.datalist)
-        api.addpreson(this.datalist).then(response => {
-          console.log('设置活动参与者', response);
+        console.log(this.datalist.userIds)
 
+        api.addpreson(this.datalist).then(response => {
+           console.log(this.datalist.userIds)
+          console.log('设置活动参与者', response);
+          if(response.status==200){
+            api.creatrCode(this.datalist.userIds).then(response => {
+              console.log('码', response);
+
+              // this.rules = response.data.data;
+            })
+          }
           // this.rules = response.data.data;
         })
       },

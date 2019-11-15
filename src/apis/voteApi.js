@@ -132,6 +132,14 @@ function getuser(params) {
 }
 // 修改规则值
 
+function creatrCode(id) {
+
+  let fd = new FormData();
+  fd.append('usersId', id);
+
+  return Axios.post("/api/wareHouse/creatrCode", fd, { responseType: 'arraybuffer' });
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
 function updateStrategyRule(params) {
 
   let fd = new FormData();
@@ -176,7 +184,7 @@ function addpreson(params) {
   fd.append('activityId ', params.activityId);
   fd.append('ruleId ',  params.ruleId);
   fd.append('userIds', params.userIds);
-  
+
   // fd.append('empNum', params.empNum);
   return Axios.post("/api/wareHouse/addActivityUser", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
@@ -238,5 +246,6 @@ export default {
    addpreson:addpreson,
    count:count,
    updateStrategyRule:updateStrategyRule,
-   getActivityDetail:getActivityDetail
+   getActivityDetail:getActivityDetail,
+   creatrCode:creatrCode
 };
