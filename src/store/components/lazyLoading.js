@@ -42,9 +42,9 @@ const dynamicRouter = [
   },
 
   {
-    name: 'usercenter',
-    path: '/usercenter',
-    component: resolve => require(['@/components/usercenter/index.vue'], resolve),
+    name: 'vote',
+    path: '/vote',
+    component: resolve => require(['@/components/vote'], resolve),
     meta: {
       title: '用户中心'
     }
@@ -176,13 +176,6 @@ const dynamicRouter = [
     component: resolve => require(['@/components/formpage/formpage.vue'], resolve),
     meta: {
       title: '表单页'
-    }
-  }, {
-    name: 'treepage',
-    path: '/treepage',
-    component: resolve => require(['@/components/treepage/treepage.vue'], resolve),
-    meta: {
-      title: '树组件页'
     }
   }, {
     name: 'OrganizationTree',

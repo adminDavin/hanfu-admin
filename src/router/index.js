@@ -42,14 +42,13 @@ const router = new VueRouter({
     }
   },
     {
-      name: 'usercenter',
-      path: '/usercenter',
-      component: resolve => require(['@/components/usercenter/index.vue'], resolve),
+      name: 'vote',
+      path: '/vote',
+      component: resolve => require(['@/components/vote'], resolve),
       meta: {
         title: '用户中心'
       }
-    },
-    {
+    },{
       name: 'Strategy',
       path: '/Strategy',
       component: resolve => require(['@/components/activityStrategy/index.vue'], resolve),
@@ -74,14 +73,6 @@ const router = new VueRouter({
         title: '奖品'
       }
     },
-    // {
-    //   name: 'addActive',
-    //   path: '/addActive',
-    //   component: resolve => require(['@/components/award/award.vue'], resolve),
-    //   meta: {
-    //     title: '添加活动'
-    //   }
-    // },
     {
       name: 'detail',
       path: '/detail',

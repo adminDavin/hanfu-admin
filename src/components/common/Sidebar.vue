@@ -3,57 +3,15 @@
     <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
       text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
 
-      <!-- <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-document"></i>
-          <span>商品中心</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="product">商品管理</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu> -->
-      <!-- <el-menu-item index="store">
-        <i class="el-icon-menu"></i>
-        <span slot="title">商铺管理</span>
-      </el-menu-item>
-      <el-menu-item index="warehouse">
-        <i class="el-icon-menu"></i>
-        <span slot="title">仓库管理</span>
-      </el-menu-item> -->
-
       <el-menu-item index="activeIndex">
         <i class="el-icon-menu"></i>
         <span slot="title">活动</span>
       </el-menu-item>
 
-      <!-- <el-menu-item index="hf-order">
-        <i class="el-icon-tickets"></i>
-        <span slot="title">订单中心</span>
-      </el-menu-item>
-      <el-menu-item index="hf-user">
-        <i class="el-icon-menu"></i>
-        <span slot="title">用户中心</span>
-      </el-menu-item>-->
-      <!-- <el-menu-item index="awardIndex">
-        <i class="el-icon-menu"></i>
-        <span slot="title">用户中心</span>
-      </el-menu-item> -->
-     <!-- <el-menu-item index="activityDetail">
-        <i class="el-icon-menu"></i>
-        <span slot="title">策略规则</span>
-      </el-menu-item> -->
-      <!--   <el-menu-item index="hf-boss">
-        <i class="el-icon-tickets"></i>
-        <span slot="title">商家管理</span>
-      </el-menu-item> -->
       <el-menu-item index="Strategy">
         <i class="el-icon-tickets"></i>
         <span slot="title">活动策略</span>
       </el-menu-item>
-      <!-- <el-menu-item index="usercenter">
-        <i class="el-icon-menu"></i>
-        <span slot="title">用户中心1</span>
-      </el-menu-item> -->
     </el-menu>
   </div>
 </template>
