@@ -61,6 +61,10 @@ const router = new VueRouter({
         }
       ]
     },
+     {
+      path: '/vote/vote',
+      component: resolve => require(['@/components/vote/vote'], resolve),
+    },
     {
       name: 'Strategy',
       path: '/Strategy',
