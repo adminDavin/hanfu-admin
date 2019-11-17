@@ -2,7 +2,8 @@
   <div class="sidebar">
     <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
       text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
-
+<el-tab-pane v-for="item in tabs" :label="item.label" :key="item.index" :name="item.index"  :closable="item.closable">
+        </el-tab-pane>
       <el-menu-item index="activeIndex">
         <i class="el-icon-menu"></i>
         <span slot="title">活动</span>
@@ -17,10 +18,8 @@
 </template>
 
 <script>
+import { mapActions, mapState, mapMutations } from 'vuex';
   import hanfuBus from '@/components/common/hanfu-bus';
-  import {
-    mapState
-  } from 'vuex';
   export default {
     data() {
       return {
@@ -91,19 +90,38 @@
         ]
       }
     },
-    computed: mapState({
-      siderbar: state => state.menu.menuList,
-      onRoutes() {
-        console.log(this.$route.path);
-        return this.$route.path.replace('/', '');
-      }
+    computed: mapState('menu', {
+      tabs: 'tabs',
+      activeItem: 'activeItem'
     }),
     created() {
       // 通过 Event Bus 进行组件间通信，来折叠侧边栏
       hanfuBus.$on('collapse', msg => {
         this.collapse = msg;
       })
+    },
+    created () {
+    console.log(this.tabs)
+  },
+  methods: {
+    ...mapActions('menu', {
+      closeTab: 'closeTab'
+    }),
+    ...mapMutations('menu', {
+      switchTab: 'switchTab'
+    }),
+    tabClick (e) {
+      this.switchTab(e.name)
+      this.$router.push({ path: e.name })
+    },
+    tabRemove (e) {
+      let t = this 
+      setTimeout(function () {
+        t.$router.push({ path: t.activeItem })
+      }, 1)
+      this.closeTab(e)
     }
+  }
   }
 </script>
 

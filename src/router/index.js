@@ -45,10 +45,23 @@ const router = new VueRouter({
       name: 'vote',
       path: '/vote',
       component: resolve => require(['@/components/vote'], resolve),
-      meta: {
-        title: '用户中心'
-      }
-    },{
+      children: [
+        {
+          path: '/vote/activity/:activity/activity',
+          component: resolve => require(['@/components/vote/activity/activity-info.vue'], resolve)
+        }, {
+          path: '/vote/activity/:activity/strategy',
+          component: resolve => require(['@/components/vote/activity/strategy-info.vue'], resolve)
+        }, {
+          path: '/vote/strategy',
+          component: resolve => require(['@/components/vote/strategy'], resolve)
+        }, {
+          path: '/vote/activity',
+          component: resolve => require(['@/components/vote/activity'], resolve)
+        }
+      ]
+    },
+    {
       name: 'Strategy',
       path: '/Strategy',
       component: resolve => require(['@/components/activityStrategy/index.vue'], resolve),
