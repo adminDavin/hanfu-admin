@@ -318,14 +318,19 @@
            console.log(this.datalist.userIds)
           console.log('设置活动参与者', response);
           if(response.status==200){
-            api.setActivityRules(this.datalist.userIds).then(response => {
-              console.log('码', response);
-              this.$message({
-                message: "设置成功",
-                type: "success"
-              });
-              // this.rules = response.data.data;
-            })
+            this.ren=false;
+            this.$message({
+              message: "提交成功",
+              type: "success"
+            });
+            // api.setActivityRules(this.datalist.userIds).then(response => {
+            //   console.log('码', response);
+            //   this.$message({
+            //     message: "设置成功",
+            //     type: "success"
+            //   });
+            //   // this.rules = response.data.data;
+            // })
           }
           // this.rules = response.data.data;
         })
