@@ -63,7 +63,7 @@
           <input type="text" v-model="addrule.ruleType" @change="edit">
           <input type="text">
         </template> -->
-        <template scope="scope">
+        <template slot-scope="scope">
             <el-input size="small" v-model="scope.row.ruleType" placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleType)"  style="width: 100px;"></el-input>
         </template>
       </el-table-column>
@@ -85,10 +85,6 @@
   </el-dialog>
 
 </div>
-
-
-
-
      <el-dialog title="增加策略规则" :visible.sync="addeditFormVisiblerule" :close-on-click-modal="false">
        <el-form :inline="true"  :model='addrule' label-width="80px" :rules="Rules" ref="addrules">
 

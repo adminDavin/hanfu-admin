@@ -46,10 +46,10 @@
         <i class="el-icon-tickets"></i>
         <span slot="title">商家管理</span>
       </el-menu-item> -->
-      <el-menu-item index="Strategy">
+      <!-- <el-menu-item index="Strategy">
         <i class="el-icon-tickets"></i>
         <span slot="title">活动策略</span>
-      </el-menu-item>
+      </el-menu-item> -->
       <!-- <el-menu-item index="usercenter">
         <i class="el-icon-menu"></i>
         <span slot="title">用户中心1</span>

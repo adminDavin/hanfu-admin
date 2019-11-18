@@ -86,14 +86,15 @@ function getResult(params) {
 
 function setActivityRules(params) {
   let fd = new FormData();
+  console.log(params)
   fd.append('activityId', params.activityId);
   fd.append('ruleId', params.ruleId);
   fd.append('strategyId', params.strategyId);
-  fd.append('ruleName', params.ruleName);
-  fd.append('ruleSDesc', params.ruleSDesc);
-  fd.append('ruleValue', params.ruleValue);
+  // fd.append('ruleName', params.ruleName);
+  // fd.append('ruleSDesc', params.ruleSDesc);
+  // fd.append('ruleValue', params.ruleValue);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/wareHouse/setActivityRules", fd, { responseType: 'arraybuffer' });
+  return Axios.post("/api/wareHouse/addActivityUser", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除活动
@@ -132,11 +133,11 @@ function getuser(params) {
 }
 // 修改规则值
 
-function creatrCode(id) {
-
+function creatrCode(params) {
+  console.log(params)
   let fd = new FormData();
-  fd.append('usersId', id);
-
+  fd.append('usersId', params.id);
+  fd.append('activityId', params.activityId);
   return Axios.post("/api/wareHouse/creatrCode", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
@@ -152,6 +153,16 @@ function updateStrategyRule(params) {
 function getActivity() {
   return Axios.get("/api/activity/listActivity");
 }
+//获取参与人
+function getPerson(id) {
+  let params = {
+    params: {
+      activityId: id,
+    }
+  }
+  return Axios.get("/api/wareHouse/listActivityUser",params);
+}
+
 // 获取策略
 function getStrategy() {
 
@@ -179,14 +190,14 @@ function getStrategyRule(id) {
 
 // 添加活动的参与者
 function addpreson(params) {
-
+console.log(params)
   let fd = new FormData();
   fd.append('activityId ', params.activityId);
   fd.append('ruleId ',  params.ruleId);
   fd.append('userIds', params.userIds);
 
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/wareHouse/addActivityUser", fd, { responseType: 'arraybuffer' });
+  return Axios.post("/api/wareHouse/addActivityUser", fd);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
@@ -247,5 +258,6 @@ export default {
    count:count,
    updateStrategyRule:updateStrategyRule,
    getActivityDetail:getActivityDetail,
-   creatrCode:creatrCode
+   creatrCode:creatrCode,
+   getPerson:getPerson
 };

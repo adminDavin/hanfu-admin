@@ -1,10 +1,14 @@
 <template>
-<div class="wrapper">
-  <v-head></v-head>
-  <v-sidebar></v-sidebar>
-  <div class="content-box" :class="{'content-collapse':collapse}">
-  <activeTable></activeTable>
+<div >
+  <!-- <v-head></v-head> -->
+  <!-- <v-sidebar></v-sidebar> -->
+  <!-- <div class="content-box" :class="{'content-collapse':collapse}">
+
+  </div> -->
+  <div style="padding: 20px 20px 0 40px; ">
+     <activeTable></activeTable>
   </div>
+
 </div>
 </template>
 

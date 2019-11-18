@@ -1,9 +1,11 @@
 <template>
   <div class="wrapper">
-    <v-head></v-head>
-    <v-sidebar></v-sidebar>
-    <div class="content-box" :class="{'content-collapse':collapse}">
 
+    <!-- <div class="content-box" :class="{'content-collapse':collapse}"> -->
+ <div  style="padding: 20px 20px 0 40px; ">
+   <div style="font-size: 18px;font-weight: bold;">
+     活动详情
+   </div>
       <el-form :inline="true" :model="detaildata" class="demo-form-inline" style="margin-left: 50px;margin-top: 40px;" label="活动详情">
         <el-form-item  label="活动名称">
           <el-input v-model="detaildata.activityName"   placeholder="审批人"></el-input>
