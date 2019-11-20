@@ -1,0 +1,693 @@
+<template>
+  <div class="wrapper">
+   <!-- <v-head></v-head>
+    <v-sidebar></v-sidebar> -->
+    <!-- <div class="content-box" :class="{'content-collapse':collapse}"> -->
+    <el-form :inline="true" :model="detaildata" class="demo-form-inline" style="margin-left: 50px;margin-top: 80px;" label="活动详情">
+      <el-form-item  label="">
+       <template slot-scope="scope">
+         <div style="display: flex;font-size: 16px;">
+           <div>
+             活动名称:
+           </div>
+           <div>{{detaildata.activityName}}</div>
+         </div>
+
+       </template>
+
+        <!-- <el-input v-model="" :disabled="true"   placeholder="审批人"></el-input> -->
+      </el-form-item>
+
+      <el-form-item  label="">
+        <div style="display: flex;font-size: 16px;">
+          <div>
+            活动描述:
+          </div>
+          <div>{{detaildata.activityDesc}}</div>
+        </div>
+
+        <!-- <el-input v-model="" :disabled="true"   placeholder="审批人"></el-input> -->
+      </el-form-item>
+
+      <el-form-item  label="">
+        <div style="display: flex;font-size: 16px;">
+          <div>
+            活动状态:
+          </div>
+          <div>{{detaildata.activityStatus}}</div>
+        </div>
+         <!-- <div>{{detaildata.activityStatus}}</div> -->
+        <!-- <el-input v-model="detaildata.activityStatus" :disabled="true"  placeholder="审批人"></el-input> -->
+      </el-form-item>
+
+      <el-form-item  label="">
+        <div style="display: flex;font-size: 16px;">
+          <div>
+            活动类型:
+          </div>
+          <div>{{detaildata.activiyType}}</div>
+        </div>
+         <!-- <div>{{detaildata.activiyType}}</div> -->
+        <!-- <el-input v-model="detaildata.activiyType" :disabled="true"  placeholder="审批人"></el-input> -->
+      </el-form-item>
+
+      <el-form-item  label="">
+        <div style="display: flex;font-size: 16px;">
+          <div>
+            创建时间:
+          </div>
+          <div>{{detaildata.createTime}}</div>
+        </div>
+         <!-- <div>{{detaildata.createTime}}</div> -->
+        <!-- <el-input v-model="detaildata.createTime" :disabled="true"  placeholder="审批人"></el-input> -->
+      </el-form-item>
+    </el-form>
+    <div style="padding: 20px 20px 0 40px; display: flex;" >
+      <div style="width: 40%;">
+        <div style="margin-left: 20px;margin-top: 30px;font-weight: bold;font-size: 20px;">活动规则</div>
+        <el-table :data="StrategyRule" style="margin-top: 20px;margin-left: 20px;" height="500" title="规则列表" @row-click="handleSelectionChange1">
+         <!-- <el-table-column label="" width="65" fixed  label="单选">
+            <template slot-scope="scope">
+              <el-radio :label="scope.row.id" v-model="templateRadio"  @change="getTemplateRow(scope.row)"></el-radio>
+            </template>
+          </el-table-column> -->
+         <el-table-column prop="id"  label="规则编号"  fixed width="120" align="center">
+          </el-table-column>
+          <el-table-column prop="ruleName" label="规则名称"  width="120" align="center">
+          </el-table-column>
+          <el-table-column prop="ruleStatus" label="规则状态" width="150" align="center">
+          </el-table-column>
+          <el-table-column prop="ruleDesc" label="规则描述" width="150" align="center">
+          </el-table-column>
+          <el-table-column  label="规则值" width="200" align="center"  >
+           <template slot-scope="scope">
+              <el-input size="small" v-model="scope.row.ruleType" placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleType)"
+                style="width: 100px;"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="ruelValueType" label="规则值类型" width="200" align="center">
+          </el-table-column>
+          <el-table-column prop="createTime" label="创建时间"  width="200" align="center">
+          </el-table-column>
+
+        </el-table>
+        <el-dialog title="修改活动" :visible.sync="editFormVisible" :close-on-click-modal="false">
+          <el-form :inline="true" :model='editForm' label-width="80px" :rules="bianRules" ref="addForm">
+            <el-form-item label="规则值" prop="ruleType" label-width="120px">
+              <el-input v-model="editForm.ruleType" auto-complete="off" type="number"></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="editFormVisible=false">取消</el-button>
+            <el-button type="primary" @click="addjiSubmit">提交</el-button>
+          </div>
+        </el-dialog>
+      </div>
+
+      <div style="margin-left: 20px;margin-top: 30px;font-weight: bold;font-size: 20px;">参选人</div>
+      <div style="width: 50%;margin-left: 20px;">
+        <el-form :inline="true" :model='editForm'  :rules="bianRules1" ref="addForm1" style="margin-top: 30px;">
+          <el-form-item label="规则编号:" prop="ruleType" label-width="120px">
+            <div>
+              {{bianid}}
+            </div>
+          </el-form-item>
+          <el-form-item label="规则名称:" prop="ruleType" label-width="120px">
+            <div>
+              {{ruleName}}
+            </div>
+
+          </el-form-item>
+          <el-form-item label="规则值:" prop="ruleType" label-width="120px">
+            <div>
+              {{ruleType1}}
+            </div>
+          </el-form-item>
+
+           <el-button type="primary" style="" @click="shezhi"  >设置活动的参选者</el-button>
+        </el-form>
+        <div style="overflow: hidden;">
+
+        </div>
+
+         <!-- <div style="margin-left: 20px;margin-top: 30px;">参选人</div> -->
+        <el-table :data="persondata" style="margin-top: 30px;margin-left: 20px;" title="用户列表" height="500" @selection-change="handleSelectionChange2">
+
+          <el-table-column type="selection" width="55">
+          </el-table-column>
+          <el-table-column label="邀请码" width="130" fixed align="center" prop="code" >
+          </el-table-column>
+          <el-table-column prop="" label="所持票数" width="100" align="center">
+          </el-table-column>
+          <el-table-column prop="username" label="用户名"  width="300" align="center" >
+          </el-table-column>
+          <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
+          </el-table-column>
+          <el-table-column prop="email" label="邮箱" width="120" align="center">
+          </el-table-column>
+          <el-table-column prop="address" label="地址" width="120" align="center">
+          </el-table-column>
+          <el-table-column prop="birthDay" label="生日" width="300" align="center">
+          </el-table-column>
+
+          <el-table-column label="操作" width="230" align="center" fixed="right">
+            <template slot-scope="scope">
+                <el-button type="primary" @click="ma1(scope.row.id)" size="mini" >生成参与码</el-button>
+                <el-button type="danger" size="mini" @click="deleteperson(scope.row.id)">删除</el-button>
+             </template>
+
+          </el-table-column>
+        </el-table>
+        <div style="overflow: hidden;">
+          <el-button type="danger"  @click="deleteperson1()" style="float: right;margin-right: 20%;margin-top: 20px;">批量删除参与人</el-button>
+          <el-button type="primary" @click="ma()" style="float: right;margin-right: 20%;margin-top: 20px;">批量生成参与码</el-button>
+        </div>
+
+        <el-dialog title="所有人员" :visible.sync="ren" :close-on-click-modal="false">
+          <el-table :data="rewardData" style="width:80%;margin-top: 30px;margin-left: 20px;" title="用户列表" height="300" @selection-change="handleSelectionChange">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <el-table-column prop="username" label="用户名" fixed width="300" align="center">
+            </el-table-column>
+            <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
+            </el-table-column>
+            <el-table-column prop="email" label="邮箱" width="120" align="center">
+            </el-table-column>
+            <el-table-column prop="address" label="地址" width="120" align="center">
+            </el-table-column>
+            <el-table-column prop="birthDay" label="生日" width="150" align="center">
+            </el-table-column>
+
+          </el-table>
+          <div slot="footer" class="dialog-footer">
+            <el-button  type="primary" style="float: left;margin-left: 10px;"  @click="person">添加为参与者</el-button>
+            <el-button @click="ren=false">取消</el-button>
+            <!-- <el-button type="primary">提交</el-button> -->
+          </div>
+        </el-dialog>
+
+
+      </div>
+
+   </div>
+    <!-- </div> -->
+
+  </div>
+</template>
+
+<script>
+  import vSidebar from '@/components/common/sidebar.vue';
+  import vHead from '@/components/common/header.vue';
+  import api from '@/apis/voteApi.js';
+  export default {
+    name: 'store',
+    components: {
+      vHead,
+      vSidebar
+    },
+    data() {
+      return {
+        id:'',
+        datalist2:[],
+        multipleSelection2:[],
+        persondata:[],
+        detaildata:{},
+        bianid:'规则编号',
+        ren:false,
+        ruleType1:'规则值',
+        ruleName:'规则名',
+        activeid:'',
+        bianRules1: {
+          ruleType: [{
+            required: true,
+            message: "填写规则值",
+            trigger: "blur"
+          }]
+        },
+
+        datalist:{},
+        multipleSelection1:[],
+         multipleSelection: [],
+        templateRadio:'',
+        templateSelection: {},
+        bianRules: {
+          ruleType: [{
+            required: true,
+            message: "填写规则值",
+            trigger: "blur"
+          }]
+        },
+        editForm: {},
+        editFormVisible: false,
+        ruleType: '',
+        StrategyRule: [],
+        collapse: false,
+        selectedStone: 1,
+        rewardData: [],
+        strategyType:[]
+      }
+    },
+    mounted() {
+      this.id = this.$route.query.id;
+      this.activeid = this.$route.query.active;
+      this.datalist.activityId = this.$route.query.active;
+      this.getStrategyRule(this.id);
+      this.userlist();
+      this.getDetail();
+      this.getPerson();
+      this.getStrategyType();
+    },
+    methods: {
+
+      deleteperson1: function() {
+        if (!this.datalist2.userIds) {
+          this.$message({
+            showClose: true,
+            message: '请勾选参与人'
+          });
+          return
+        }
+
+        this.$confirm("确认删除吗？", "提示", {}).then(() => {
+
+            let param={
+              id: this.datalist2.userIds,
+              activityId:this.activeid
+            }
+            console.log(param)
+            api.deleteperson(param).then(response => {
+              console.log('删除人', response);
+              if (response.status === 200) {
+
+                this.$message({
+                  message: "删除成功",
+                  type: "success"
+                });
+               this.getPerson();
+
+              } else {
+                this.$message({
+                  message: "删除失败",
+                  type: "success"
+                });
+              }
+            })
+        });
+
+      },
+ // 删除人
+      deleteperson: function(id) {
+
+
+
+      this.$confirm("确认删除吗？", "提示", {}).then(() => {
+          console.log(id);
+          let param={
+            id: id,
+            activityId:this.activeid
+          }
+          console.log(param)
+          api.deleteperson(param).then(response => {
+            console.log('删除人', response);
+            if (response.status === 200) {
+
+              this.$message({
+                message: "删除成功",
+                type: "success"
+              });
+             this.getPerson();
+
+            } else {
+              this.$message({
+                message: "删除失败",
+                type: "success"
+              });
+
+
+            }
+          })
+
+
+      });
+
+    },
+		getStrategyType: function() {
+		  api.getStrategyType().then(response => {
+		    console.log('规则值类型', response);
+        this.strategyType=response.data.data;
+
+		  })
+		},
+    // creatrCode
+      getPerson: function() {
+        api.getPerson(this.activeid).then(response => {
+          console.log('参与人', response);
+          this.persondata = response.data.data;
+        })
+      },
+      getDetail: function() {
+        api.getActivityDetail(this.id).then(response => {
+          console.log('活动详情', response);
+          this.detaildata = response.data.data;
+        })
+      },
+      edit: function(id, row) {
+        console.log(id, row)
+        // fd.append('ruleType ', params.ruleType);
+        // fd.append('id ', params.id);
+        let aa = {
+          ruleType: row,
+          id: id
+        }
+        api.updateStrategyRule(aa).then(response => {
+          console.log(response)
+          if (response.status === 200) {
+
+            this.$message({
+              message: "提交成功",
+              type: "success"
+            });
+            // this.editFormVisible = false;
+            // this.getStrategyRule(this.id);
+
+          } else {
+            this.$message({
+              message: "提交失败",
+              type: "success"
+            });
+
+            // this.editFormVisible = false;
+          }
+        });
+      },
+      shezhi:function(){
+        this.ren=true;
+      },
+      // 设置活动参与者
+      person: function() {
+        if (!this.datalist.userIds) {
+          this.$message({
+            showClose: true,
+            message: '请在下方用户列表勾选参与人'
+          });
+          return
+        }
+
+        if (!this.datalist.ruleId ) {
+          this.$message({
+            showClose: true,
+            message: '请选择策略规则'
+          });
+          return
+        }
+        console.log(this.datalist)
+        api.addpreson(this.datalist).then(response => {
+           console.log(this.datalist.userIds)
+          console.log('设置活动参与者', response);
+          if(response.status==200){
+            this.ren=false;
+            this.$message({
+              message: "提交成功",
+              type: "success"
+            });
+            // api.setActivityRules(this.datalist.userIds).then(response => {
+            //   console.log('码', response);
+            //   this.$message({
+            //     message: "设置成功",
+            //     type: "success"
+            //   });
+            //   // this.rules = response.data.data;
+            // })
+          }
+          // this.rules = response.data.data;
+        })
+      },
+      ma1: function(ids) {
+
+        var arr =[];
+        arr.push(ids)
+        let arr1={
+           id:arr,
+           activityId:this.id
+
+        }
+
+        api.creatrCode(arr1).then(response => {
+          console.log('码', response);
+          this.$message({
+            message: "提交成功",
+            type: "success"
+          });
+            this.getPerson();
+          // this.rules = response.data.data;
+        })
+      },
+      // 批量生成邀请码
+      ma: function() {
+
+        if (!this.datalist2.userIds) {
+          this.$message({
+            showClose: true,
+            message: '请在下方用户列表勾选参与人'
+          });
+          return
+        }
+
+        let arr1={
+           id:this.datalist2.userIds,
+           activityId:this.id
+
+        }
+        api.creatrCode(arr1).then(response => {
+          console.log('码', response);
+          this.$message({
+            message: "提交成功",
+            type: "success"
+          });
+          this.getPerson();
+          // this.rules = response.data.data;
+        })
+      },
+      handleSelectionChange1(val) {
+        this.multipleSelection1 = val;
+        this.bianid= this.multipleSelection1.id;
+        this.ruleType1=this.multipleSelection1.ruleType;
+        this.ruleName= this.multipleSelection1.ruleName;
+        this.datalist.ruleId= this.multipleSelection1.id;
+        console.log(this.datalist.ruleId);
+        console.log(this.multipleSelection1)
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        console.log(this.multipleSelection);
+        let arr = [];
+        for (var i = 0; i < this.multipleSelection.length; i++) {
+          arr.push(this.multipleSelection[i].id)
+        }
+        console.log(arr);
+        this.datalist.userIds = arr;
+      },
+      handleSelectionChange2(val) {
+        this.multipleSelection2 = val;
+        console.log(this.multipleSelection2);
+        let arr = [];
+        for (var i = 0; i < this.multipleSelection2.length; i++) {
+          arr.push(this.multipleSelection2[i].id)
+        }
+        console.log(arr);
+        this.datalist2.userIds = arr;
+      },
+      getTemplateRow(row) { //获取选中数据
+        this.templateSelection = row;
+        this.ruleName=row.ruleName
+        this.datalist.ruleId= this.templateSelection.id;
+
+        console.log(this.templateSelection.ruleName)
+      },
+      userlist: function() {
+        api.getuser().then(response => {
+          console.log('用户列表', response);
+          this.rewardData = response.data.data;
+        })
+      },
+      // 添加策略
+      addjiSubmit: function() {
+        this.$refs.addForm.validate(valid => {
+          if (valid) {
+            this.$confirm("确认提交吗？", "提示", {}).then(() => {
+              // this.addLoading = true;
+              console.log(this.editForm);
+
+              api.updateStrategyRule(this.editForm).then(response => {
+                console.log(response)
+                if (response.status === 200) {
+
+                  this.$message({
+                    message: "提交成功",
+                    type: "success"
+                  });
+                  this.editFormVisible = false;
+                  this.getStrategyRule(this.id);
+
+                } else {
+                  this.$message({
+                    message: "提交失败",
+                    type: "success"
+                  });
+
+                  this.editFormVisible = false;
+                }
+              });
+            });
+          }
+        });
+      },
+      // // 添加策略
+      // addjiSubmit: function(){
+      //   this.$refs.addForm.validate(valid => {
+      //     if (valid) {
+      //       this.$confirm("确认提交吗？", "提示", {}).then(() => {
+      //         // this.addLoading = true;
+      //         console.log(this.addForm);
+
+      //         api.addStrategy(this.addForm).then(response => {
+      //           console.log(response)
+      //           if (response.status === 200) {
+
+      //             this.$message({
+      //               message: "提交成功",
+      //               type: "success"
+      //             });
+      //              this.getStrategy();
+      //             this.addeditFormVisible = false;
+      //           } else {
+      //             this.$message({
+      //               message: "提交失败",
+      //               type: "success"
+      //             });
+
+      //             this.addFormVisible = false;
+      //           }
+      //         });
+      //       });
+      //     }
+      //   });
+
+
+      // },
+      updateStrategyRule: function(id) {
+        console.log(id);
+        this.editFormVisible = true;
+        this.editForm.id = id;
+      },
+      //获取策略规则
+      getStrategyRule: function(id) {
+        this.ruletost = true;
+        console.log(id);
+        api.getStrategyRule(id).then(response => {
+          console.log('获取策略规则', response);
+          this.StrategyRule = response.data.data;
+        })
+      },
+      selectedStoneHandler(res) {
+        this.selectedStone = res;
+      },
+
+
+      // 改下面得
+      edit:function(id,row){
+         console.log(id,row)
+         // fd.append('ruleType ', params.ruleType);
+         // fd.append('id ', params.id);
+         let aa={
+           ruleType:row,
+            id:id
+         }
+         api.updateStrategyRule(aa).then(response => {
+           console.log(response)
+           if (response.status === 200) {
+
+             this.$message({
+               message: "提交成功",
+               type: "success"
+             });
+             // this.editFormVisible = false;
+             // this.getStrategyRule(this.id);
+
+           } else {
+             this.$message({
+               message: "提交失败",
+               type: "success"
+             });
+
+             // this.editFormVisible = false;
+           }
+         });
+       },
+      // 获取策略
+      getStrategy: function() {
+
+        api.getStrategy().then(response => {
+          console.log('获取策略',response);
+          this.strategyData = response.data.data;
+        })
+      },
+      //获取策略规则
+      getStrategyRule: function(id) {
+        this.ruletost=true;
+        console.log(id);
+        api.getStrategyRule(id).then(response => {
+          console.log('获取策略规则',response);
+          this.StrategyRule = response.data.data;
+        })
+      },
+
+       // 添加策略规则
+       addRule:function(){
+         this.$refs.addrules.validate(valid => {
+           if (valid) {
+             this.$confirm("确认提交吗？", "提示", {}).then(() => {
+               // this.addLoading = true;
+               console.log(this.addrule);
+
+               api.addStrategyRule(this.addrule).then(response => {
+                 console.log(response)
+                 if (response.status === 200) {
+                   this.$message({
+                     message: "提交成功",
+                     type: "success"
+                   });
+
+                   this.addeditFormVisiblerule = false;
+                    // this.getStrategyRule();
+                 } else {
+                   this.$message({
+                     message: "提交失败",
+                     type: "success"
+                   });
+                 }
+
+               });
+             });
+           }
+         });
+       },
+       addcerule: function(id){
+         console.log(id)
+         this.addrule.strategyId=id;
+         this.addeditFormVisiblerule=true;
+       },
+       addStrategy: function(){
+         this.addeditFormVisible=true;
+       }
+
+
+    }
+  }
+</script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+</style>
