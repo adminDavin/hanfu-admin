@@ -1,6 +1,6 @@
 <template>
   <div>
-<div style="overflow: hidden; margin-top: 20px;margin-right: 50px;">
+<div style="overflow: hidden; margin-top: 120px;margin-right: 50px;">
    <el-button type="success" @click="addStrategy" style="float: right;">添加活动策略</el-button>
 </div>
 

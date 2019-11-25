@@ -3,14 +3,15 @@
    <!-- <v-head></v-head>
     <v-sidebar></v-sidebar> -->
     <!-- <div class="content-box" :class="{'content-collapse':collapse}"> -->
-    <el-form :inline="true" :model="detaildata" class="demo-form-inline" style="margin-left: 50px;margin-top: 80px;" label="活动详情">
+    <el-form :inline="true" :model="detaildata" class="demo-form-inline" style="font-size: 12px;height:36px; margin-left: 50px;
+    margin-top: 40px;border-bottom:1px solid #00D1B2;" label="活动详情">
       <el-form-item  label="">
        <template slot-scope="scope">
-         <div style="display: flex;font-size: 16px;">
-           <div>
+         <div style="display: flex;font-size: 15px;font-weight: 500;">
+           <div style="font-size: 15px;">
              活动名称:
            </div>
-           <div>{{detaildata.activityName}}</div>
+           <div >{{detaildata.activityName}}</div>
          </div>
 
        </template>
@@ -19,7 +20,7 @@
       </el-form-item>
 
       <el-form-item  label="">
-        <div style="display: flex;font-size: 16px;">
+        <div style="display: flex;font-size: 15px;font-weight: 500;">
           <div>
             活动描述:
           </div>
@@ -30,7 +31,7 @@
       </el-form-item>
 
       <el-form-item  label="">
-        <div style="display: flex;font-size: 16px;">
+        <div style="display: flex;font-size: 15px;font-weight: 500;">
           <div>
             活动状态:
           </div>
@@ -41,7 +42,7 @@
       </el-form-item>
 
       <el-form-item  label="">
-        <div style="display: flex;font-size: 16px;">
+        <div style="display: flex;font-size: 15px;font-weight: 500;">
           <div>
             活动类型:
           </div>
@@ -52,7 +53,7 @@
       </el-form-item>
 
       <el-form-item  label="">
-        <div style="display: flex;font-size: 16px;">
+        <div style="display: flex;font-size: 15px;font-weight: 500;">
           <div>
             创建时间:
           </div>
@@ -62,27 +63,27 @@
         <!-- <el-input v-model="detaildata.createTime" :disabled="true"  placeholder="审批人"></el-input> -->
       </el-form-item>
     </el-form>
-    <div style="padding: 20px 20px 0 40px; display: flex;" >
+    <div style="padding: 10px 20px 0 40px; display: flex;" >
       <div style="width: 40%;">
-        <div style="margin-left: 20px;margin-top: 30px;font-weight: bold;font-size: 20px;">活动规则</div>
-        <el-table :data="StrategyRule" style="margin-top: 20px;margin-left: 20px;" height="500" title="规则列表" @row-click="handleSelectionChange1">
+        <div style="margin-left: 9px;margin-top: 45px;font-weight: bold;font-size: 20px;">活动规则</div>
+        <el-table :data="StrategyRule" style="margin-top: 40px;margin-left: -21px;" height="500" title="规则列表" @row-click="handleSelectionChange1">
          <!-- <el-table-column label="" width="65" fixed  label="单选">
             <template slot-scope="scope">
               <el-radio :label="scope.row.id" v-model="templateRadio"  @change="getTemplateRow(scope.row)"></el-radio>
             </template>
           </el-table-column> -->
-         <el-table-column prop="id"  label="规则编号"  fixed width="120" align="center">
+         <el-table-column prop="id"  label="规则编号"  fixed width="120" align="center" >
           </el-table-column>
-          <el-table-column prop="ruleName" label="规则名称"  width="120" align="center">
+          <el-table-column prop="ruleName" label="规则名称"  width="120" align="center" >
           </el-table-column>
-          <el-table-column prop="ruleStatus" label="规则状态" width="150" align="center">
+          <el-table-column prop="ruleStatus" label="规则状态" width="150" align="center" >
           </el-table-column>
           <el-table-column prop="ruleDesc" label="规则描述" width="150" align="center">
           </el-table-column>
           <el-table-column  label="规则值" width="200" align="center"  >
            <template slot-scope="scope">
-              <el-input size="small" v-model="scope.row.ruleType" placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleType)"
-                style="width: 100px;"></el-input>
+              <el-input size="small" v-model="scope.row.ruleType"  placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleType)"
+                style="text-align:center; vertical-align:middel;text-align: center;"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="ruelValueType" label="规则值类型" width="200" align="center">
@@ -104,70 +105,56 @@
         </el-dialog>
       </div>
 
-      <div style="margin-left: 20px;margin-top: 30px;font-weight: bold;font-size: 20px;">参选人</div>
-      <div style="width: 50%;margin-left: 20px;">
-        <el-form :inline="true" :model='editForm'  :rules="bianRules1" ref="addForm1" style="margin-top: 30px;">
-          <el-form-item label="规则编号:" prop="ruleType" label-width="120px">
-            <div>
-              {{bianid}}
-            </div>
-          </el-form-item>
-          <el-form-item label="规则名称:" prop="ruleType" label-width="120px">
-            <div>
-              {{ruleName}}
-            </div>
 
-          </el-form-item>
-          <el-form-item label="规则值:" prop="ruleType" label-width="120px">
-            <div>
-              {{ruleType1}}
-            </div>
-          </el-form-item>
+        <div style="width: 50%;margin-left: 20px;">
 
-           <el-button type="primary" style="" @click="shezhi"  >设置活动的参选者</el-button>
-        </el-form>
-        <div style="overflow: hidden;">
+          <el-form :inline="true" :data='multipleSelection1'  :rules="bianRules1" ref="addForm1" style="margin-top: 45px;">
+            <el-form-item  prop="ruleType">
+               <div style="font-weight: bold;font-size: 20px;margin-left: 31px;">参选人</div>
+            </el-form-item>
 
-        </div>
+            <el-form-item label="规则编号:" prop="ruleType" label-width="120px" style="margin-left:16px;">
+              <div>
+                {{bianid}}
+              </div>
+            </el-form-item>
+            <el-form-item label="规则名称:" prop="ruleType" label-width="120px" style="margin-left: 32px;">
+              <div>
+                {{ruleName}}
+              </div>
 
-         <!-- <div style="margin-left: 20px;margin-top: 30px;">参选人</div> -->
-        <el-table :data="persondata" style="margin-top: 30px;margin-left: 20px;" title="用户列表" height="500" @selection-change="handleSelectionChange2">
+            </el-form-item>
+            <el-form-item label="规则值:" prop="ruleType" label-width="120px" style="margin-left: 24px;">
+              <div>
+                {{ruleType1}}
+              </div>
+            </el-form-item>
 
-          <el-table-column type="selection" width="55">
-          </el-table-column>
-          <el-table-column label="邀请码" width="130" fixed align="center" prop="code" >
-          </el-table-column>
-          <el-table-column prop="" label="所持票数" width="100" align="center">
-          </el-table-column>
-          <el-table-column prop="username" label="用户名"  width="300" align="center" >
-          </el-table-column>
-          <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
-          </el-table-column>
-          <el-table-column prop="email" label="邮箱" width="120" align="center">
-          </el-table-column>
-          <el-table-column prop="address" label="地址" width="120" align="center">
-          </el-table-column>
-          <el-table-column prop="birthDay" label="生日" width="300" align="center">
-          </el-table-column>
+             <el-button type="primary" style="float:right;margin-right: 15px;" @click="shezhi"  >设置活动的参选者</el-button>
+          </el-form>
 
-          <el-table-column label="操作" width="230" align="center" fixed="right">
-            <template slot-scope="scope">
-                <el-button type="primary" @click="ma1(scope.row.id)" size="mini" >生成参与码</el-button>
-                <el-button type="danger" size="mini" @click="deleteperson(scope.row.id)">删除</el-button>
-             </template>
 
-          </el-table-column>
-        </el-table>
-        <div style="overflow: hidden;">
-          <el-button type="danger"  @click="deleteperson1()" style="float: right;margin-right: 20%;margin-top: 20px;">批量删除参与人</el-button>
-          <el-button type="primary" @click="ma()" style="float: right;margin-right: 20%;margin-top: 20px;">批量生成参与码</el-button>
-        </div>
+           <!-- <div style="margin-left: 20px;margin-top: 30px;">参选人</div> -->
+          <el-table :data="persondata" style="margin-top: 1px;margin-left: 20px;" title="用户列表" height="500" @selection-change="handleSelectionChange2">
 
-        <el-dialog title="所有人员" :visible.sync="ren" :close-on-click-modal="false">
-          <el-table :data="rewardData" style="width:80%;margin-top: 30px;margin-left: 20px;" title="用户列表" height="300" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
-            <el-table-column prop="username" label="用户名" fixed width="300" align="center">
+            <el-table-column prop="birthDay" label="参与人" width="100" fixed align="center">
+              <template slot-scope="scope">
+                  <span v-if="!scope.row.isElected">投票人</span>
+                  <span v-if="scope.row.isElected">被投票人</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="邀请码" width="130" fixed align="center" prop="code" >
+            </el-table-column>
+            <el-table-column prop="" label="所持票数" width="100" align="center">
+             <template slot-scope="scope">
+                  <span v-if="scope.row.count">{{scope.row.count}}</span>
+                  <span v-if="!scope.row.count">--</span>
+              </template>
+            </el-table-column>
+
+            <el-table-column prop="username" label="用户名"  width="300" align="center" >
             </el-table-column>
             <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
             </el-table-column>
@@ -175,19 +162,50 @@
             </el-table-column>
             <el-table-column prop="address" label="地址" width="120" align="center">
             </el-table-column>
-            <el-table-column prop="birthDay" label="生日" width="150" align="center">
+            <el-table-column prop="birthDay" label="生日" width="300" align="center">
             </el-table-column>
 
+
+            <el-table-column label="操作" width="230" align="center" fixed="right">
+              <template slot-scope="scope">
+                  <el-button type="primary" @click="ma1(scope.row.id)" size="mini" >生成参与码</el-button>
+                  <el-button type="danger" size="mini" @click="deleteperson(scope.row.id)">删除</el-button>
+               </template>
+
+            </el-table-column>
           </el-table>
-          <div slot="footer" class="dialog-footer">
-            <el-button  type="primary" style="float: left;margin-left: 10px;"  @click="person">添加为参与者</el-button>
-            <el-button @click="ren=false">取消</el-button>
-            <!-- <el-button type="primary">提交</el-button> -->
+          <div style="overflow: hidden;">
+            <el-button type="danger"  @click="deleteperson1()" style="float: right;margin-top: 20px;">批量删除参与人</el-button>
+            <el-button type="primary" @click="ma()" style="float: right;margin-right: 10%;margin-top: 20px;">批量生成参与码</el-button>
           </div>
-        </el-dialog>
+
+          <el-dialog title="所有人员" :visible.sync="ren" :close-on-click-modal="false">
+            <el-table :data="rewardData" style="width:80%;margin-top: 30px;margin-left: 20px;" title="用户列表" height="300" @selection-change="handleSelectionChange">
+              <el-table-column type="selection" width="55">
+              </el-table-column>
+              <el-table-column prop="username" label="用户名" fixed width="300" align="center">
+              </el-table-column>
+              <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
+              </el-table-column>
+              <el-table-column prop="email" label="邮箱" width="120" align="center">
+              </el-table-column>
+              <el-table-column prop="address" label="地址" width="120" align="center">
+              </el-table-column>
+              <el-table-column prop="birthDay" label="生日" width="150" align="center">
+              </el-table-column>
+
+            </el-table>
+            <div slot="footer" class="dialog-footer">
+              <el-button  type="primary" style="float: left;margin-left: 10px;"  @click="person">添加为参与者</el-button>
+              <el-button @click="ren=false">取消</el-button>
+              <!-- <el-button type="primary">提交</el-button> -->
+            </div>
+          </el-dialog>
 
 
-      </div>
+        </div>
+
+
 
    </div>
     <!-- </div> -->
@@ -250,7 +268,10 @@
     mounted() {
       this.id = this.$route.query.id;
       this.activeid = this.$route.query.active;
+
       this.datalist.activityId = this.$route.query.active;
+      this.datalist2.activityId = this.$route.query.active;
+      console.log(this.datalist.activityId)
       this.getStrategyRule(this.id);
       this.userlist();
       this.getDetail();
@@ -357,7 +378,8 @@
         // fd.append('id ', params.id);
         let aa = {
           ruleType: row,
-          id: id
+          id: id,
+          a
         }
         api.updateStrategyRule(aa).then(response => {
           console.log(response)
@@ -410,6 +432,7 @@
               message: "提交成功",
               type: "success"
             });
+            this.getPerson()
             // api.setActivityRules(this.datalist.userIds).then(response => {
             //   console.log('码', response);
             //   this.$message({
@@ -428,7 +451,7 @@
         arr.push(ids)
         let arr1={
            id:arr,
-           activityId:this.id
+           activityId:this.datalist2.activityId
 
         }
 
@@ -455,9 +478,10 @@
 
         let arr1={
            id:this.datalist2.userIds,
-           activityId:this.id
+           activityId:this.datalist2.activityId
 
         }
+        console.log(arr1)
         api.creatrCode(arr1).then(response => {
           console.log('码', response);
           this.$message({
@@ -469,6 +493,7 @@
         })
       },
       handleSelectionChange1(val) {
+
         this.multipleSelection1 = val;
         this.bianid= this.multipleSelection1.id;
         this.ruleType1=this.multipleSelection1.ruleType;

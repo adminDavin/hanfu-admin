@@ -2,15 +2,17 @@
   <div>
 
 
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="活动管理" name="first" >
+    <el-tabs v-model="activeName" @tab-click="handleClick" >
+      <el-tab-pane label="活动管理" name="first" style="color:orange;">
         <div>
-          <el-button type="success" @click="addStrategy" style="margin-right: 60px; margin-bottom: 20px; overflow: hidden; margin-top: 20px;margin-left: 20px;float:right;">添加活动</el-button>
+          <el-button type="primary" @click="addactive" style="margin-right: 60px; margin-bottom: 20px; overflow: hidden;
+           margin-top: 20px;margin-left: 20px;float:right;">添加活动</el-button>
+
         </div>
 
 
 
-        <el-dialog title="添加活动" :visible.sync="addeditFormVisible" :close-on-click-modal="false">
+        <el-dialog title="添加活动" :visible.sync="addFormVisible" :close-on-click-modal="false">
           <el-form :inline="true" :model='addForm' label-width="80px" :rules="bianRules" ref="addForm">
             <el-form-item label="活动描述" prop="activityDesc" label-width="120px">
               <el-input v-model="addForm.activityDesc" auto-complete="off"></el-input>
@@ -36,8 +38,8 @@
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="addeditFormVisible=false">取消</el-button>
-            <el-button type="primary" @click="addjiSubmit">提交</el-button>
+            <el-button @click="addFormVisible=false">取消</el-button>
+            <el-button type="primary" @click="addjiactive">提交</el-button>
           </div>
         </el-dialog>
 
@@ -84,15 +86,15 @@
 
             </template>
           </el-table-column> -->
-          <el-table-column label="活动名称" width="100">
-            <template slot-scope="scope">
-              <el-popover trigger="hover" placement="top">
-                <p>活动名称: {{ scope.row.activityName }}</p>
+          <el-table-column label="活动名称" width="100" align="center">
+            <template slot-scope="scope" >
+              <!-- <el-popover  placement="top" trigger="hover"> -->
+                <p style="width: 80px;margin: 0 auto; text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">{{ scope.row.activityName }}</p>
                <!-- <p>住址: {{ scope.row.activityName }}</p> -->
-                <div slot="reference" class="name-wrapper">
+                <!-- <div slot="reference" class="name-wrapper">
                   <el-tag size="medium">{{ scope.row.activityName }}</el-tag>
                 </div>
-              </el-popover>
+              </el-popover> -->
             </template>
           </el-table-column>
           <el-table-column prop="activityDesc" label="活动描述" width="150" align="center">
@@ -103,9 +105,18 @@
           <el-table-column prop="activiyType" label="活动类型" width="120" align="center">
           </el-table-column>
 
-          <el-table-column prop="strategyId" label="活动策略" width="300" align="center">
-            <template slot-scope="scope">
-              <el-button type="info" @click="strategy(scope.row.strategyId,scope.row.id)">{{scope.row.strategyName}}</el-button>
+          <el-table-column prop="strategyId" label="活动策略" width="200" align="center">
+            <template slot-scope="scope" >
+
+              <div  @click="strategy(scope.row.strategyId,scope.row.id)" style="color: #fff;font-size: 14px;
+              width: 98px;height:40px;  border-radius: 4px;margin: 0 auto;color: #00D1B2;
+text-overflow:ellipsis;overflow: hidden;
+line-height:40px ;
+text-align: center;
+white-space: nowrap;">
+               查看
+              </div>
+              <!-- <el-button type="info" width="300" size="medium"  ></el-button> -->
 
               <!-- <el-button type="info" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button> -->
               <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
@@ -117,7 +128,7 @@
             <template slot-scope="scope">
               <!-- <el-button type="info"  @click="strategy(scope.row.strategyId,scope.row.id)">策略设置</el-button> -->
 
-              <el-button type="info" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
+              <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
               <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
             </template>
           </el-table-column>
@@ -125,6 +136,31 @@
         </el-table>
       </el-tab-pane>
       <el-tab-pane label="策略管理" name="second">
+
+        <el-dialog title="添加活动策略" :visible.sync="addce" :close-on-click-modal="false">
+          <el-form :inline="true"  :model='addceform' label-width="80px" :rules="addceformRules" ref="addceform">
+             <el-form-item label="活动策略描述" prop="strategyDesc" label-width="120px">
+               <el-input v-model="addceform.strategyDesc" auto-complete="off"></el-input>
+             </el-form-item>
+             <br>
+             <el-form-item label="活动策略名称" prop="strategyName" label-width="120px">
+               <el-input v-model="addceform.strategyName" auto-complete="off"></el-input>
+             </el-form-item>
+             <br>
+            <el-form-item label="活动策略状态" prop="strategyStatus" label-width="120px">
+              <el-input v-model="addceform.strategyStatus" auto-complete="off"></el-input>
+            </el-form-item>
+            <br>
+             <el-form-item label="活动策略类型" prop="strategyType" label-width="120px">
+               <el-input v-model="addceform.strategyType" auto-complete="off"></el-input>
+             </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="addce=false">取消</el-button>
+            <el-button type="primary" @click="addjice" >提交</el-button>
+          </div>
+        </el-dialog>
+           <el-button type="primary"  size="medium" @click="addStrategy" style="float: right;margin-right: 88px;width: 178px;">添加活动策略</el-button>
         <el-table :data="strategyData1" style="margin-top: 20px;" :height="tableHeight">
           <el-table-column prop="strategyName" label="策略名称" fixed width="120" align="center" fixed>
           </el-table-column>
@@ -141,8 +177,8 @@
             <template slot-scope="scope">
               <!-- <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleRole(scope.row.id)">编辑</el-button> -->
               <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
-              <el-button type="success" @click="addcerule(scope.row.id)" size="mini">添加规则</el-button>
-              <el-button type="success" @click="getStrategyRule(scope.row.id)" size="mini">查询规则</el-button>
+              <el-button type="success" @click="addcerule(scope.row.id)" size="small" style="margin-right: 2px;">添加规则</el-button>
+              <el-button type="success" @click="getStrategyRule(scope.row.id)" size="small">查询规则</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -172,8 +208,8 @@
                   <el-option
                     v-for="(item,index) in datatype"
                     :key="index"
-                    :label="item.ruleName"
-                    :value="item.ruleName">
+                    :label="item"
+                    :value="item">
                   </el-option>
                 </el-select>
             </el-form-item>
@@ -228,6 +264,31 @@
 
     data() {
       return {
+        addceformRules:{
+          strategyDesc: [{
+            required: true,
+            message: "活动策略描述",
+            trigger: "blur"
+          }],
+          strategyName: [{
+            required: true,
+            message: "活动策略名称",
+            trigger: "blur"
+          }],
+          strategyStatus: [{
+            required: true,
+            message: "活动策略状态",
+            trigger: "blur"
+          }],
+          strategyType: [{
+            required: true,
+            message: "活动策略类型",
+            trigger: "blur"
+          }]
+
+        },
+        addceform:{},
+        addce:false,
         tableHeight: window.innerHeight - 170,
         ruletost: false,
         StrategyRule: [],
@@ -262,6 +323,7 @@
         strategyData1: [],
         activeName: 'first',
         editForm: {},
+        addFormVisible:false,
         editFormVisible: false,
         activeData: [],
         value: '',
@@ -313,6 +375,40 @@
     },
     methods: {
 
+      // 添加策略
+       addjice:function(){
+        this.$refs.addceform.validate(valid => {
+          if (valid) {
+            this.$confirm("确认提交吗？", "提示", {}).then(() => {
+              // this.addLoading = true;
+              console.log(this.addceform);
+
+              api.addStrategy(this.addceform).then(response => {
+                console.log(response)
+                if (response.status === 200) {
+
+                  this.$message({
+                    message: "提交成功",
+                    type: "success"
+                  });
+                   this.getStrategy1();
+                  this.addce = false;
+                } else {
+                  this.$message({
+                    message: "提交失败",
+                    type: "success"
+                  });
+
+                  this.addce = false;
+                }
+              });
+            });
+          }
+        });
+      },
+    addStrategy: function(){
+      this.addeditFormVisible=true;
+    },
     //获取规则类型
     getStrategyType: function(id) {
 
@@ -390,6 +486,38 @@
           }
         });
       },
+      // 添加策略
+      addjiSubmit: function(){
+        this.$refs.addForm.validate(valid => {
+          if (valid) {
+            this.$confirm("确认提交吗？", "提示", {}).then(() => {
+              // this.addLoading = true;
+              console.log(this.addForm);
+
+              api.addStrategy(this.addForm).then(response => {
+                console.log(response)
+                if (response.status === 200) {
+
+                  this.$message({
+                    message: "提交成功",
+                    type: "success"
+                  });
+                   this.getStrategy();
+                  this.addeditFormVisible = false;
+                } else {
+                  this.$message({
+                    message: "提交失败",
+                    type: "success"
+                  });
+
+                  this.addce = false;
+                }
+              });
+            });
+          }
+        });
+
+      },
       addcerule: function(id) {
         console.log(id)
         this.addrule.strategyId = id;
@@ -459,10 +587,13 @@
         })
       },
       addStrategy: function() {
-        this.addeditFormVisible = true;
+        this.addce = true;
+      },
+      addactive:function(){
+          this.addFormVisible = true;
       },
       // 添加活动
-      addjiSubmit: function() {
+      addjiactive: function() {
         this.$refs.addForm.validate(valid => {
           if (valid) {
             this.$confirm("确认提交吗？", "提示", {}).then(() => {
@@ -478,7 +609,7 @@
                     type: "success"
                   });
 
-                  this.addeditFormVisible = false;
+                  this.addFormVisible = false;
                 } else {
                   this.$message({
                     message: "提交失败",
@@ -498,3 +629,8 @@
     }
   }
 </script>
+<style>
+  .el-tabs__item.is-active {
+      color: red;
+  }
+</style>

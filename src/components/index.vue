@@ -14,6 +14,9 @@
   font-size: 23px;
   color: #505458;
 }
+.el-tabs__item.is-active {
+    color: red;
+}
 .hongbao {
   position: fixed;
   bottom: 0;
