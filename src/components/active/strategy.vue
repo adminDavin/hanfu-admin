@@ -82,11 +82,11 @@
           </el-table-column>
           <el-table-column  label="规则值" width="200" align="center"  >
            <template slot-scope="scope">
-              <el-input size="small" v-model="scope.row.ruleType"  placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleType)"
+              <el-input size="small" v-model="scope.row.ruleValue"  placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleValue)"
                 style="text-align:center; vertical-align:middel;text-align: center;"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="ruelValueType" label="规则值类型" width="200" align="center">
+          <el-table-column prop="ruleValueType" label="规则值类型" width="200" align="center">
           </el-table-column>
           <el-table-column prop="createTime" label="创建时间"  width="200" align="center">
           </el-table-column>
@@ -126,7 +126,7 @@
             </el-form-item>
             <el-form-item label="规则值:" prop="ruleType" label-width="120px" style="margin-left: 24px;">
               <div>
-                {{ruleType1}}
+                {{ruleValue}}
               </div>
             </el-form-item>
 
@@ -232,7 +232,7 @@
         detaildata:{},
         bianid:'规则编号',
         ren:false,
-        ruleType1:'规则值',
+        ruleValue:'规则值',
         ruleName:'规则名',
         activeid:'',
         bianRules1: {
@@ -272,7 +272,7 @@
       this.datalist.activityId = this.$route.query.active;
       this.datalist2.activityId = this.$route.query.active;
       console.log(this.datalist.activityId)
-      this.getStrategyRule(this.id);
+      this.getStrategyRule(this.activeid );
       this.userlist();
       this.getDetail();
       this.getPerson();
@@ -367,41 +367,14 @@
         })
       },
       getDetail: function() {
-        api.getActivityDetail(this.id).then(response => {
+        console.log(this.activeid)
+        api.getActivityDetail(this.activeid).then(response => {
           console.log('活动详情', response);
           this.detaildata = response.data.data;
         })
       },
-      edit: function(id, row) {
-        console.log(id, row)
-        // fd.append('ruleType ', params.ruleType);
-        // fd.append('id ', params.id);
-        let aa = {
-          ruleType: row,
-          id: id,
-          a
-        }
-        api.updateStrategyRule(aa).then(response => {
-          console.log(response)
-          if (response.status === 200) {
 
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
-            // this.editFormVisible = false;
-            // this.getStrategyRule(this.id);
 
-          } else {
-            this.$message({
-              message: "提交失败",
-              type: "success"
-            });
-
-            // this.editFormVisible = false;
-          }
-        });
-      },
       shezhi:function(){
         this.ren=true;
       },
@@ -422,16 +395,41 @@
           });
           return
         }
+       console.log(typeof(this.ruleValue))
+        if (!typeof(this.ruleValue)=='Number') {
+          this.$message({
+            showClose: true,
+            message: '规则值请设置为整数'
+          });
+          return
+        }
         console.log(this.datalist)
         api.addpreson(this.datalist).then(response => {
            console.log(this.datalist.userIds)
           console.log('设置活动参与者', response);
+          if(response.data.data=="超过限定人数"){
+            this.ren=false;
+            this.$message({
+              message: "超过限定人数,不能在选择此规则",
+
+            });
+           return;
+            // api.setActivityRules(this.datalist.userIds).then(response => {
+            //   console.log('码', response);
+            //   this.$message({
+            //     message: "设置成功",
+            //     type: "success"
+            //   });
+            //   // this.rules = response.data.data;
+            // })
+          }
           if(response.status==200){
             this.ren=false;
             this.$message({
               message: "提交成功",
               type: "success"
             });
+              this.getStrategyRule(this.activeid );
             this.getPerson()
             // api.setActivityRules(this.datalist.userIds).then(response => {
             //   console.log('码', response);
@@ -446,10 +444,10 @@
         })
       },
       ma1: function(ids) {
-
         var arr =[];
         arr.push(ids)
         let arr1={
+           activityId:this.activeid,
            id:arr,
            activityId:this.datalist2.activityId
 
@@ -496,7 +494,7 @@
 
         this.multipleSelection1 = val;
         this.bianid= this.multipleSelection1.id;
-        this.ruleType1=this.multipleSelection1.ruleType;
+        this.ruleValue=this.multipleSelection1.ruleValue;
         this.ruleName= this.multipleSelection1.ruleName;
         this.datalist.ruleId= this.multipleSelection1.id;
         console.log(this.datalist.ruleId);
@@ -605,15 +603,7 @@
         this.editFormVisible = true;
         this.editForm.id = id;
       },
-      //获取策略规则
-      getStrategyRule: function(id) {
-        this.ruletost = true;
-        console.log(id);
-        api.getStrategyRule(id).then(response => {
-          console.log('获取策略规则', response);
-          this.StrategyRule = response.data.data;
-        })
-      },
+
       selectedStoneHandler(res) {
         this.selectedStone = res;
       },
@@ -625,8 +615,9 @@
          // fd.append('ruleType ', params.ruleType);
          // fd.append('id ', params.id);
          let aa={
-           ruleType:row,
-            id:id
+           ruleValue :row,
+           activityId:this.activeid,
+           ruleInstanceId:id
          }
          api.updateStrategyRule(aa).then(response => {
            console.log(response)
@@ -661,7 +652,7 @@
       getStrategyRule: function(id) {
         this.ruletost=true;
         console.log(id);
-        api.getStrategyRule(id).then(response => {
+        api.getStrategyRuleByActive(id).then(response => {
           console.log('获取策略规则',response);
           this.StrategyRule = response.data.data;
         })

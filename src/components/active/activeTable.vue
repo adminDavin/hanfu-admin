@@ -38,8 +38,10 @@
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
+
             <el-button @click="addFormVisible=false">取消</el-button>
             <el-button type="primary" @click="addjiactive">提交</el-button>
+
           </div>
         </el-dialog>
 
@@ -75,17 +77,11 @@
         </el-dialog>
         <!-- 表格 -->
 
-        <el-table :data="activeData" style="width: 100%;margin-top: 30px;">
+        <el-table :data="activeData" style="margin-top: 30px;" height="500px" >
 
           <el-table-column label="序列号" align="center" type="index" width="100">
           </el-table-column>
-         <!-- <el-table-column prop="activityName" label="活动名称" width="120" align="center">
-            <template slot-scope="scope">
 
-              <el-tag>{{ scope.row.activityName }}</el-tag>
-
-            </template>
-          </el-table-column> -->
           <el-table-column label="活动名称" width="100" align="center">
             <template slot-scope="scope" >
               <!-- <el-popover  placement="top" trigger="hover"> -->
@@ -101,6 +97,11 @@
           </el-table-column>
 
           <el-table-column prop="activityStatus" label="活动状态" width="120" align="center">
+
+            <template slot-scope="scope">
+              <div v-if="scope.row.isTimingStart==0">尚未开始</div>
+              <div v-if="scope.row.isTimingStart==1">进行中</div>
+            </template>
           </el-table-column>
           <el-table-column prop="activiyType" label="活动类型" width="120" align="center">
           </el-table-column>
@@ -122,13 +123,14 @@ white-space: nowrap;">
               <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
             </template>
           </el-table-column>
-          <el-table-column prop="createTime" label="创建时间" width="300" align="center">
+          <el-table-column prop="createTime" label="创建时间"  align="center">
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- <el-button type="info"  @click="strategy(scope.row.strategyId,scope.row.id)">策略设置</el-button> -->
-
               <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
+              <el-button type="primary" v-if="scope.row.isTimingStart==0" style="background:#E04C2F;border:1px solid  #E04C2F;" size="mini" @click="control(scope.row.id)">开启活动</el-button>
+              <el-button type="primary" v-if="scope.row.isTimingStart==1" style="background:#bbb;border:1px solid  #bbb;"  size="mini" @click="control(scope.row.id)">关闭活动</el-button>
               <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
             </template>
           </el-table-column>
@@ -229,15 +231,14 @@ white-space: nowrap;">
             <el-table-column prop="ruleDesc" label="规则描述" width="150" align="center">
             </el-table-column>
 
-            <el-table-column prop="ruleType" label="规则值(可修改)" width="300" align="center">
+            <el-table-column prop="ruleType" label="规则类型" width="300" align="center">
               <!-- <template slot-scope="scope">
                 <input type="text" v-model="addrule.ruleType" @change="edit">
                 <input type="text">
               </template> -->
-              <template slot-scope="scope">
-                <el-input size="small" v-model="scope.row.ruleType" placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleType)"
-                  style="width: 100px;"></el-input>
-              </template>
+             <!-- <template slot-scope="scope" prop="ruleType" >
+
+              </template> -->
             </el-table-column>
             <el-table-column prop="ruelValueType" label="规则值类型" width="300" align="center">
             </el-table-column>
@@ -374,7 +375,24 @@ white-space: nowrap;">
 
     },
     methods: {
+      control:function(id){
 
+        api.start(id).then(response => {
+          console.log(response);
+          if (response.status === 200) {
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+                  this.getActive();
+          } else {
+            this.$message({
+              message: "提交失败",
+              
+            });
+          }
+        });
+      },
       // 添加策略
        addjice:function(){
         this.$refs.addceform.validate(valid => {
@@ -392,6 +410,7 @@ white-space: nowrap;">
                     type: "success"
                   });
                    this.getStrategy1();
+                    this.getStrategy();
                   this.addce = false;
                 } else {
                   this.$message({
@@ -575,6 +594,7 @@ white-space: nowrap;">
             return item
           }
         });
+
         this.addForm.strategyId = obj.id;
 
       },
