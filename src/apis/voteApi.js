@@ -59,13 +59,13 @@ function addStrategy(params) {
 function addStrategyRule(params) {
 console.log(params);
   let fd = new FormData();
-  fd.append('id', 1);
+  // fd.append('id', 1);
   fd.append('requestId', 1);
   fd.append('ruleDesc', params.ruleDesc);
   fd.append('ruleName', params.ruleName);
   fd.append('ruleStatus', params.ruleStatus);
-  fd.append('ruleType', params.ruleType);//规则值 
-  fd.append('ruleValueType', params.ruleValueType);//规则值类型
+  // fd.append('ruleValue', params.ruleType);//规则值
+  fd.append('ruleType', params.ruleValueType);//规则值类型
   fd.append('strategyId', params.strategyId);
   return Axios.post("/api/wareHouse/addStrategyRule", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
@@ -135,7 +135,6 @@ function getActivityDetail(id) {
 function addActivity(params) {
 console.log(params)
   let fd = new FormData();
-
   fd.append('activityName ',  params.activityName);
   fd.append('activityDesc', params.activityDesc );
   fd.append('activiyType', params.activiyType);
@@ -160,12 +159,13 @@ function creatrCode(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 function updateStrategyRule(params) {
-
+  console.log(params);
   let fd = new FormData();
-  fd.append('ruleType ', params.ruleType);
-  fd.append('id ', params.id);
-  fd.append('activityId', params.activityId);
-  return Axios.post("/api/strategy/updateStrategyRule", fd, { responseType: 'arraybuffer' });
+  fd.append('ruleValue ', params.ruleValue);
+  fd.append('activityId ', params.activityId);
+  fd.append('ruleInstanceId', params.ruleInstanceId);
+
+  return Axios.post("/api/wareHouse/setActivityRules", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 //查询活动
@@ -212,12 +212,20 @@ function addpreson(params) {
 console.log(params)
   let fd = new FormData();
   fd.append('activityId ', params.activityId);
-  fd.append('ruleId ',  params.ruleId);
+  fd.append('ruleInstanceId',  params.ruleId);
   fd.append('userIds', params.userIds);
 
   // fd.append('empNum', params.empNum);
   return Axios.post("/api/wareHouse/addActivityUser", fd);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
+// 开启活动
+function start(id) {
+  let fd = new FormData();
+  fd.append('activityId ', id);
+
+  return Axios.post("/api/wareHouse/startActivity", fd);
+
 }
 
 //统计投票结果
@@ -258,7 +266,20 @@ function count(params) {
 //   }
 //   return Axios.get("/order/order/queryDetail", params);
 // }
+// 根据活动id查策略规则
+function getStrategyRuleByActive(id){
+  console.log(id)
+  let params = {
+      params: {
+        activityId: id,
+
+      }
+    }
+
+  return Axios.get("/api/activity/listActivityStrategyInstance", params);
+}
 export default {
+  getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
    addWard:addWard,
    getDepartment:getDepartment,
@@ -280,5 +301,7 @@ export default {
    creatrCode:creatrCode,
    getPerson:getPerson,
    getStrategyType:getStrategyType,
-   deleteperson:deleteperson
+   deleteperson:deleteperson,
+    start:start
+
 };

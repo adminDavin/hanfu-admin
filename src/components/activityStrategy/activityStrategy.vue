@@ -287,7 +287,7 @@
               // this.addLoading = true;
               console.log(this.addForm);
 
-              api.addStrategy(this.addForm).then(response => {
+              api.addStrategyRule(this.addForm).then(response => {
                 console.log(response)
                 if (response.status === 200) {
 
