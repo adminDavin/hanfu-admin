@@ -38,7 +38,7 @@
 <script>
 import vHead from '@/components/common/header.vue';
 import vSidebar from '@/components/common/sidebar.vue';
-import vTags from '@/components/common/Tags.vue';
+import vTags from '@/components/common/tags.vue';
 import vFooter from '@/components/common/Footer.vue';
 import hanfuBus from '@/components/common/hanfu-bus';
 export default {
