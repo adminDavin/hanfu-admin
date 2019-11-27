@@ -1,10 +1,11 @@
 <template>
   <div class="wrapper">
+    <img src="../../img/back.png" style="width:25px;height:25px;margin-left: 35px;margin-top: 30px;" @click="back"   alt="">
    <!-- <v-head></v-head>
     <v-sidebar></v-sidebar> -->
     <!-- <div class="content-box" :class="{'content-collapse':collapse}"> -->
     <el-form :inline="true" :model="detaildata" class="demo-form-inline" style="font-size: 12px;height:36px; margin-left: 50px;
-    margin-top: 40px;border-bottom:1px solid #00D1B2;" label="活动详情">
+    margin-top: 30px;border-bottom:1px solid #00D1B2;" label="活动详情">
       <el-form-item  label="">
        <template slot-scope="scope">
          <div style="display: flex;font-size: 15px;font-weight: 500;">
@@ -13,9 +14,7 @@
            </div>
            <div >{{detaildata.activityName}}</div>
          </div>
-
        </template>
-
         <!-- <el-input v-model="" :disabled="true"   placeholder="审批人"></el-input> -->
       </el-form-item>
 
@@ -139,7 +138,7 @@
 
             <el-table-column type="selection" width="55">
             </el-table-column>
-            <el-table-column prop="birthDay" label="参与人" width="100" fixed align="center">
+            <el-table-column prop="birthDay"   label="参与人" width="100" fixed align="center">
               <template slot-scope="scope">
                   <span v-if="!scope.row.isElected">投票人</span>
                   <span v-if="scope.row.isElected">被投票人</span>
@@ -147,7 +146,7 @@
             </el-table-column>
             <el-table-column label="邀请码" width="130" fixed align="center" prop="code" >
             </el-table-column>
-            <el-table-column prop="" label="所持票数" width="100" align="center">
+            <el-table-column prop="" label="所持票数" width="100" align="center" v-if="type=='ticket_count'">
              <template slot-scope="scope">
                   <span v-if="scope.row.count">{{scope.row.count}}</span>
                   <span v-if="!scope.row.count">--</span>
@@ -168,7 +167,7 @@
 
             <el-table-column label="操作" width="230" align="center" fixed="right">
               <template slot-scope="scope">
-                  <el-button type="primary" @click="ma1(scope.row.id)" size="mini" >生成参与码</el-button>
+                  <el-button type="primary" @click="ma1(scope.row.id)" size="mini"  v-if="scope.row.isElected==false">生成参与码</el-button>
                   <el-button type="danger" size="mini" @click="deleteperson(scope.row.id)">删除</el-button>
                </template>
 
@@ -225,6 +224,7 @@
     },
     data() {
       return {
+        type:'',
         id:'',
         datalist2:[],
         multipleSelection2:[],
@@ -232,6 +232,7 @@
         detaildata:{},
         bianid:'规则编号',
         ren:false,
+        ruleValue1:1,
         ruleValue:'规则值',
         ruleName:'规则名',
         activeid:'',
@@ -268,7 +269,7 @@
     mounted() {
       this.id = this.$route.query.id;
       this.activeid = this.$route.query.active;
-
+      this.type=this.$route.query.type;
       this.datalist.activityId = this.$route.query.active;
       this.datalist2.activityId = this.$route.query.active;
       console.log(this.datalist.activityId)
@@ -279,7 +280,12 @@
       this.getStrategyType();
     },
     methods: {
+      back:function(){
+        this.$router.push({
+          name: 'activeIndex'
 
+        });
+      },
       deleteperson1: function() {
         if (!this.datalist2.userIds) {
           this.$message({
@@ -318,9 +324,6 @@
       },
  // 删除人
       deleteperson: function(id) {
-
-
-
       this.$confirm("确认删除吗？", "提示", {}).then(() => {
           console.log(id);
           let param={
@@ -343,14 +346,9 @@
                 message: "删除失败",
                 type: "success"
               });
-
-
             }
           })
-
-
       });
-
     },
 		getStrategyType: function() {
 		  api.getStrategyType().then(response => {
@@ -378,6 +376,15 @@
       shezhi:function(){
         this.ren=true;
       },
+     isNumber: function (val) {
+          var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+          var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+          if(regPos.test(val) || regNeg.test(val)) {
+              return true;
+              } else {
+              return false;
+              }
+          },
       // 设置活动参与者
       person: function() {
         if (!this.datalist.userIds) {
@@ -395,8 +402,8 @@
           });
           return
         }
-       console.log(typeof(this.ruleValue))
-        if (!typeof(this.ruleValue)=='Number') {
+       console.log(this.ruleValue1)
+        if (!this.isNumber(this.ruleValue1)) {
           this.$message({
             showClose: true,
             message: '规则值请设置为整数'
@@ -496,6 +503,7 @@
         this.bianid= this.multipleSelection1.id;
         this.ruleValue=this.multipleSelection1.ruleValue;
         this.ruleName= this.multipleSelection1.ruleName;
+        this.ruleValue1=this.multipleSelection1.ruleValue;
         this.datalist.ruleId= this.multipleSelection1.id;
         console.log(this.datalist.ruleId);
         console.log(this.multipleSelection1)
