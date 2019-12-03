@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target:'http://192.168.1.103:9200',//小方
+        target:'http://192.168.1.105:9200',//小方
         // target:'http://192.168.1.101:9200',//王博朋
         changeOrigin: true,
         pathRewrite: {
@@ -20,7 +20,7 @@ module.exports = {
         }
       },
       '/user': {
-        target:'http://192.168.1.103:8082',//小方
+        target:'http://192.168.1.105:8082',//小方
         // target:'http://192.168.1.101:8082',//王博朋
         // target: 'http://192.168.1.233:8082',//小方
         // target:'http://localhost:8082',

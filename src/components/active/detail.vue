@@ -6,27 +6,57 @@
    <div style="font-size: 18px;background: #00d1cf;color: #fff;padding: 10px;border-radius: 4px;">
      活动详情
    </div>
-      <el-form :inline="true" :data="detaildata" class="demo-form-inline" style="margin-top: 40px;margin-left: 9px;" label="活动详情">
-        <el-form-item  label="活动名称">
-          <el-input  :value="detaildata.activityName" :disabled="true"  placeholder="审批人"></el-input>
-        </el-form-item>
+   <div style="display: flex;">
+     <el-form :inline="true" :data="detaildata" class="demo-form-inline" style="margin-top: 40px;margin-left: 9px;" label="活动详情">
+       <el-form-item  label="活动名称">
+         <el-input  :value="detaildata.activityName" :disabled="true"  placeholder="审批人"></el-input>
+       </el-form-item>
+       <br>
+       <el-form-item  label="活动描述">
+         <el-input :value="detaildata.activityDesc" :disabled="true" placeholder="审批人"></el-input>
+       </el-form-item>
+       <br>
+       <el-form-item  label="活动状态">
+         <el-input :value="detaildata.activityStatus" :disabled="true" placeholder="审批人"></el-input>
+       </el-form-item>
+       <br>
+       <el-form-item  label="活动类型">
+         <el-input :value="detaildata.activiyType" :disabled="true" placeholder="审批人"></el-input>
+       </el-form-item>
+       <br>
+       <el-form-item  label="创建时间">
+         <el-input :value="detaildata.createTime" :disabled="true" placeholder="审批人"></el-input>
+       </el-form-item>
+     </el-form>
+     <el-form :inline="true" :model="templateData"  ref="addFormRules"  :rules="addFormRules"  class="demo-form-inline"
+     style=" border-radius:10px;height: 227px; padding:30px;
+     border:1px solid #00D1B2; margin-top: 40px;margin-left: 100px;" label="活动详情">
+       <el-form-item  label="评分项名称" label-width="100px" prop="evaluateType">
+         <el-input  v-model="templateData.evaluateType"  placeholder="评分项名称"></el-input>
+       </el-form-item>
+       <br>
+       <el-form-item  label="评分权重" label-width="100px" prop="evaluateWeight">
+         <el-input v-model="templateData.evaluateWeight"  placeholder="评分权重"></el-input>
+       </el-form-item>
         <br>
-        <el-form-item  label="活动描述">
-          <el-input :value="detaildata.activityDesc" :disabled="true" placeholder="审批人"></el-input>
+        <el-form-item style="margin-top: 20px;margin-left: 19%;" >
+          <template slot-scope="scope" >
+              <el-button type="primary"  size="medium" style="width: 200px;" @click="add" >添加</el-button>
+           </template>
         </el-form-item>
-        <br>
-        <el-form-item  label="活动状态">
-          <el-input :value="detaildata.activityStatus" :disabled="true" placeholder="审批人"></el-input>
-        </el-form-item>
-        <br>
-        <el-form-item  label="活动类型">
-          <el-input :value="detaildata.activiyType" :disabled="true" placeholder="审批人"></el-input>
-        </el-form-item>
-        <br>
-        <el-form-item  label="创建时间">
-          <el-input :value="detaildata.createTime" :disabled="true" placeholder="审批人"></el-input>
-        </el-form-item>
-      </el-form>
+
+     </el-form>
+   <!--  <el-form :inline="true" :model="bianrowwu" label-width="80px" :rules="bianRules" ref="bianForm">
+       <div style="font-size: 17px;margin-bottom: 30px;">基础信息</div>
+       <el-form-item label="物品名称" prop="goodName">
+         <el-input v-model="bianrowwu.goodName" auto-complete="off" :disabled="true"></el-input>
+       </el-form-item>
+
+
+     </el-form> -->
+   </div>
+
+
       <div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;">规则列表</div>
       <el-table :data="StrategyRule" style="margin-top: 20px;width: 80%;margin-left: -22px;" height="300" title="规则列表">
         <el-table-column prop="ruleName" label="规则名称" fixed width="120" align="center">
@@ -57,6 +87,21 @@
     },
     data() {
       return {
+       addFormRules: {
+         evaluateType: [{
+           required: true,
+           message: "请输入评分项名称",
+           trigger: "blur"
+         }],
+         evaluateWeight: [{
+           required: true,
+           message: "请输入评分权重",
+           trigger: "blur"
+         }]
+
+
+       },
+        templateData:{},
         detaildata:[],
         id: '',
         collapse: false,
@@ -66,10 +111,27 @@
     },
     mounted() {
       this.id = this.$route.query.id;
+      this.templateData.parentTemplateId = this.$route.query.id;
       this.getDetail();
       this.getStrategyRule();
     },
     methods: {
+      add:function(){
+          this.$refs.addFormRules.validate(valid => {
+            if (valid) {
+          this.$confirm("确认添加吗？", "提示", {}).then(() => {
+          console.log(this.templateData)
+          api.EvaluationTemplate(this.templateData).then(response => {
+            console.log('评分项', response);
+
+          })
+
+          });
+}
+          });
+
+        },
+
       getDetail: function() {
         api.getActivityDetail(this.id).then(response => {
           console.log('活动详情', response);
