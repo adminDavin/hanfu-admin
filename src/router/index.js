@@ -5,9 +5,17 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes: [{
-      // path: '/',
-      // redirect: '/hf-user/login'
-      path: '/index',
+      path: '/',
+      redirect: '/votelogin'
+      // path: '/index',
+    },
+    {
+      name: 'votelogin',
+      path: '/votelogin',
+      component: resolve => require(['@/components/login/Login.vue'], resolve),
+      meta: {
+        title: '登录'
+      }
     },
     {
       name: 'award',
@@ -25,6 +33,7 @@ const router = new VueRouter({
         title: '策略规则'
       }
     },
+
     {
         name: 'Rule',
         path: '/Rule',

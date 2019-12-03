@@ -7,11 +7,7 @@
         <div>
           <el-button type="primary" @click="addactive" style="margin-right: 60px; margin-bottom: 20px; overflow: hidden;
            margin-top: 20px;margin-left: 20px;float:right;">添加活动</el-button>
-
         </div>
-
-
-
         <el-dialog title="添加活动" :visible.sync="addFormVisible" :close-on-click-modal="false">
           <el-form :inline="true" :model='addForm' label-width="80px" :rules="bianRules" ref="addForm">
             <el-form-item label="活动描述" prop="activityDesc" label-width="120px">
@@ -95,16 +91,24 @@
           </el-table-column>
           <el-table-column prop="activityDesc" label="活动描述" width="150" align="center">
           </el-table-column>
-          <el-table-column prop="type" label="活动类型" width="150" align="center">
+          <el-table-column  label="活动类型" width="120" align="center">
+            <template slot-scope="scope">
+                 <span v-if="scope.row.type=='score'">评分制</span>
+                 <span v-if="scope.row.type=='election'">内推制</span>
+                 <span v-if="scope.row.type=='ticket_count'">投票制</span>
+                 <span v-if="scope.row.type=='praise'">积赞制</span>
+                 <!-- <span v-if="!scope.row.count">--</span> -->
+             </template>
+               <!-- <template slot-scope="scope"><div v-if="scope.row.activiyType==score">打分活动 </div></template> -->
           </el-table-column>
+
+
           <el-table-column prop="activityStatus" label="活动状态" width="120" align="center">
 
             <template slot-scope="scope">
               <div v-if="scope.row.isTimingStart==0">尚未开始</div>
               <div v-if="scope.row.isTimingStart==1">进行中</div>
             </template>
-          </el-table-column>
-          <el-table-column prop="activiyType" label="活动类型" width="120" align="center">
           </el-table-column>
 
           <el-table-column prop="strategyId" label="活动策略" width="200" align="center">
@@ -128,7 +132,6 @@ white-space: nowrap;">
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <!-- <el-button type="info"  @click="strategy(scope.row.strategyId,scope.row.id)">策略设置</el-button> -->
               <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==0" style="background:#E04C2F;border:1px solid  #E04C2F;" size="mini" @click="control(scope.row.id)">开启活动</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==1" style="background:#bbb;border:1px solid  #bbb;"  size="mini" @click="control(scope.row.id)">关闭活动</el-button>
@@ -139,7 +142,6 @@ white-space: nowrap;">
         </el-table>
       </el-tab-pane>
       <el-tab-pane label="策略管理" name="second">
-
         <el-dialog title="添加活动策略" :visible.sync="addce" :close-on-click-modal="false">
           <el-form :inline="true"  :model='addceform' label-width="80px" :rules="addceformRules" ref="addceform">
              <el-form-item label="活动策略描述" prop="strategyDesc" label-width="120px">

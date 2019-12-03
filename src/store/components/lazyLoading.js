@@ -25,6 +25,14 @@ function getComponetByPath(path) {
 
 const dynamicRouter = [
   {
+    name: 'votelogin',
+    path: '/votelogin',
+    component: resolve => require(['@/components/login/Login.vue'], resolve),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
 
     path: '/activeIndex',
     component: resolve => require(['@/components/active/index.vue'], resolve),
@@ -32,6 +40,7 @@ const dynamicRouter = [
       title: '奖品'
     }
   },
+ 
   {
     name: 'strategyRule',
     path: '/strategyRule',

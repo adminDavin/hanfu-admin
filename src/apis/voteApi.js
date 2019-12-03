@@ -11,6 +11,19 @@ function addWard(params) {
   return Axios.post("/api/users/addAwardInfo", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
+
+function EvaluationTemplate(params) {
+  console.log(1111);
+  console.log(params)
+  let fd = new FormData();
+  console.log(params.evaluateType,params.evaluateType)
+  fd.append('awardName', params.awardName);
+  fd.append('evaluateWeight', params.evaluateWeight);
+  fd.append('parentTemplateId', params.parentTemplateId);
+  
+  return Axios.post("/api/strategy/addUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
 // 添加奖品
 function getDepartment(params) {
   //   let params = {
@@ -302,6 +315,7 @@ export default {
    getPerson:getPerson,
    getStrategyType:getStrategyType,
    deleteperson:deleteperson,
-    start:start
+   start:start,
+   EvaluationTemplate:EvaluationTemplate
 
 };
