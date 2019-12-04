@@ -17,6 +17,14 @@ const router = new VueRouter({
         title: '登录'
       }
     },
+    // {
+    //   name: 'picture',
+    //   path: '/picture',
+    //   component: resolve => require(['@/components/active/picture.vue'], resolve),
+    //   meta: {
+    //     title: '奖品'
+    //   }
+    // },
     {
       name: 'award',
       path: '/award',

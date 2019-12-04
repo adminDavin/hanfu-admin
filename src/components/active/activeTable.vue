@@ -254,6 +254,12 @@ white-space: nowrap;">
           </div>
         </el-dialog>
       </el-tab-pane>
+      <el-tab-pane label="公司管理" name="third">
+        <company></company>
+      </el-tab-pane>
+       <el-tab-pane label="轮播图管理" name="fourth">
+         <pic ></pic>
+       </el-tab-pane>
 
     </el-tabs>
 
@@ -263,10 +269,15 @@ white-space: nowrap;">
 
 <script>
   import api from '@/apis/voteApi.js';
+  import company from './company';
+  import pic from './pictures';
   export default {
-
+    components: {
+     pic, company
+    },
     data() {
       return {
+         selectedGoods: {},
         addceformRules:{
           strategyDesc: [{
             required: true,
@@ -377,6 +388,37 @@ white-space: nowrap;">
 
     },
     methods: {
+      // 上传图片
+      upLoadPic: function(row) {
+        // this.goodId = row.id;
+        // this.picOpen = true;
+        // this.selectedGoods = row;
+        // console.log(this.selectedGoods);
+        var main = this;
+        // console.log(this.goodId)
+        this.$ajax({
+          method: "get",
+          url: "/api/goods/pictures",
+          params: {
+            goodsId: main.goodId
+          }
+        }).then(
+          function(resultData) {
+            main.pics = resultData.data.data;
+            console.log('fwefwe', resultData);
+            for (var i = 0; i < main.pics.length; i++) {
+              main.pics[i].img = '/api/goods/getFile?fileId=' + main.pics[i].fileId;
+              console.log(main.pics[i].img)
+            }
+          },
+          function(resultData) {
+            // _this.tableData.message = "Local Reeuest Error!";
+            //console.log(resultData);
+            // for()
+          }
+        );
+
+      },
       control:function(id){
 
         api.start(id).then(response => {
@@ -417,7 +459,7 @@ white-space: nowrap;">
                 } else {
                   this.$message({
                     message: "提交失败",
-                    type: "success"
+
                   });
 
                   this.addce = false;
@@ -484,7 +526,24 @@ white-space: nowrap;">
             this.$confirm("确认提交吗？", "提示", {}).then(() => {
               // this.addLoading = true;
               console.log(this.addrule);
-
+               if(this.addrule.ruleValueType=='线上线下评分'){
+                 this.addrule.ruleValueType='record_score'
+               }
+               if(this.addrule.ruleValueType=='星星投票'){
+                 this.addrule.ruleValueType='vote_ticket_count'
+               }
+               if(this.addrule.ruleValueType=='内部选举'){
+                 this.addrule.ruleValueType='internal_election'
+               }
+               if(this.addrule.ruleValueType=='公共选举'){
+                 this.addrule.ruleValueType='public_praise'
+               }
+               if(this.addrule.ruleValueType=='投票人'){
+                 this.addrule.ruleValueType='elector'
+               }
+               if(this.addrule.ruleValueType=='被投票人'){
+                 this.addrule.ruleValueType='elected'
+               }
               api.addStrategyRule(this.addrule).then(response => {
                 console.log(response)
                 if (response.status === 200) {
