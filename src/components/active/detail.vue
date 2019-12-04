@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" style="padding-bottom: 100px;">
 
-    <!-- <div class="content-box" :class="{'content-collapse':collapse}"> -->
+
  <div  style="padding: 20px 20px 0 40px; ">
    <div style="font-size: 18px;background: #00d1cf;color: #fff;padding: 10px;border-radius: 4px;">
      活动详情
@@ -46,19 +46,19 @@
         </el-form-item>
 
      </el-form>
-   <!--  <el-form :inline="true" :model="bianrowwu" label-width="80px" :rules="bianRules" ref="bianForm">
-       <div style="font-size: 17px;margin-bottom: 30px;">基础信息</div>
-       <el-form-item label="物品名称" prop="goodName">
-         <el-input v-model="bianrowwu.goodName" auto-complete="off" :disabled="true"></el-input>
-       </el-form-item>
 
-
-     </el-form> -->
    </div>
 
+<div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;">评分项</div>
+      <el-table :data="templatedata" style="margin-top: 20px;width: 80%;margin-left: -22px;" title="评分项列表">
+        <el-table-column prop="evaluateType" label="评分项名称" width="150" align="center">
+        </el-table-column>
+        <el-table-column prop="evaluateWeight" label="评分权重" width="150" align="center">
+        </el-table-column>
 
+      </el-table>
       <div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;">规则列表</div>
-      <el-table :data="StrategyRule" style="margin-top: 20px;width: 80%;margin-left: -22px;" height="300" title="规则列表">
+      <el-table :data="StrategyRule" style="margin-top: 20px;width: 80%;margin-left: -22px;"  title="规则列表">
         <el-table-column prop="ruleName" label="规则名称" fixed width="120" align="center">
         </el-table-column>
         <el-table-column prop="ruleStatus" label="规则状态" width="150" align="center">
@@ -72,6 +72,7 @@
         <el-table-column prop="createTime" label="创建时间" width="300" align="center">
         </el-table-column>
       </el-table>
+
     </div>
   </div>
 </template>
@@ -87,6 +88,8 @@
     },
     data() {
       return {
+        templateWeight:0,
+        templatedata:[],
        addFormRules: {
          evaluateType: [{
            required: true,
@@ -102,7 +105,7 @@
 
        },
         templateData:{},
-        detaildata:[],
+        detaildata:{},
         id: '',
         collapse: false,
         selectedStone: 1,
@@ -114,16 +117,26 @@
       this.templateData.parentTemplateId = this.$route.query.id;
       this.getDetail();
       this.getStrategyRule();
+      this.findUserTemplate();
+      this.checkWeight();
     },
     methods: {
       add:function(){
+        var he=this.templateWeight+this.templateData.evaluateWeight
+          if(he>0){
+            this.$message({
+              message: "权重之和不能超过1",
+
+            });
+            return;
+          }
           this.$refs.addFormRules.validate(valid => {
             if (valid) {
           this.$confirm("确认添加吗？", "提示", {}).then(() => {
           console.log(this.templateData)
           api.EvaluationTemplate(this.templateData).then(response => {
             console.log('评分项', response);
-
+            this.findUserTemplate()
           })
 
           });
@@ -131,7 +144,18 @@
           });
 
         },
-
+  checkWeight:function(){
+    api.checkTemplateWeight(this.id).then(response => {
+      console.log('查找权重', response);
+      this.templateWeight= response.data.data;
+    })
+  },
+       findUserTemplate: function() {
+          api.findUserTemplate(this.id).then(response => {
+            console.log('查找模板', response);
+            this.templatedata = response.data.data;
+          })
+        },
       getDetail: function() {
         api.getActivityDetail(this.id).then(response => {
           console.log('活动详情', response);

@@ -16,14 +16,27 @@ function EvaluationTemplate(params) {
   console.log(1111);
   console.log(params)
   let fd = new FormData();
-  console.log(params.evaluateType,params.evaluateType)
-  fd.append('awardName', params.awardName);
+  // console.log(params.evaluateType,params.evaluateType)
+  fd.append('evaluateType', params.evaluateType);
   fd.append('evaluateWeight', params.evaluateWeight);
   fd.append('parentTemplateId', params.parentTemplateId);
-  
+
   return Axios.post("/api/strategy/addUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
+
+function checkTemplateWeight(id) {
+    let params = {
+      params: {
+        activityId : id,
+
+      }
+    }
+
+  return Axios.get("/api/strategy/findEvaluationTemplateWeight",params);
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
+
 // 添加奖品
 function getDepartment(params) {
   //   let params = {
@@ -240,7 +253,36 @@ function start(id) {
   return Axios.post("/api/wareHouse/startActivity", fd);
 
 }
+// 开启活动
+function addCompany(data) {
+  let fd = new FormData();
+  fd.append('companyInfo ', data.companyInfo);
+  fd.append('companyName ', data.companyName);
+  return Axios.post("/api/strategy/addCompany", fd);
 
+}
+function login(data){
+  console.log(data)
+  let params = {
+      params: {
+        authKey: data.authKey,
+        authType:2,
+        passwd:data.passwd
+      }
+    }
+
+  return Axios.get("/user/user/login", params);
+}
+function erCode(phone){
+  console.log(phone)
+  let params = {
+      params: {
+        phone: phone,
+      }
+    }
+
+  return Axios.get("/user/user/code", params);
+}
 //统计投票结果
 function count(params) {
 
@@ -291,6 +333,24 @@ function getStrategyRuleByActive(id){
 
   return Axios.get("/api/activity/listActivityStrategyInstance", params);
 }
+// 根据活动id查策略规则
+function checkcompany(){
+
+
+  return Axios.post("/api/strategy/findCompany");
+}
+// 根据活动id查评分模板
+function findUserTemplate(activityId){
+
+  let params = {
+      params: {
+        activityId:activityId,
+
+      }
+    }
+
+  return Axios.get("/api/strategy/findUserEvaluationTemplate", params);
+}
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -316,6 +376,12 @@ export default {
    getStrategyType:getStrategyType,
    deleteperson:deleteperson,
    start:start,
-   EvaluationTemplate:EvaluationTemplate
+   EvaluationTemplate:EvaluationTemplate,
+   erCode:erCode,
+   login:login,
+   findUserTemplate:findUserTemplate,
+   addCompany:addCompany,
+   checkcompany:checkcompany,
+   checkTemplateWeight:checkTemplateWeight
 
 };
