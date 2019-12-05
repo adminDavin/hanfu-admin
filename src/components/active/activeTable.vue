@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
 
 
     <el-tabs v-model="activeName" @tab-click="handleClick" >
@@ -19,11 +19,11 @@
             </el-form-item>
             <br>
             <el-form-item label="活动状态" prop="activityStatus" label-width="120px">
-              <el-input v-model="addForm.activityStatus" auto-complete="off"></el-input>
+              <el-input v-model="addForm.activityStatus" :disabled="true" auto-complete="off"></el-input>
             </el-form-item>
             <br>
             <el-form-item label="活动类型" prop="activiyType" label-width="120px">
-              <el-input v-model="addForm.activiyType" auto-complete="off"></el-input>
+              <el-input v-model="addForm.activiyType" :disabled="true" auto-complete="off"></el-input>
             </el-form-item>
             <br>
             <el-form-item prop="activiyType" label="活动策略" label-width="120px">
@@ -153,12 +153,12 @@ white-space: nowrap;">
              </el-form-item>
              <br>
             <el-form-item label="活动策略状态" prop="strategyStatus" label-width="120px">
-              <el-input v-model="addceform.strategyStatus" auto-complete="off"></el-input>
+              <el-input v-model="addceform.strategyStatus" :disabled="true" auto-complete="off"></el-input>
             </el-form-item>
-            <br>
+            <!-- <br>
              <el-form-item label="活动策略类型" prop="strategyType" label-width="120px">
-               <el-input v-model="addceform.strategyType" auto-complete="off"></el-input>
-             </el-form-item>
+               <el-input v-model="addceform.strategyType" :disabled="true"  auto-complete="off"></el-input>
+             </el-form-item> -->
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="addce=false">取消</el-button>
@@ -171,8 +171,8 @@ white-space: nowrap;">
           </el-table-column>
           <el-table-column prop="strategyStatus" label="策略状态" width="150" align="center">
           </el-table-column>
-          <el-table-column prop="strategyType" label="策略类型" width="120" align="center">
-          </el-table-column>
+          <!-- <el-table-column prop="strategyType" label="策略类型" width="120" align="center">
+          </el-table-column> -->
           <el-table-column prop="strategyDesc" label="策略描述" width="300" align="center">
           </el-table-column>
           <el-table-column prop="createTime" label="创建时间" width="300" align="center">
@@ -199,12 +199,12 @@ white-space: nowrap;">
             </el-form-item>
             <br>
             <el-form-item label="规则状态" prop="ruleStatus" label-width="120px">
-              <el-input v-model="addrule.ruleStatus" auto-complete="off"></el-input>
+              <el-input v-model="addrule.ruleStatus" auto-complete="off" :disabled="true"></el-input>
             </el-form-item>
             <br>
 
             <el-form-item label="规则值" prop="ruleType" label-width="120px">
-              <el-input v-model="addrule.ruleType" auto-complete="off"></el-input>
+              <el-input v-model="addrule.ruleType" auto-complete="off" :disabled="true"></el-input>
             </el-form-item>
             <br>
             <el-form-item label="规则值类型" prop="ruleValueType" label-width="120px">
@@ -258,6 +258,9 @@ white-space: nowrap;">
       <el-tab-pane label="公司管理" name="third">
         <company></company>
       </el-tab-pane>
+      <el-tab-pane label="用户管理" name="five">
+        <user></user>
+      </el-tab-pane>
        <el-tab-pane label="轮播图管理" name="fourth">
          <pic ></pic>
        </el-tab-pane>
@@ -272,9 +275,10 @@ white-space: nowrap;">
   import api from '@/apis/voteApi.js';
   import company from './company';
   import pic from './pictures';
+   import user from './user';
   export default {
     components: {
-     pic, company
+     pic, company ,user
     },
     data() {
       return {
@@ -290,16 +294,16 @@ white-space: nowrap;">
             message: "活动策略名称",
             trigger: "blur"
           }],
-          strategyStatus: [{
-            required: true,
-            message: "活动策略状态",
-            trigger: "blur"
-          }],
-          strategyType: [{
-            required: true,
-            message: "活动策略类型",
-            trigger: "blur"
-          }]
+          // strategyStatus: [{
+          //   required: true,
+          //   message: "活动策略状态",
+          //   trigger: "blur"
+          // }],
+          // strategyType: [{
+          //   required: true,
+          //   message: "活动策略类型",
+          //   trigger: "blur"
+          // }]
 
         },
         addceform:{},
@@ -318,16 +322,16 @@ white-space: nowrap;">
             message: "规则名字",
             trigger: "blur"
           }],
-          ruleStatus: [{
-            required: true,
-            message: "规则状态",
-            trigger: "blur"
-          }],
-          ruleType: [{
-            required: true,
-            message: "规则类型",
-            trigger: "blur"
-          }],
+          // ruleStatus: [{
+          //   required: true,
+          //   message: "规则状态",
+          //   trigger: "blur"
+          // }],
+          // ruleType: [{
+          //   required: true,
+          //   message: "规则类型",
+          //   trigger: "blur"
+          // }],
           ruleValueType: [{
             required: true,
             message: "规则值类型",
@@ -355,16 +359,16 @@ white-space: nowrap;">
             message: "活动名称",
             trigger: "blur"
           }],
-          activityStatus: [{
-            required: true,
-            message: "活动状态",
-            trigger: "blur"
-          }],
-          activiyType: [{
-            required: true,
-            message: "活动类型",
-            trigger: "blur"
-          }],
+          // activityStatus: [{
+          //   required: true,
+          //   message: "活动状态",
+          //   trigger: "blur"
+          // }],
+          // activiyType: [{
+          //   required: true,
+          //   message: "活动类型",
+          //   trigger: "blur"
+          // }],
           value: [{
             required: true,
             message: "选择活动策略",
@@ -665,7 +669,7 @@ white-space: nowrap;">
       //删除活动
       delecteActive: function(id) {
         console.log(id);
-
+         this.$confirm("确认删除吗？", "提示").then(() => {
         api.deleteActivity(id).then(response => {
           console.log('活动列表', response);
           if(response.status==200){
@@ -680,6 +684,7 @@ white-space: nowrap;">
               type: "success"
             });
           }
+        })
         })
       },
       getActive: function() {

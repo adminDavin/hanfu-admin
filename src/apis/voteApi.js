@@ -141,6 +141,20 @@ function setActivityRules(params) {
   return Axios.post("/api/wareHouse/addActivityUser", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
+// 胜利人数
+function VictoryCount(params) {
+  let fd = new FormData();
+  console.log(params)
+  fd.append('activityId', params.activityId);
+  fd.append('count', params.count);
+
+  // fd.append('ruleName', params.ruleName);
+  // fd.append('ruleSDesc', params.ruleSDesc);
+  // fd.append('ruleValue', params.ruleValue);
+  // fd.append('empNum', params.empNum);
+  return Axios.post("/api/wareHouse/setActivityVictoryCount", fd, { responseType: 'arraybuffer' });
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
 // 删除活动
 function deleteActivity(id) {
   let fd = new FormData();
@@ -396,6 +410,7 @@ export default {
    addCompany:addCompany,
    checkcompany:checkcompany,
    checkTemplateWeight:checkTemplateWeight,
-   delectestrategy:delectestrategy
+   delectestrategy:delectestrategy,
+   VictoryCount:VictoryCount
 
 };

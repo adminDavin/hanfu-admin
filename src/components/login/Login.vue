@@ -1,6 +1,6 @@
 <template>
 
-<div style="display: flex;justify-content: center;height: 100%;" class="pic">
+<div style="display: flex;justify-content: center;height: 90%;margin-top: 2.5%;margin-bottom: 2.5%;" class="pic" >
 
   <div style="margin-top: 12%;
 
@@ -179,7 +179,9 @@ export default {
 
 <style >
   .pic{
-     background: url('../img/ceng.png');
+     background: url('../img/ceng.png') ;
+     background-repeat: no-repeat;
+     background-size:cover ;
   }
 .deng{
   color:#fff;
