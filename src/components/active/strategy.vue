@@ -437,7 +437,8 @@
               type: "success"
             });
               this.getStrategyRule(this.activeid );
-            this.getPerson()
+            this.getPerson();
+            this.multipleSelection = [];
             // api.setActivityRules(this.datalist.userIds).then(response => {
             //   console.log('码', response);
             //   this.$message({

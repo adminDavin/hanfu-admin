@@ -23,18 +23,18 @@
         </template>
       </div>
     </el-dialog>
-    <el-table :data="checkdata" style="margin-top: 30px;" height="500px" >
+    <el-table :data="checkdata" style="margin-top: 30px;width: 100%;" height="500px" >
 
-              <el-table-column label="序列号" align="center" type="index" width="100">
+              <el-table-column label="序列号" align="center" type="index"  width="200">
               </el-table-column>
-    <el-table-column label="公司名" align="center" type="index" width="100" prop="companyName">
-    </el-table-column>
-      <el-table-column label="公司编号" align="center" type="index" width="100" prop="companyInfo">
+              <el-table-column label="公司名" align="center" width="200" prop="companyName">
+              </el-table-column>
+              <el-table-column label="公司编号" align="center"width="200" prop="companyInfo">
           </el-table-column>
-          <el-table-column label="添加时间" align="center" type="index" width="100" prop="createTime">
+          <el-table-column label="添加时间" align="center"  width="200" prop="createTime">
               </el-table-column>
 
-            </el-table>
+   </el-table>
   </div>
 </template>
 
@@ -89,6 +89,7 @@ export default{
          api.checkcompany().then(response => {
            console.log('查询公司',response);
             this.checkdata=response.data.data;
+            console.log(this.checkdata);
          });
        },
         company:function(){

@@ -142,14 +142,21 @@ function setActivityRules(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除活动
-function deleteActivity(params) {
+function deleteActivity(id) {
   let fd = new FormData();
-  fd.append('activityId ', params.id);
+  fd.append('activityId ', id);
   // fd.append('empNum', params.empNum);
   return Axios.post("/api/activity/deleteActivity", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
-
+// 删除策略
+function delectestrategy(id) {
+  let fd = new FormData();
+  fd.append('activityStrategyId ', id);
+  // fd.append('empNum', params.empNum);
+  return Axios.post("/api/activity/deleteActivityStrategy", fd, { responseType: 'arraybuffer' });
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
 function getActivityDetail(id) {
     let params = {
       params: {
@@ -158,6 +165,12 @@ function getActivityDetail(id) {
     }
   return Axios.get("/api/wareHouse/findActivityResult",params);
 }
+// /strategy/delterUserEvaluationTemplate
+
+
+
+
+
 function addActivity(params) {
 console.log(params)
   let fd = new FormData();
@@ -382,6 +395,7 @@ export default {
    findUserTemplate:findUserTemplate,
    addCompany:addCompany,
    checkcompany:checkcompany,
-   checkTemplateWeight:checkTemplateWeight
+   checkTemplateWeight:checkTemplateWeight,
+   delectestrategy:delectestrategy
 
 };
