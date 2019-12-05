@@ -36,7 +36,7 @@
        </el-form-item>
        <br>
        <el-form-item  label="评分权重" label-width="100px" prop="evaluateWeight">
-         <el-input v-model="templateData.evaluateWeight"  placeholder="评分权重"></el-input>
+         <el-input v-model="templateData.evaluateWeight"  placeholder="评分权重" type="number"></el-input>
        </el-form-item>
         <br>
         <el-form-item style="margin-top: 20px;margin-left: 19%;" >
@@ -122,8 +122,9 @@
     },
     methods: {
       add:function(){
-        var he=this.templateWeight+this.templateData.evaluateWeight
-          if(he>0){
+        var he=Number(this.templateWeight) + Number(this.templateData.evaluateWeight);
+        console.log(this.templateData.evaluateWeight,this.templateWeight)
+          if(he>1){
             this.$message({
               message: "权重之和不能超过1",
 

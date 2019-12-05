@@ -135,7 +135,7 @@ white-space: nowrap;">
               <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==0" style="background:#E04C2F;border:1px solid  #E04C2F;" size="mini" @click="control(scope.row.id)">开启活动</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==1" style="background:#bbb;border:1px solid  #bbb;"  size="mini" @click="control(scope.row.id)">关闭活动</el-button>
-              <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
+              <el-button type="danger" plain icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
             </template>
           </el-table-column>
 
@@ -180,9 +180,10 @@ white-space: nowrap;">
           <el-table-column label="操作" width="320" align="center" fixed="right">
             <template slot-scope="scope">
               <!-- <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleRole(scope.row.id)">编辑</el-button> -->
-              <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
+
               <el-button type="success" @click="addcerule(scope.row.id)" size="small" style="margin-right: 2px;">添加规则</el-button>
               <el-button type="success" @click="getStrategyRule(scope.row.id)" size="small">查询规则</el-button>
+              <el-button type="danger" icon="el-icon-delete" @click="delectestrategy(scope.row.id)" size="mini">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -388,6 +389,23 @@ white-space: nowrap;">
 
     },
     methods: {
+      delectestrategy:function(id){
+        api.delectestrategy(id).then(response => {
+          console.log(response);
+          if (response.status === 200) {
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+                   this.getStrategy1()
+          } else {
+            this.$message({
+              message: "提交失败",
+
+            });
+          }
+        });
+      },
       // 上传图片
       upLoadPic: function(row) {
         // this.goodId = row.id;
@@ -526,25 +544,36 @@ white-space: nowrap;">
             this.$confirm("确认提交吗？", "提示", {}).then(() => {
               // this.addLoading = true;
               console.log(this.addrule);
-               if(this.addrule.ruleValueType=='线上线下评分'){
-                 this.addrule.ruleValueType='record_score'
+              var  arr=this.addrule;
+               var  arr1=arr;
+               if( arr1.ruleValueType=='线上线下评分'){
+                 arr1.ruleValueType='record_score';
+                this.addrule={};
                }
-               if(this.addrule.ruleValueType=='星星投票'){
-                 this.addrule.ruleValueType='vote_ticket_count'
+               if( arr1.ruleValueType=='星星投票'){
+                arr1.ruleValueType='vote_ticket_count';
+                this.addrule={};
                }
-               if(this.addrule.ruleValueType=='内部选举'){
-                 this.addrule.ruleValueType='internal_election'
+               if( arr1.ruleValueType=='内部选举'){
+                 arr1.ruleValueType='internal_election';
+                 this.addrule={};
                }
-               if(this.addrule.ruleValueType=='公共选举'){
-                 this.addrule.ruleValueType='public_praise'
+               if( arr1.ruleValueType=='公共选举'){
+                 arr1.ruleValueType='public_praise';
+                 this.addrule={};
                }
-               if(this.addrule.ruleValueType=='投票人'){
-                 this.addrule.ruleValueType='elector'
+               if( arr1.ruleValueType=='投票人'){
+                arr1.ruleValueType='elector';
+                this.addrule={};
                }
-               if(this.addrule.ruleValueType=='被投票人'){
-                 this.addrule.ruleValueType='elected'
+               if( arr1.ruleValueType=='被投票人'){
+                 arr1.ruleValueType='elected';
+                 this.addrule={};
                }
-              api.addStrategyRule(this.addrule).then(response => {
+
+
+
+              api.addStrategyRule(arr1).then(response => {
                 console.log(response)
                 if (response.status === 200) {
                   this.$message({
@@ -636,9 +665,21 @@ white-space: nowrap;">
       //删除活动
       delecteActive: function(id) {
         console.log(id);
-        api.deleteActivityStrategy(id).then(response => {
+
+        api.deleteActivity(id).then(response => {
           console.log('活动列表', response);
-          // this.activeData = response.data.data;
+          if(response.status==200){
+            this.$message({
+              message: "删除成功",
+              type: "success"
+            });
+            this.getActive()
+          }else{
+            this.$message({
+              message: "删除失败",
+              type: "success"
+            });
+          }
         })
       },
       getActive: function() {

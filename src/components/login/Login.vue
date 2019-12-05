@@ -117,6 +117,7 @@ export default {
                   message: "发送成功",
                   type: "success"
                 });
+                 main.code1=response.data.data;
                 main.code=response.data.data;
             } else {
               this.$message({
@@ -166,6 +167,7 @@ export default {
         });
         main.code="";
          main.phone="";
+          main.code1="";
       }
 
 
