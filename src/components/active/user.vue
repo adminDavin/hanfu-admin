@@ -25,7 +25,7 @@
           </el-table-column>
           <el-table-column label="操作" align="center"  width="200" >
               <template slot-scope="scope">
-                   <el-button type="danger" icon="el-icon-delete"  size="mini">删除</el-button>
+                   <el-button type="danger" icon="el-icon-delete"  size="mini" @click="delecteuser(scope.row.id)">删除</el-button>
               </template>
           </el-table-column>
    </el-table>
@@ -70,6 +70,12 @@ export default{
 
              }
            }
+         })
+       },
+       delecteuser: function(id) {
+         api.deleteuser(id).then(response => {
+           console.log('删除用户', response);
+
          })
        }
 

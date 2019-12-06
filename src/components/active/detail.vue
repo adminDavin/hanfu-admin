@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" style="padding-bottom: 100px;">
+  <div style="padding-bottom:100px;overflow: auto;" >
 
 
  <div  style="padding: 20px 20px 0 40px; ">

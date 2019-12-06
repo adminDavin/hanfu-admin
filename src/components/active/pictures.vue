@@ -18,7 +18,7 @@
       <div  v-for="(item,index) in pic" style="margin-right: 10px;position: relative;width: 130px;height: 130px;" >
         <img   :src="item.img" alt="" style="width: 130px;height: 130px;">
         <div style="position: absolute;width:100%;height: 100%;background: rgba(0,0,0,0.5); top:0;left:0; display: flex;
-        justify-content: center;align-items: center;">
+        justify-content: center;align-items: center;"  v-if="item.id!=34">
             <img src="../../img/del.png" style="width: 20px;"  alt="" @click="lun(index)">
         </div>
       </div>
