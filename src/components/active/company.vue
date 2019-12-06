@@ -30,8 +30,14 @@
               <el-table-column label="公司名" align="center" width="200" prop="companyName">
               </el-table-column>
               <el-table-column label="公司编号" align="center"width="200" prop="companyInfo">
-          </el-table-column>
-          <el-table-column label="添加时间" align="center"  width="200" prop="createTime">
+              </el-table-column>
+              <el-table-column label="添加时间" align="center"  width="200" prop="createTime">
+              </el-table-column>
+              <el-table-column  align="center"  width="200" prop="createTime">
+                  <template slot-scope="scope">
+                      <el-button type="success" @click="department(scope.row.id)">部门</el-button>
+
+                  </template>
               </el-table-column>
 
    </el-table>
@@ -64,6 +70,9 @@ export default{
      this.check();
    },
      methods:{
+       department:function(id){
+         this.$router.push({'name':'department',query:{'id':id}})
+       },
        submintCompany:function(){
          this.$refs.addrules.validate(valid => {
            if (valid) {

@@ -375,6 +375,27 @@ function deleteuser(id){
 
   return Axios.get("/user/user/deleteUser", params);
 }
+function updateDepartment(params) {
+
+  let fd = new FormData();
+
+  fd.append('companyId', params.companyId );
+  fd.append('departmentName', params.departmentName);
+  // fd.append('empNum', params.empNum);
+  return Axios.post("/api/wareHouse/updateDepartment", fd, { responseType: 'arraybuffer' });
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
+
+function findDepartment(id){
+
+  let params = {
+      params: {
+        companyId:id
+      }
+    }
+
+  return Axios.get("/api/wareHouse/findDepartmentByCompany", params);
+}
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -408,6 +429,7 @@ export default {
    checkcompany:checkcompany,
    checkTemplateWeight:checkTemplateWeight,
    delectestrategy:delectestrategy,
-   deleteuser:deleteuser
-
+   deleteuser:deleteuser,
+   updateDepartment:updateDepartment,
+   findDepartment:findDepartment
 };

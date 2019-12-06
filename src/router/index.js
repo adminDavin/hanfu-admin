@@ -17,14 +17,14 @@ const router = new VueRouter({
         title: '登录'
       }
     },
-    // {
-    //   name: 'picture',
-    //   path: '/picture',
-    //   component: resolve => require(['@/components/active/picture.vue'], resolve),
-    //   meta: {
-    //     title: '奖品'
-    //   }
-    // },
+ {
+   name: 'department',
+   path: '/department',
+   component: resolve => require(['@/components/active/department.vue'], resolve),
+   meta: {
+     title: '部门'
+   }
+ },
     {
       name: 'award',
       path: '/award',
