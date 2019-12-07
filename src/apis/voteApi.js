@@ -20,7 +20,7 @@ function EvaluationTemplate(params) {
   fd.append('evaluateType', params.evaluateType);
   fd.append('evaluateWeight', params.evaluateWeight);
   fd.append('parentTemplateId', params.parentTemplateId);
-
+   fd.append('evaluateType', params.evaluateType);
   return Axios.post("/api/strategy/addUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }

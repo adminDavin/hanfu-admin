@@ -111,7 +111,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="strategyId" label="活动策略" width="200" align="center">
+          <el-table-column prop="strategyId" label="活动策略" width="200" align="center" >
             <template slot-scope="scope" >
 
               <div  @click="strategy(scope.row.strategyId,scope.row.id,scope.row.type)" style="color: #fff;font-size: 14px;
@@ -119,7 +119,7 @@
 text-overflow:ellipsis;overflow: hidden;
 line-height:40px ;
 text-align: center;
-white-space: nowrap;">
+white-space: nowrap;cursor:pointer;">
                查看
               </div>
               <!-- <el-button type="info" width="300" size="medium"  ></el-button> -->
@@ -132,7 +132,7 @@ white-space: nowrap;">
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
+              <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId,scope.row.type)">活动详情</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==0" style="background:#E04C2F;border:1px solid  #E04C2F;" size="mini" @click="control(scope.row.id)">开启活动</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==1" style="background:#bbb;border:1px solid  #bbb;"  size="mini" @click="control(scope.row.id)">关闭活动</el-button>
               <el-button type="danger" plain icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
@@ -657,12 +657,13 @@ white-space: nowrap;">
           }
         });
       },
-      editActive: function(id, strategyId) {
+      editActive: function(id, strategyId,type) {
         this.$router.push({
           name: 'activityDetail',
           query: {
             'id': id,
-            'strategyId': strategyId
+            'strategyId': strategyId,
+            'type':type
           }
         });
       },

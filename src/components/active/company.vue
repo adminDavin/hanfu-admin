@@ -1,54 +1,70 @@
 <template>
-  <div>
-    <div style="background:rgb(51, 218, 193) ;color: #fff;  width: 100px;padding: 10px 20px;text-align: center;float: right;
-    margin-right: 100px;
-    font-size: 14px;
-    border-radius: 4px;" @click="company">
-      添加公司
-    </div>
-    <el-dialog title="添加公司" :visible.sync="ruletost" :close-on-click-modal="false"  class="demo-form-inline">
-      <el-form :inline="true" :model='addcompany' label-width="80px" :rules="addcompanyRules" ref="addrules">
-        <el-form-item label="公司名称" prop="companyName" label-width="120px">
-          <el-input v-model="addcompany.companyName" auto-complete="off"></el-input>
-        </el-form-item>
-        <br>
-        <el-form-item label="公司编号" prop="companyInfo" label-width="120px">
-          <el-input v-model="addcompany.companyInfo" auto-complete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <template>
-            <el-button @click="ruletost=false">取消</el-button>
-            <el-button type="primary" @click="submintCompany">提交</el-button>
-        </template>
+  <div style="display: flex;">
+    <div style="width: 56%;">
+      <div style="background:rgb(51, 218, 193) ;color: #fff;  width: 100px;padding: 10px 20px;text-align: center;float: right;
+      margin-right: 100px;
+      font-size: 14px;
+      border-radius: 4px;" @click="company">
+        添加公司
       </div>
-    </el-dialog>
-    <el-table :data="checkdata" style="margin-top: 30px;width: 100%;" height="500px" >
+      <el-dialog title="添加公司" :visible.sync="ruletost" :close-on-click-modal="false"  class="demo-form-inline">
+        <el-form :inline="true" :model='addcompany' label-width="80px" :rules="addcompanyRules" ref="addrules">
+          <el-form-item label="公司名称" prop="companyName" label-width="120px">
+            <el-input v-model="addcompany.companyName" auto-complete="off"></el-input>
+          </el-form-item>
+          <br>
+          <el-form-item label="公司编号" prop="companyInfo" label-width="120px">
+            <el-input v-model="addcompany.companyInfo" auto-complete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <template>
+              <el-button @click="ruletost=false">取消</el-button>
+              <el-button type="primary" @click="submintCompany">提交</el-button>
+          </template>
+        </div>
+      </el-dialog>
 
-              <el-table-column label="序列号" align="center" type="index"  width="200">
-              </el-table-column>
-              <el-table-column label="公司名" align="center" width="200" prop="companyName">
-              </el-table-column>
-              <el-table-column label="公司编号" align="center"width="200" prop="companyInfo">
-              </el-table-column>
-              <el-table-column label="添加时间" align="center"  width="200" prop="createTime">
-              </el-table-column>
-              <el-table-column  align="center"  width="200" prop="createTime">
-                  <template slot-scope="scope">
-                      <el-button type="success" @click="department(scope.row.id)">部门</el-button>
 
-                  </template>
-              </el-table-column>
+      <div>
+        <el-table :data="checkdata" style="margin-top: 30px;">
 
-   </el-table>
+                  <el-table-column label="序列号" align="center" type="index"  width="200">
+                  </el-table-column>
+                  <el-table-column label="公司名" align="center" width="200" prop="companyName">
+                  </el-table-column>
+                  <el-table-column label="公司编号" align="center"width="200" prop="companyInfo">
+                  </el-table-column>
+                  <el-table-column label="添加时间" align="center"  width="200" prop="createTime">
+                  </el-table-column>
+                  <el-table-column  align="center"  width="200" prop="createTime">
+                      <template slot-scope="scope">
+                          <el-button type="success" @click="department(scope.row.id)">部门</el-button>
+                      </template>
+                 </el-table-column>
+          </el-table>
+
+      </div>
+
+
+    </div>
+    <div>
+      <department  :title='title'></department>
+    </div>
   </div>
+
 </template>
 
 <script>
 import api from '@/apis/voteApi.js';
+import department from './department';
 export default{
+  components: {
+    department
+  },
    data() {
      return{
+       title:'',
        checkdata:[],
         addcompany:{},
         ruletost:false,
@@ -69,9 +85,11 @@ export default{
    mounted() {
      this.check();
    },
+
      methods:{
        department:function(id){
-         this.$router.push({'name':'department',query:{'id':id}})
+         this.title=id
+         // this.$router.push({'name':'department',query:{'id':id}})
        },
        submintCompany:function(){
          this.$refs.addrules.validate(valid => {
@@ -99,7 +117,9 @@ export default{
            console.log('查询公司',response);
             this.checkdata=response.data.data;
             console.log(this.checkdata);
+            this.title=this.checkdata[0].id
          });
+         
        },
         company:function(){
           this.ruletost=true;

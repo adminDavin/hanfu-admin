@@ -28,9 +28,13 @@
          <el-input :value="detaildata.createTime" :disabled="true" placeholder="审批人"></el-input>
        </el-form-item>
      </el-form>
-     <el-form :inline="true" :model="templateData"  ref="addFormRules"  :rules="addFormRules"  class="demo-form-inline"
-     style=" border-radius:10px;height: 227px; padding:30px;
+     <el-form v-if="type=='score'" :inline="true" :model="templateData"  ref="addFormRules"  :rules="addFormRules"  class="demo-form-inline"
+     style=" border-radius:10px;height: 257px; padding:30px;
      border:1px solid #00D1B2; margin-top: 40px;margin-left: 100px;" label="活动详情">
+     <el-form-item label-width="100px"  >
+      <div style="font-size: 20px;text-align: center;">评优事迹:</div>
+     </el-form-item>
+     <br>
        <el-form-item  label="评分项名称" label-width="100px" prop="evaluateType">
          <el-input  v-model="templateData.evaluateType"  placeholder="评分项名称"></el-input>
        </el-form-item>
@@ -46,16 +50,36 @@
         </el-form-item>
 
      </el-form>
+      <el-form v-if="type=='score'" :inline="true" :model="templateData1"  ref="addFormRules1"  :rules="addFormRules"  class="demo-form-inline"
+      style=" border-radius:10px;height: 257px; padding:30px;
+      border:1px solid #00D1B2; margin-top: 40px;margin-left: 100px;" label="活动详情">
+        <el-form-item label-width="100px"  >
+         <div style="font-size: 20px;text-align: center;">现场汇报:</div>
+        </el-form-item>
+        <br>
+        <el-form-item  label="评分项名称" label-width="100px" prop="evaluateType">
+          <el-input  v-model="templateData1.evaluateType"  placeholder="评分项名称"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item  label="评分权重" label-width="100px" prop="evaluateWeight">
+          <el-input v-model="templateData1.evaluateWeight"  placeholder="评分权重" type="number"></el-input>
+        </el-form-item>
+         <br>
+         <el-form-item style="margin-top: 20px;margin-left: 19%;" >
+           <template slot-scope="scope" >
+               <el-button type="primary"  size="medium" style="width: 200px;" @click="add1" >添加</el-button>
+            </template>
+         </el-form-item>
 
+      </el-form>
    </div>
 
-<div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;">评分项</div>
-      <el-table :data="templatedata" style="margin-top: 20px;width: 80%;margin-left: -22px;" title="评分项列表">
+<div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;"  v-if="type=='score'">评分项</div>
+      <el-table :data="templatedata" style="margin-top: 20px;width: 80%;margin-left: -22px;" title="评分项列表"  v-if="type=='score'">
         <el-table-column prop="evaluateType" label="评分项名称" width="150" align="center">
         </el-table-column>
         <el-table-column prop="evaluateWeight" label="评分权重" width="150" align="center">
         </el-table-column>
-
       </el-table>
       <div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;">规则列表</div>
       <el-table :data="StrategyRule" style="margin-top: 20px;width: 80%;margin-left: -22px;"  title="规则列表">
@@ -88,6 +112,8 @@
     },
     data() {
       return {
+        templateData1:{},
+        type:'',
         templateWeight:0,
         templatedata:[],
        addFormRules: {
@@ -114,6 +140,7 @@
     },
     mounted() {
       this.id = this.$route.query.id;
+        this.type = this.$route.query.type;
       this.templateData.parentTemplateId = this.$route.query.id;
       this.getDetail();
       this.getStrategyRule();
@@ -122,6 +149,7 @@
     },
     methods: {
       add:function(){
+       this.templateData.evaluateType=0;
         var he=Number(this.templateWeight) + Number(this.templateData.evaluateWeight);
         console.log(this.templateData.evaluateWeight,this.templateWeight)
           if(he>1){
@@ -145,6 +173,31 @@
           });
 
         },
+        add1:function(){
+               this.templateData1.evaluateType=1;
+                var he=Number(this.templateWeight) + Number(this.templateData1.evaluateWeight);
+                console.log(this.templateData1.evaluateWeight,this.templateWeight)
+                  if(he>1){
+                    this.$message({
+                      message: "权重之和不能超过1",
+
+                    });
+                    return;
+                  }
+                  this.$refs.addFormRules1.validate(valid => {
+                    if (valid) {
+                  this.$confirm("确认添加吗？", "提示", {}).then(() => {
+                  console.log(this.templateData1)
+                  api.EvaluationTemplate(this.templateData1).then(response => {
+                    console.log('评分项', response);
+                    this.findUserTemplate()
+                  })
+
+                  });
+        }
+                  });
+
+                },
   checkWeight:function(){
     api.checkTemplateWeight(this.id).then(response => {
       console.log('查找权重', response);

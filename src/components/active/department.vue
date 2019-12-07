@@ -1,16 +1,16 @@
 <template>
-  <div style="padding: 20px 20px 0px 40px;">
-    <div style="font-size: 18px;
+  <div style="padding: 0px 20px 0px 40px;">
+    <!-- <div style="font-size: 18px;
     background: rgb(0, 209, 207);
     color: rgb(255, 255, 255);
     padding: 10px;
     border-radius: 4px;">
       部门
-    </div>
-
+    </div> -->
+<!-- {{title}} -->
     <div>
       <el-button type="primary"  style="margin-right: 60px; margin-bottom: 20px; overflow: hidden;
-       margin-top: 20px;margin-left: 20px;float:right;" @click="adddepartdent">添加部门</el-button>
+       margin-left: 20px;float:right;" @click="adddepartdent">添加部门</el-button>
     </div>
     <el-dialog title="添加部门" :visible.sync="addFormVisible" :close-on-click-modal="false">
       <el-form :inline="true" :model='addForm' label-width="80px" :rules="bianRules" ref="addForm">
@@ -54,6 +54,13 @@
 <script>
    import api from '@/apis/voteApi.js';
  export default{
+    props: ['title'],
+
+            // props: {
+
+            //      'title':[String],
+
+            // },
     data(){
       return {
         list:[],
@@ -71,13 +78,23 @@
       }
     },
     mounted() {
-        this.id = this.$route.query.id;
-        this.addForm.companyId=this.$route.query.id;
+        // this.id = this.$route.query.id;
+        // this.addForm.companyId=this.$route.query.id;
+
+        this.addForm.companyId=this.title;
+        // this.findDepartment();
+    },
+    watch:{
+      'title':function(){
+        console.log(111)
+         this.id = this.title;
+          this.addForm.companyId=this.title;
         this.findDepartment();
+      }
     },
     methods:{
       findDepartment:function(){
-        api.findDepartment(this.id).then(response => {
+        api.findDepartment(this.title).then(response => {
           console.log(response)
           this.list=response.data.data;
         });

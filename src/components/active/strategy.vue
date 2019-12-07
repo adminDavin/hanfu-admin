@@ -87,7 +87,7 @@
               <el-radio :label="scope.row.id" v-model="templateRadio"  @change="getTemplateRow(scope.row)"></el-radio>
             </template>
           </el-table-column> -->
-         <el-table-column prop="id"  label="规则编号"  fixed width="120" align="center" >
+         <el-table-column prop="id" style="background: #000;" label="规则编号"  fixed width="120" align="center" >
           </el-table-column>
           <el-table-column prop="ruleName" label="规则名称"  width="120" align="center" >
           </el-table-column>
@@ -95,13 +95,14 @@
           </el-table-column>
           <el-table-column prop="ruleDesc" label="规则描述" width="150" align="center">
           </el-table-column>
-          <el-table-column  label="规则值" width="200" align="center"  >
-           <template slot-scope="scope">
+          <el-table-column  label="人数上限" width="200" align="center"  >
+           <template slot-scope="scope" v-if="scope.row.ruleValueType=='user_list'">
               <el-input size="small" v-model="scope.row.ruleValue"  placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleValue)"
                 style="text-align:center; vertical-align:middel;text-align: center;"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="ruleValueType" label="规则值类型" width="200" align="center">
+          <el-table-column prop="ruleValueType"    label="规则值类型" width="200" align="center">
+
           </el-table-column>
           <el-table-column prop="createTime" label="创建时间"  width="200" align="center">
           </el-table-column>
@@ -191,7 +192,7 @@
           </el-table>
           <div style="overflow: hidden;">
             <el-button type="danger"  @click="deleteperson1()" style="float: right;margin-top: 20px;">批量删除参与人</el-button>
-            <el-button type="primary" @click="ma()" style="float: right;margin-right: 10%;margin-top: 20px;">批量生成参与码</el-button>
+            <el-button type="primary" @click="ma()" style="float: right;margin-right: 10%;margin-top: 20px;" v-if="type!='election'">批量生成参与码</el-button>
           </div>
 
           <el-dialog title="所有人员" :visible.sync="ren" :close-on-click-modal="false">
