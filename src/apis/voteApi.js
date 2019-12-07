@@ -16,27 +16,41 @@ function EvaluationTemplate(params) {
   console.log(1111);
   console.log(params)
   let fd = new FormData();
-  // console.log(params.evaluateType,params.evaluateType)
+  fd.append('evaluateContent', params.evaluateContent);
   fd.append('evaluateType', params.evaluateType);
   fd.append('evaluateWeight', params.evaluateWeight);
+  fd.append('isDeleted', params.isDeleted);
   fd.append('parentTemplateId', params.parentTemplateId);
-   fd.append('evaluateType', params.evaluateType);
+  fd.append('remarks', params.remarks);
+
   return Axios.post("/api/strategy/addUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
-function checkTemplateWeight(id) {
+function checkTemplateWeight(data) {
+  console.log(data)
     let params = {
       params: {
-        activityId : id,
-
+        activityId:data.activityId,
+        type: data.type
       }
     }
 
   return Axios.get("/api/strategy/findEvaluationTemplateWeight",params);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
+function checkTemplateWeight1(data) {
+  console.log(data)
+    let params = {
+      params: {
+        activityId:data.activityId,
+        type: data.type
+      }
+    }
 
+  return Axios.get("/api/strategy/findEvaluationTemplateWeight",params);
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+}
 // 添加奖品
 function getDepartment(params) {
   //   let params = {
@@ -353,12 +367,12 @@ function checkcompany(){
   return Axios.post("/api/strategy/findCompany");
 }
 // 根据活动id查评分模板
-function findUserTemplate(activityId){
+function findUserTemplate(data){
 
   let params = {
       params: {
-        activityId:activityId,
-
+        activityId:data.activityId,
+        type:data.type
       }
     }
 
@@ -431,5 +445,6 @@ export default {
    delectestrategy:delectestrategy,
    deleteuser:deleteuser,
    updateDepartment:updateDepartment,
-   findDepartment:findDepartment
+   findDepartment:findDepartment,
+   checkTemplateWeight1:checkTemplateWeight1
 };
