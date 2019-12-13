@@ -362,9 +362,7 @@ function getStrategyRuleByActive(id){
 }
 // 根据活动id查策略规则
 function checkcompany(){
-
-
-  return Axios.post("/api/strategy/findCompany");
+  return Axios.get("/api/strategy/findCompany");
 }
 // 根据活动id查评分模板
 function findUserTemplate(data){
@@ -408,7 +406,7 @@ function findDepartment(id){
       }
     }
 
-  return Axios.get("/api/wareHouse/findDepartmentByCompany", params);
+  return Axios.get("/api/strategy/findDepartmentByCompanyId", params);
 }
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,

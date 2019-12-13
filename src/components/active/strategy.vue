@@ -87,6 +87,8 @@
               <el-radio :label="scope.row.id" v-model="templateRadio"  @change="getTemplateRow(scope.row)"></el-radio>
             </template>
           </el-table-column> -->
+          <el-table-column type="index" label="序号"  fixed width="120" align="center" >
+           </el-table-column>
          <el-table-column prop="id" style="background: #000;" label="规则编号"  fixed width="120" align="center" >
           </el-table-column>
           <el-table-column prop="ruleName" label="规则名称"  width="120" align="center" >

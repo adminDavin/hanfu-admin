@@ -93,6 +93,7 @@
       }
     },
     methods:{
+		
       findDepartment:function(){
         api.findDepartment(this.title).then(response => {
           console.log(response)

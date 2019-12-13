@@ -151,7 +151,14 @@ export default {
 
         api.login(data).then(response => {
           console.log(response);
-          if (response.status === 200) {
+          if(response.data.data=="还未注册"){
+            this.$message({
+              message: "此用户还未注册",
+
+            });
+          return;
+          }
+         else if (response.status === 200) {
               this.$message({
                 message: "登录成功",
                 type: "success"

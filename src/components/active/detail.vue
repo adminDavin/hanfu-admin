@@ -44,7 +44,7 @@
        </el-form-item>
         <br>
         <el-form-item  label="备注" label-width="100px" prop="remarks">
-          <el-input v-model="templateData.remarks"  placeholder="备注" type="number"></el-input>
+          <el-input v-model="templateData.remarks"  placeholder="备注" ></el-input>
         </el-form-item>
 
          <br>
@@ -71,7 +71,7 @@
         </el-form-item>
          <br>
          <el-form-item  label="评分内容" label-width="100px" prop="evaluateContent">
-           <el-input v-model="templateData1.evaluateContent"  placeholder="评分内容" type="number"></el-input>
+           <el-input v-model="templateData1.evaluateContent"  placeholder="评分内容"></el-input>
          </el-form-item>
           <br>
 
@@ -221,7 +221,17 @@
     methods: {
       add:function(){
        this.templateData.isDeleted=0;
-        var he=Number(this.templateWeight) + Number(this.templateData.evaluateWeight);
+       console.log(this.templateWeight);
+       if(this.templateData.evaluateWeight<0||this.templateData.evaluateWeight==0||this.templateData.evaluateWeight>1){
+         this.$message({
+           message: "权重范围在0~1之间",
+
+         });
+         return;
+       }
+       console.log(this.templateData.evaluateWeight)
+        let he=Number(this.templateWeight) + Number(this.templateData.evaluateWeight);
+        console.log(he)
         console.log(this.templateData.evaluateWeight,this.templateWeight)
           if(he>1){
             this.$message({
@@ -246,7 +256,14 @@
         },
         add1:function(){
                this.templateData1.isDeleted=1;
-                var he=Number(this.templateWeight1) + Number(this.templateData1.evaluateWeight);
+               if(this.templateData1.evaluateWeight<0||this.templateData1.evaluateWeight==0||this.templateData1.evaluateWeight>1){
+                 this.$message({
+                   message: "权重范围在0~1之间",
+
+                 });
+                 return;
+               }
+                let he=Number(this.templateWeight1) + Number(this.templateData1.evaluateWeight);
                 console.log(this.templateData1.evaluateWeight,this.templateWeight)
                   if(he>1){
                     this.$message({

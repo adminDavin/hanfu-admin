@@ -12,14 +12,14 @@
 
                 </template>
               </el-table-column>
-              <el-table-column label="用户名" align="center" width="200" prop="nickName">
+              <el-table-column label="微信名" align="center" width="200" prop="nickName">
+              </el-table-column>
+              <el-table-column label="真实姓名" align="center"width="200" prop="realName">
               </el-table-column>
               <el-table-column label="手机号" align="center"width="200" prop="phone">
           </el-table-column>
-          <el-table-column label="地址" align="center"width="200" prop="address">
-          </el-table-column>
-          <el-table-column label="邮箱" align="center"width="200" prop="email">
-          </el-table-column>
+        
+
 
           <el-table-column label="添加时间" align="center"  width="200" prop="createDate">
           </el-table-column>
