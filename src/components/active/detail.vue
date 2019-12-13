@@ -28,7 +28,7 @@
          <el-input :value="detaildata.createTime" :disabled="true" placeholder="审批人"></el-input>
        </el-form-item>
      </el-form>
-     <el-form v-if="type=='score'" :inline="true" :model="templateData"  ref="addFormRules"  :rules="addFormRules"  class="demo-form-inline"
+     <el-form  :inline="true" :model="templateData"  ref="addFormRules"  :rules="addFormRules"  class="demo-form-inline"
      style=" border-radius:10px;height: 357px; padding:30px;
      border:1px solid #00D1B2; margin-top: 40px;margin-left: 100px;" label="活动详情">
      <el-form-item label-width="100px"  >
@@ -84,8 +84,8 @@
       </el-form>
    </div>
 
-<div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;"  v-if="type=='score'">评优事迹</div>
-      <el-table :data="templatedata" style="margin-top: 20px;width: 80%;margin-left: -22px;" title="评分项列表"  v-if="type=='score'">
+<div style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;"  >评优事迹</div>
+      <el-table :data="templatedata" style="margin-top: 20px;width: 80%;margin-left: -22px;" title="评分项列表" >
         <el-table-column prop="evaluateType" label="评分项名称" width="150" align="center">
         </el-table-column>
         <el-table-column prop="evaluateWeight" label="评分权重" width="150" align="center">
