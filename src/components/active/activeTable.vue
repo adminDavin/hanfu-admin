@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
 
 
     <el-tabs v-model="activeName" @tab-click="handleClick" >
@@ -19,11 +19,11 @@
             </el-form-item>
             <br>
             <el-form-item label="活动状态" prop="activityStatus" label-width="120px">
-              <el-input v-model="addForm.activityStatus" auto-complete="off"></el-input>
+              <el-input v-model="addForm.activityStatus" :disabled="true" auto-complete="off"></el-input>
             </el-form-item>
             <br>
             <el-form-item label="活动类型" prop="activiyType" label-width="120px">
-              <el-input v-model="addForm.activiyType" auto-complete="off"></el-input>
+              <el-input v-model="addForm.activiyType" :disabled="true" auto-complete="off"></el-input>
             </el-form-item>
             <br>
             <el-form-item prop="activiyType" label="活动策略" label-width="120px">
@@ -111,7 +111,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="strategyId" label="活动策略" width="200" align="center">
+          <el-table-column prop="strategyId" label="活动策略" width="200" align="center" >
             <template slot-scope="scope" >
 
               <div  @click="strategy(scope.row.strategyId,scope.row.id,scope.row.type)" style="color: #fff;font-size: 14px;
@@ -119,7 +119,7 @@
 text-overflow:ellipsis;overflow: hidden;
 line-height:40px ;
 text-align: center;
-white-space: nowrap;">
+white-space: nowrap;cursor:pointer;">
                查看
               </div>
               <!-- <el-button type="info" width="300" size="medium"  ></el-button> -->
@@ -132,10 +132,10 @@ white-space: nowrap;">
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId)">活动详情</el-button>
+              <el-button type="primary" size="mini" @click="editActive(scope.row.id,scope.row.strategyId,scope.row.type)">活动详情</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==0" style="background:#E04C2F;border:1px solid  #E04C2F;" size="mini" @click="control(scope.row.id)">开启活动</el-button>
               <el-button type="primary" v-if="scope.row.isTimingStart==1" style="background:#bbb;border:1px solid  #bbb;"  size="mini" @click="control(scope.row.id)">关闭活动</el-button>
-              <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
+              <el-button type="danger" plain icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button>
             </template>
           </el-table-column>
 
@@ -153,12 +153,12 @@ white-space: nowrap;">
              </el-form-item>
              <br>
             <el-form-item label="活动策略状态" prop="strategyStatus" label-width="120px">
-              <el-input v-model="addceform.strategyStatus" auto-complete="off"></el-input>
+              <el-input v-model="addceform.strategyStatus" :disabled="true" auto-complete="off"></el-input>
             </el-form-item>
-            <br>
+            <!-- <br>
              <el-form-item label="活动策略类型" prop="strategyType" label-width="120px">
-               <el-input v-model="addceform.strategyType" auto-complete="off"></el-input>
-             </el-form-item>
+               <el-input v-model="addceform.strategyType" :disabled="true"  auto-complete="off"></el-input>
+             </el-form-item> -->
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="addce=false">取消</el-button>
@@ -171,8 +171,8 @@ white-space: nowrap;">
           </el-table-column>
           <el-table-column prop="strategyStatus" label="策略状态" width="150" align="center">
           </el-table-column>
-          <el-table-column prop="strategyType" label="策略类型" width="120" align="center">
-          </el-table-column>
+          <!-- <el-table-column prop="strategyType" label="策略类型" width="120" align="center">
+          </el-table-column> -->
           <el-table-column prop="strategyDesc" label="策略描述" width="300" align="center">
           </el-table-column>
           <el-table-column prop="createTime" label="创建时间" width="300" align="center">
@@ -180,9 +180,10 @@ white-space: nowrap;">
           <el-table-column label="操作" width="320" align="center" fixed="right">
             <template slot-scope="scope">
               <!-- <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleRole(scope.row.id)">编辑</el-button> -->
-              <!-- <el-button type="danger" icon="el-icon-delete" @click="delecteActive(scope.row.id)" size="mini">删除</el-button> -->
+
               <el-button type="success" @click="addcerule(scope.row.id)" size="small" style="margin-right: 2px;">添加规则</el-button>
               <el-button type="success" @click="getStrategyRule(scope.row.id)" size="small">查询规则</el-button>
+              <el-button type="danger" icon="el-icon-delete" @click="delectestrategy(scope.row.id)" size="mini">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -198,12 +199,12 @@ white-space: nowrap;">
             </el-form-item>
             <br>
             <el-form-item label="规则状态" prop="ruleStatus" label-width="120px">
-              <el-input v-model="addrule.ruleStatus" auto-complete="off"></el-input>
+              <el-input v-model="addrule.ruleStatus" auto-complete="off" :disabled="true"></el-input>
             </el-form-item>
             <br>
 
             <el-form-item label="规则值" prop="ruleType" label-width="120px">
-              <el-input v-model="addrule.ruleType" auto-complete="off"></el-input>
+              <el-input v-model="addrule.ruleType" auto-complete="off" :disabled="true"></el-input>
             </el-form-item>
             <br>
             <el-form-item label="规则值类型" prop="ruleValueType" label-width="120px">
@@ -254,6 +255,15 @@ white-space: nowrap;">
           </div>
         </el-dialog>
       </el-tab-pane>
+      <el-tab-pane label="公司管理" name="third">
+        <company></company>
+      </el-tab-pane>
+      <el-tab-pane label="用户管理" name="five">
+        <user></user>
+      </el-tab-pane>
+       <el-tab-pane label="轮播图管理" name="fourth">
+         <pic ></pic>
+       </el-tab-pane>
 
     </el-tabs>
 
@@ -263,10 +273,16 @@ white-space: nowrap;">
 
 <script>
   import api from '@/apis/voteApi.js';
+  import company from './company';
+  import pic from './pictures';
+   import user from './user';
   export default {
-
+    components: {
+     pic, company ,user
+    },
     data() {
       return {
+         selectedGoods: {},
         addceformRules:{
           strategyDesc: [{
             required: true,
@@ -278,16 +294,16 @@ white-space: nowrap;">
             message: "活动策略名称",
             trigger: "blur"
           }],
-          strategyStatus: [{
-            required: true,
-            message: "活动策略状态",
-            trigger: "blur"
-          }],
-          strategyType: [{
-            required: true,
-            message: "活动策略类型",
-            trigger: "blur"
-          }]
+          // strategyStatus: [{
+          //   required: true,
+          //   message: "活动策略状态",
+          //   trigger: "blur"
+          // }],
+          // strategyType: [{
+          //   required: true,
+          //   message: "活动策略类型",
+          //   trigger: "blur"
+          // }]
 
         },
         addceform:{},
@@ -306,16 +322,16 @@ white-space: nowrap;">
             message: "规则名字",
             trigger: "blur"
           }],
-          ruleStatus: [{
-            required: true,
-            message: "规则状态",
-            trigger: "blur"
-          }],
-          ruleType: [{
-            required: true,
-            message: "规则类型",
-            trigger: "blur"
-          }],
+          // ruleStatus: [{
+          //   required: true,
+          //   message: "规则状态",
+          //   trigger: "blur"
+          // }],
+          // ruleType: [{
+          //   required: true,
+          //   message: "规则类型",
+          //   trigger: "blur"
+          // }],
           ruleValueType: [{
             required: true,
             message: "规则值类型",
@@ -343,16 +359,16 @@ white-space: nowrap;">
             message: "活动名称",
             trigger: "blur"
           }],
-          activityStatus: [{
-            required: true,
-            message: "活动状态",
-            trigger: "blur"
-          }],
-          activiyType: [{
-            required: true,
-            message: "活动类型",
-            trigger: "blur"
-          }],
+          // activityStatus: [{
+          //   required: true,
+          //   message: "活动状态",
+          //   trigger: "blur"
+          // }],
+          // activiyType: [{
+          //   required: true,
+          //   message: "活动类型",
+          //   trigger: "blur"
+          // }],
           value: [{
             required: true,
             message: "选择活动策略",
@@ -377,6 +393,54 @@ white-space: nowrap;">
 
     },
     methods: {
+      delectestrategy:function(id){
+        api.delectestrategy(id).then(response => {
+          console.log(response);
+          if (response.status === 200) {
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+                   this.getStrategy1()
+          } else {
+            this.$message({
+              message: "提交失败",
+
+            });
+          }
+        });
+      },
+      // 上传图片
+      upLoadPic: function(row) {
+        // this.goodId = row.id;
+        // this.picOpen = true;
+        // this.selectedGoods = row;
+        // console.log(this.selectedGoods);
+        var main = this;
+        // console.log(this.goodId)
+        this.$ajax({
+          method: "get",
+          url: "/api/goods/pictures",
+          params: {
+            goodsId: main.goodId
+          }
+        }).then(
+          function(resultData) {
+            main.pics = resultData.data.data;
+            console.log('fwefwe', resultData);
+            for (var i = 0; i < main.pics.length; i++) {
+              main.pics[i].img = '/api/goods/getFile?fileId=' + main.pics[i].fileId;
+              console.log(main.pics[i].img)
+            }
+          },
+          function(resultData) {
+            // _this.tableData.message = "Local Reeuest Error!";
+            //console.log(resultData);
+            // for()
+          }
+        );
+
+      },
       control:function(id){
 
         api.start(id).then(response => {
@@ -417,7 +481,7 @@ white-space: nowrap;">
                 } else {
                   this.$message({
                     message: "提交失败",
-                    type: "success"
+
                   });
 
                   this.addce = false;
@@ -484,8 +548,36 @@ white-space: nowrap;">
             this.$confirm("确认提交吗？", "提示", {}).then(() => {
               // this.addLoading = true;
               console.log(this.addrule);
+              var  arr=this.addrule;
+               var  arr1=arr;
+               if( arr1.ruleValueType=='线上线下评分'){
+                 arr1.ruleValueType='record_score';
+                this.addrule={};
+               }
+               if( arr1.ruleValueType=='星星投票'){
+                arr1.ruleValueType='vote_ticket_count';
+                this.addrule={};
+               }
+               if( arr1.ruleValueType=='内部选举'){
+                 arr1.ruleValueType='internal_election';
+                 this.addrule={};
+               }
+               if( arr1.ruleValueType=='公共选举'){
+                 arr1.ruleValueType='public_praise';
+                 this.addrule={};
+               }
+               if( arr1.ruleValueType=='投票人'){
+                arr1.ruleValueType='elector';
+                this.addrule={};
+               }
+               if( arr1.ruleValueType=='被投票人'){
+                 arr1.ruleValueType='elected';
+                 this.addrule={};
+               }
 
-              api.addStrategyRule(this.addrule).then(response => {
+
+
+              api.addStrategyRule(arr1).then(response => {
                 console.log(response)
                 if (response.status === 200) {
                   this.$message({
@@ -565,21 +657,35 @@ white-space: nowrap;">
           }
         });
       },
-      editActive: function(id, strategyId) {
+      editActive: function(id, strategyId,type) {
         this.$router.push({
           name: 'activityDetail',
           query: {
             'id': id,
-            'strategyId': strategyId
+            'strategyId': strategyId,
+            'type':type
           }
         });
       },
       //删除活动
       delecteActive: function(id) {
         console.log(id);
-        api.deleteActivityStrategy(id).then(response => {
+         this.$confirm("确认删除吗？", "提示").then(() => {
+        api.deleteActivity(id).then(response => {
           console.log('活动列表', response);
-          // this.activeData = response.data.data;
+          if(response.status==200){
+            this.$message({
+              message: "删除成功",
+              type: "success"
+            });
+            this.getActive()
+          }else{
+            this.$message({
+              message: "删除失败",
+              type: "success"
+            });
+          }
+        })
         })
       },
       getActive: function() {

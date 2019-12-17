@@ -18,7 +18,7 @@
         <!-- <el-input v-model="" :disabled="true"   placeholder="审批人"></el-input> -->
       </el-form-item>
 
-      <el-form-item  label="">
+     <!-- <el-form-item  label="">
         <div style="display: flex;font-size: 15px;font-weight: 500;">
           <div>
             活动描述:
@@ -26,30 +26,28 @@
           <div>{{detaildata.activityDesc}}</div>
         </div>
 
-        <!-- <el-input v-model="" :disabled="true"   placeholder="审批人"></el-input> -->
-      </el-form-item>
 
-      <el-form-item  label="">
+      </el-form-item> -->
+
+     <!-- <el-form-item  label="">
         <div style="display: flex;font-size: 15px;font-weight: 500;">
           <div>
             活动状态:
           </div>
           <div>{{detaildata.activityStatus}}</div>
         </div>
-         <!-- <div>{{detaildata.activityStatus}}</div> -->
-        <!-- <el-input v-model="detaildata.activityStatus" :disabled="true"  placeholder="审批人"></el-input> -->
-      </el-form-item>
 
-      <el-form-item  label="">
+      </el-form-item> -->
+
+     <!-- <el-form-item  label="">
         <div style="display: flex;font-size: 15px;font-weight: 500;">
           <div>
             活动类型:
           </div>
           <div>{{detaildata.activiyType}}</div>
         </div>
-         <!-- <div>{{detaildata.activiyType}}</div> -->
-        <!-- <el-input v-model="detaildata.activiyType" :disabled="true"  placeholder="审批人"></el-input> -->
-      </el-form-item>
+
+      </el-form-item> -->
 
       <el-form-item  label="">
         <div style="display: flex;font-size: 15px;font-weight: 500;">
@@ -64,14 +62,34 @@
     </el-form>
     <div style="padding: 10px 20px 0 40px; display: flex;" >
       <div style="width: 40%;">
-        <div style="margin-left: 9px;margin-top: 45px;font-weight: bold;font-size: 20px;">活动规则</div>
+        <div style="align-items: center;margin-top: 45px;">
+          <div style="margin-left: 9px;font-weight: bold;font-size: 20px;">活动规则</div>
+          <div style="float: right;margin-right: 60px;">
+            <el-form :inline="true"  label-width="80px" :rules="VictoryRules" ref="jinji" :model="countData">
+               <el-form-item label="设置晋级者人数" prop="count" label-width="120px">
+                 <el-input v-model="countData.count" auto-complete="off" type="number"></el-input>
+               </el-form-item>
+               <el-form-item   label-width="120px">
+                <template>
+                  <el-button type="primary" @click="subVictory" >提交</el-button>
+                </template>
+               </el-form-item>
+            </el-form>
+          </div>
+
+        </div>
+
+
+
         <el-table :data="StrategyRule" style="margin-top: 40px;margin-left: -21px;" height="500" title="规则列表" @row-click="handleSelectionChange1">
          <!-- <el-table-column label="" width="65" fixed  label="单选">
             <template slot-scope="scope">
               <el-radio :label="scope.row.id" v-model="templateRadio"  @change="getTemplateRow(scope.row)"></el-radio>
             </template>
           </el-table-column> -->
-         <el-table-column prop="id"  label="规则编号"  fixed width="120" align="center" >
+          <el-table-column type="index" label="序号"  fixed width="120" align="center" >
+           </el-table-column>
+         <el-table-column prop="id" style="background: #000;" label="规则编号"  fixed width="120" align="center" >
           </el-table-column>
           <el-table-column prop="ruleName" label="规则名称"  width="120" align="center" >
           </el-table-column>
@@ -79,13 +97,14 @@
           </el-table-column>
           <el-table-column prop="ruleDesc" label="规则描述" width="150" align="center">
           </el-table-column>
-          <el-table-column  label="规则值" width="200" align="center"  >
-           <template slot-scope="scope">
+          <el-table-column  label="人数上限" width="200" align="center"  >
+           <template slot-scope="scope" v-if="scope.row.ruleValueType=='user_list'">
               <el-input size="small" v-model="scope.row.ruleValue"  placeholder="请输入内容" @change="edit(scope.row.id,scope.row.ruleValue)"
                 style="text-align:center; vertical-align:middel;text-align: center;"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="ruleValueType" label="规则值类型" width="200" align="center">
+          <el-table-column prop="ruleValueType"    label="规则值类型" width="200" align="center">
+
           </el-table-column>
           <el-table-column prop="createTime" label="创建时间"  width="200" align="center">
           </el-table-column>
@@ -153,7 +172,7 @@
               </template>
             </el-table-column>
 
-            <el-table-column prop="username" label="用户名"  width="300" align="center" >
+            <el-table-column prop="nickName" label="用户名"  width="300" align="center" >
             </el-table-column>
             <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
             </el-table-column>
@@ -175,14 +194,14 @@
           </el-table>
           <div style="overflow: hidden;">
             <el-button type="danger"  @click="deleteperson1()" style="float: right;margin-top: 20px;">批量删除参与人</el-button>
-            <el-button type="primary" @click="ma()" style="float: right;margin-right: 10%;margin-top: 20px;">批量生成参与码</el-button>
+            <el-button type="primary" @click="ma()" style="float: right;margin-right: 10%;margin-top: 20px;" v-if="type!='election'">批量生成参与码</el-button>
           </div>
 
           <el-dialog title="所有人员" :visible.sync="ren" :close-on-click-modal="false">
             <el-table :data="rewardData" style="width:80%;margin-top: 30px;margin-left: 20px;" title="用户列表" height="300" @selection-change="handleSelectionChange">
               <el-table-column type="selection" width="55">
               </el-table-column>
-              <el-table-column prop="username" label="用户名" fixed width="300" align="center">
+              <el-table-column prop="nickName" label="用户名" fixed width="300" align="center">
               </el-table-column>
               <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
               </el-table-column>
@@ -224,6 +243,7 @@
     },
     data() {
       return {
+        countData:{},
         type:'',
         id:'',
         datalist2:[],
@@ -236,6 +256,13 @@
         ruleValue:'规则值',
         ruleName:'规则名',
         activeid:'',
+        VictoryRules:{
+          count: [{
+            required: true,
+            message: "填写晋级人数",
+            trigger: "blur"
+          }]
+        },
         bianRules1: {
           ruleType: [{
             required: true,
@@ -269,15 +296,20 @@
     mounted() {
       this.id = this.$route.query.id;
       this.activeid = this.$route.query.active;
+      this.countData.activityId=this.$route.query.active;
       this.type=this.$route.query.type;
       this.datalist.activityId = this.$route.query.active;
       this.datalist2.activityId = this.$route.query.active;
-      console.log(this.datalist.activityId)
+      console.log(this.datalist.activityId);
+
+
       this.getStrategyRule(this.activeid );
       this.userlist();
       this.getDetail();
       this.getPerson();
       this.getStrategyType();
+
+
     },
     methods: {
       back:function(){
@@ -350,6 +382,37 @@
           })
       });
     },
+    subVictory:function(){
+      console.log(this.countData);
+      this.$refs.jinji.validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示", {}).then(() => {
+            // this.addLoading = true;
+            console.log(this.countData);
+
+            api.VictoryCount(this.countData).then(response => {
+              console.log(response)
+              if (response.status === 200) {
+
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+
+              } else {
+                this.$message({
+                  message: "提交失败",
+
+                });
+
+
+              }
+            });
+          });
+        }
+      });
+
+    },
 		getStrategyType: function() {
 		  api.getStrategyType().then(response => {
 		    console.log('规则值类型', response);
@@ -369,6 +432,12 @@
         api.getActivityDetail(this.activeid).then(response => {
           console.log('活动详情', response);
           this.detaildata = response.data.data;
+          if(this.detaildata.activityStatus){
+            this.countData.count=this.detaildata.activityStatus;
+          }else{
+             this.countData.count=0;
+          }
+
         })
       },
 
@@ -437,7 +506,8 @@
               type: "success"
             });
               this.getStrategyRule(this.activeid );
-            this.getPerson()
+            this.getPerson();
+            this.multipleSelection = [];
             // api.setActivityRules(this.datalist.userIds).then(response => {
             //   console.log('码', response);
             //   this.$message({

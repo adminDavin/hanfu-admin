@@ -32,6 +32,15 @@ const dynamicRouter = [
       title: '登录'
     }
   },
+  // {
+   
+  //   path: '/department',
+  //   component: resolve => require(['@/components/active/department.vue'], resolve),
+  //   meta: {
+  //     title: '部门'
+  //   }
+  // },
+
   {
 
     path: '/activeIndex',
@@ -40,7 +49,7 @@ const dynamicRouter = [
       title: '奖品'
     }
   },
- 
+
   {
     name: 'strategyRule',
     path: '/strategyRule',
