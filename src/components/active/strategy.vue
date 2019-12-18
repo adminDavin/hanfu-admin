@@ -174,14 +174,12 @@
 
             <el-table-column prop="nickName" label="用户名"  width="300" align="center" >
             </el-table-column>
-            <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
+            <!-- <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
             </el-table-column>
             <el-table-column prop="email" label="邮箱" width="120" align="center">
             </el-table-column>
             <el-table-column prop="address" label="地址" width="120" align="center">
-            </el-table-column>
-            <el-table-column prop="birthDay" label="生日" width="300" align="center">
-            </el-table-column>
+            </el-table-column> -->
 
 
             <el-table-column label="操作" width="230" align="center" fixed="right">
@@ -201,16 +199,19 @@
             <el-table :data="rewardData" style="width:80%;margin-top: 30px;margin-left: 20px;" title="用户列表" height="300" @selection-change="handleSelectionChange">
               <el-table-column type="selection" width="55">
               </el-table-column>
-              <el-table-column prop="nickName" label="用户名" fixed width="300" align="center">
+              <el-table-column prop="wxName" label="微信名" fixed width="180" align="center">
               </el-table-column>
-              <el-table-column prop="userStatus" label="用户状态" width="300" align="center">
+              <el-table-column prop="realName" label="真实姓名" fixed width="120" align="center">
               </el-table-column>
-              <el-table-column prop="email" label="邮箱" width="120" align="center">
+              <el-table-column prop="departmentName" label="部门名称" width="180" align="center">
               </el-table-column>
-              <el-table-column prop="address" label="地址" width="120" align="center">
+              <el-table-column prop="jobposition" label="职位" width="180" align="center">
               </el-table-column>
-              <el-table-column prop="birthDay" label="生日" width="150" align="center">
-              </el-table-column>
+              <!-- <el-table-column prop="email" label="邮箱" width="120" align="center">
+              </el-table-column> -->
+              <!-- <el-table-column prop="address" label="地址" width="120" align="center">
+              </el-table-column> -->
+
 
             </el-table>
             <div slot="footer" class="dialog-footer">
@@ -579,11 +580,12 @@
         console.log(this.multipleSelection1)
       },
       handleSelectionChange(val) {
+        
         this.multipleSelection = val;
         console.log(this.multipleSelection);
         let arr = [];
         for (var i = 0; i < this.multipleSelection.length; i++) {
-          arr.push(this.multipleSelection[i].id)
+          arr.push(this.multipleSelection[i].userId)
         }
         console.log(arr);
         this.datalist.userIds = arr;
