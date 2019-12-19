@@ -408,7 +408,7 @@ function findDepartment(id){
 
   return Axios.get("/api/strategy/findDepartmentByCompanyId", params);
 }
-
+//投票记录
 function ActivityvoteRecords(id){
   let params = {
       params: {
@@ -418,7 +418,7 @@ function ActivityvoteRecords(id){
   
   return Axios.get("/api/activity/ActivityvoteRecords", params);
 }
-
+//删除事迹
 function deleteSJ(id){
   let params = {
     params: {
@@ -427,6 +427,14 @@ function deleteSJ(id){
   }
 return Axios.get("/api/strategy/delterUserEvaluationTemplate", params);
 }
+//设置晋级人数
+function VictoryCount(data){
+  let fd=new FormData();
+  fd.append('count',data.count);
+  fd.append('activityId',data.activityId);
+  return Axios.post("/api/wareHouse/setActivityVictoryCount", fd, { responseType: 'arraybuffer' });
+}
+
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -465,5 +473,6 @@ export default {
    findDepartment:findDepartment,
    checkTemplateWeight1:checkTemplateWeight1,
    ActivityvoteRecords:ActivityvoteRecords,
-   deleteSJ:deleteSJ
+   deleteSJ:deleteSJ,
+   VictoryCount:VictoryCount
 };
