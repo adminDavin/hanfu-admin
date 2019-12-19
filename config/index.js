@@ -10,7 +10,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',
+    assetsPublicPath: '/',
     proxyTable: {
       '/api': {
         target:'http://192.168.1.106:9200',//小方
@@ -74,42 +74,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: 'vote/',
-    host: 'localhost', // can be overwritten by process.env.HOST
-    port: 3000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    proxyTable: {
-      '/api': {
-        target:'http://localhost:9200',//小方
-        // target:'http://192.168.1.101:9200',//王博朋
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/'
-        }
-      },
-      '/user': {
-        target:'http://localhost:8082',//小方
-        // target:'http://192.168.1.101:8082',//王博朋
-        // target: 'http://192.168.1.233:8082',//小方
-        // target:'http://localhost:8082',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/user': '/'
-        }
-      },
-
-      '/order': {
-        //  target:'http://192.168.1.101:9097',//王博朋
-        target:'http://localhost:9097',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/order': '/'
-        }
-      }
-
-    },
-    /**
-     * Source Maps
-     */
-
+   
     productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
