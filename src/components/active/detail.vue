@@ -110,12 +110,46 @@
         <el-table-column prop="evaluateType" label="评分项名称" width="500" align="center"></el-table-column>
         <el-table-column prop="evaluateWeight" label="评分权重" width="150" align="center"></el-table-column>
         <el-table-column prop="remarks" label="备注" width="500" align="center"></el-table-column>
-        <el-table-column label="操作" width="150" align="center" prop="evaluateTemplateId">
-           <template slot-scope="scope">
-              <el-button type="danger" icon="el-icon-delete"  size="mini" @click="deleteShiji(scope.row.evaluateTemplateId)">删除</el-button>
-            </template>
+        <el-table-column label="操作" width="300" align="center" prop="evaluateTemplateId">
+          <template slot-scope="scope">
+            <el-button
+              type="primary"
+              icon="el-icon-delete"
+              size="mini"
+              @click="changeShiji(scope.$index)"
+            >修改</el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              @click="deleteShiji(scope.row.evaluateTemplateId)"
+            >删除</el-button>
+          </template>
         </el-table-column>
       </el-table>
+      <el-dialog title="修改评优事迹" :visible.sync="changeSjVisible" :close-on-click-modal="false">
+        <el-form
+          :inline="true"
+          :model="changeSjForm"
+          label-width="80px"
+          :rules="changeSjRules"
+          ref="addSjForm"
+        >
+          <el-form-item label="评分项名称" prop="evaluateType" label-width="120px">
+            <el-input v-model="changeSjForm.evaluateType" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="评分权重" prop="evaluateWeight" label-width="120px">
+            <el-input v-model="changeSjForm.evaluateWeight" auto-complete="off" type="number"></el-input>
+          </el-form-item>
+          <el-form-item label="备注" prop="remarks" label-width="120px">
+            <el-input v-model="changeSjForm.remarks" auto-complete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="changeSjVisible=false">取消</el-button>
+          <el-button type="primary" @click="changeSjSubmit(changeSjForm)">提交</el-button>
+        </div>
+      </el-dialog>
       <div
         style="margin-top: 30px;font-weight: bold;font-size: 18px;margin-left: 10px;"
         v-if="type=='score'"
@@ -137,11 +171,41 @@
         title="投票记录列表"
       >
         <el-table-column label="序列号" align="center" width="200" type="index"></el-table-column>
-        <el-table-column label="推举人" align="center" width="200" prop="voteName" v-if="detaildata.activiyType=='election'"></el-table-column>
-        <el-table-column label="评委" align="center" width="200" prop="voteName" v-if="detaildata.activiyType=='score'"></el-table-column>
-        <el-table-column label="投票者" align="center" width="200" prop="voteName" v-if="detaildata.activiyType=='praise'"></el-table-column>
-        <el-table-column label="评分" align="center" width="200" prop="totalScore" v-if="detaildata.activiyType=='score'"></el-table-column>
-        <el-table-column label="投票數" align="center" width="200" prop="totalScore" v-if="detaildata.activiyType=='praise'"></el-table-column>
+        <el-table-column
+          label="推举人"
+          align="center"
+          width="200"
+          prop="voteName"
+          v-if="detaildata.activiyType=='election'"
+        ></el-table-column>
+        <el-table-column
+          label="评委"
+          align="center"
+          width="200"
+          prop="voteName"
+          v-if="detaildata.activiyType=='score'"
+        ></el-table-column>
+        <el-table-column
+          label="投票者"
+          align="center"
+          width="200"
+          prop="voteName"
+          v-if="detaildata.activiyType=='praise'"
+        ></el-table-column>
+        <el-table-column
+          label="评分"
+          align="center"
+          width="200"
+          prop="totalScore"
+          v-if="detaildata.activiyType=='score'"
+        ></el-table-column>
+        <el-table-column
+          label="投票數"
+          align="center"
+          width="200"
+          prop="totalScore"
+          v-if="detaildata.activiyType=='praise'"
+        ></el-table-column>
         <el-table-column label="选手姓名" align="center" width="200" prop="eceltedName"></el-table-column>
         <el-table-column label="添加时间" align="center" width="200" prop="voteTimes"></el-table-column>
       </el-table>
@@ -160,6 +224,17 @@ export default {
   },
   data() {
     return {
+      changeSjForm: {},
+      changeSjVisible: false,
+      changeSjRules: {
+        // ruleType: [
+        //   {
+        //     required: true,
+        //     message: "填写评优事迹项",
+        //     trigger: "blur"
+        //   }
+        // ]
+      },
       recordHistory: [],
       templatedata1: [],
       templateData1: {},
@@ -249,16 +324,35 @@ export default {
     this.getActivityRecord(this.id);
   },
   methods: {
-    deleteShiji:function(id){
-      api.deleteSJ(id).then(res=>{
-        console.log('删除事迹成功');
-        this.findUserTemplate();
-      })
+    changeShiji: function(index, id) {
+      this.changeSjVisible = true;
+      this.changeSjForm = this.templatedata[index];
+      console.log("点击修改评优事迹:", this.changeSjForm);
     },
-    getActivityRecord:function(id){
-        api.ActivityvoteRecords(id).then(response => {
+    changeSjSubmit: function(data) {
+      this.changeSjVisible = false;
+      api.updateSJ(data).then(res => {
+        console.log(res);
+        if (res.data == false) {
+          console.log(1111111111111111111111);
+          this.$message({
+            message: "权重之和不能超过1"
+          });
+        } else {
+          this.findUserTemplate();
+        }
+      });
+    },
+    deleteShiji: function(id) {
+      api.deleteSJ(id).then(res => {
+        console.log("删除事迹成功");
+        this.findUserTemplate();
+      });
+    },
+    getActivityRecord: function(id) {
+      api.ActivityvoteRecords(id).then(response => {
         console.log("投票记录", response);
-        this.recordHistory = response.data.data
+        this.recordHistory = response.data.data;
       });
     },
     add: function() {

@@ -435,6 +435,22 @@ function VictoryCount(data){
   return Axios.post("/api/wareHouse/setActivityVictoryCount", fd, { responseType: 'arraybuffer' });
 }
 
+function updateSJ(data){
+  let fd=new FormData();
+  fd.append('id',data.evaluateTemplateId);
+  fd.append('evaluateType',data.evaluateType);
+  fd.append('evaluateWeight',data.evaluateWeight);
+  fd.append('remarks',data.remarks);
+  fd.append('isDeleted',0);
+  return Axios.post("/api/strategy/updateUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
+}
+
+function sortStart(id){
+  let fd = new FormData();
+  fd.append('activityId ', id);
+  return Axios.post("/api/wareHouse/startActivityResult", fd);
+}
+
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -474,5 +490,7 @@ export default {
    checkTemplateWeight1:checkTemplateWeight1,
    ActivityvoteRecords:ActivityvoteRecords,
    deleteSJ:deleteSJ,
-   VictoryCount:VictoryCount
+   VictoryCount:VictoryCount,
+   updateSJ:updateSJ,
+   sortStart:sortStart
 };
