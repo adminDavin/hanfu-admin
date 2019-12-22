@@ -149,6 +149,20 @@
               >活动详情</el-button>
               <el-button
                 type="primary"
+                v-if="scope.row.isDeleted==0"
+                style="background:#E04C2F;border:1px solid  #E04C2F;"
+                size="mini"
+                @click="sort(scope.row.id)"
+              >开启排行榜</el-button>
+              <el-button
+                type="primary"
+                v-if="scope.row.isDeleted==1"
+                style="background:#bbb;border:1px solid  #bbb;"
+                size="mini"
+                @click="sort(scope.row.id)"
+              >关闭排行榜</el-button>
+              <el-button
+                type="primary"
                 v-if="scope.row.isTimingStart==0"
                 style="background:#E04C2F;border:1px solid  #E04C2F;"
                 size="mini"
@@ -315,7 +329,7 @@
 <script>
 import api from "@/apis/voteApi.js";
 import company from "./company";
-import pic from "./pictures";;
+import pic from "./pictures";
 import user from "./user";
 export default {
   components: {
@@ -447,6 +461,22 @@ export default {
     this.getStrategyType();
   },
   methods: {
+   sort: function(id) {
+      api.sortStart(id).then(response => {
+        console.log(response);
+        if (response.status === 200) {
+          this.$message({
+            message: "提交成功",
+            type: "success"
+          });
+          this.getActive();
+        } else {
+          this.$message({
+            message: "提交失败"
+          });
+        }
+      });
+   },
     delectestrategy: function(id) {
       api.delectestrategy(id).then(response => {
         console.log(response);
