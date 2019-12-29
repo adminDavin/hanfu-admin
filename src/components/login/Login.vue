@@ -164,7 +164,7 @@ export default {
                 type: "success"
               });
 
-             this.$router.push({ path:'/activeIndex/'  })
+             this.$router.push({ path:'/activeIndex/activityManage'  })
           } else {
             this.$message({
               message: "登录失败",
