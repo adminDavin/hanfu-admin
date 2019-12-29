@@ -195,11 +195,19 @@ console.log(params)
   fd.append('userId', 1);
   fd.append('strategyId', params.strategyId);
   return Axios.post("/api/wareHouse/addActivity", fd, { responseType: 'arraybuffer' });
-  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
+  // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });?pageNum=1&pageSize=20
 }
 // 获取用户列表
-function getuser(params) {
-  return Axios.get("/user/user/userList");
+function getuser(param) {
+  // console.log('12320',param)
+  // console.log('12320',params)
+  let params = {
+    params: {
+      pageNum: param.pageNum,
+      pageSize: param.pageSize
+    }
+  }
+  return Axios.get("/user/user/userList",params);
 }
 // 修改规则值
 
@@ -451,6 +459,19 @@ function sortStart(id){
   return Axios.post("/api/wareHouse/startActivityResult", fd);
 }
 
+// 后台活动投票记录详情查询
+function ActivityvoteRecordsDetail(userId) {
+  // console.log('12320',param)
+  // console.log('12320',params)
+  let params = {
+    params: {
+      userId: userId,
+      activityId: param.pageSize
+    }
+  }
+  return Axios.get("/activity/ActivityvoteRecordsDetail",params);
+}
+
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -492,5 +513,6 @@ export default {
    deleteSJ:deleteSJ,
    VictoryCount:VictoryCount,
    updateSJ:updateSJ,
-   sortStart:sortStart
+   sortStart:sortStart,
+   ActivityvoteRecordsDetail:ActivityvoteRecordsDetail
 };

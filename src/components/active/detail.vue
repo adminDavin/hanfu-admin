@@ -182,14 +182,14 @@
           label="评委"
           align="center"
           width="200"
-          prop="voteName"
+          prop="eceltedName"
           v-if="detaildata.activiyType=='score'"
         ></el-table-column>
         <el-table-column
           label="投票者"
           align="center"
           width="200"
-          prop="voteName"
+          prop="eceltedName"
           v-if="detaildata.activiyType=='praise'"
         ></el-table-column>
         <el-table-column
@@ -200,15 +200,54 @@
           v-if="detaildata.activiyType=='score'"
         ></el-table-column>
         <el-table-column
-          label="投票數"
+          label="线上评分"
+          align="center"
+          width="200"
+          prop="onlineScore"
+          v-if="detaildata.activiyType=='score'"
+        ></el-table-column>
+        <el-table-column
+          label="线下评分"
+          align="center"
+          width="200"
+          prop="offlineScore"
+          v-if="detaildata.activiyType=='score'"
+        ></el-table-column>
+        <el-table-column
+          label="投票人數"
           align="center"
           width="200"
           prop="totalScore"
           v-if="detaildata.activiyType=='praise'"
         ></el-table-column>
-        <el-table-column label="选手姓名" align="center" width="200" prop="eceltedName"></el-table-column>
-        <el-table-column label="添加时间" align="center" width="200" prop="voteTimes"></el-table-column>
+        <el-table-column
+          label="投票人"
+          align="center"
+          width="200"
+          v-if="detaildata.activiyType=='praise'"
+        >
+          <template slot-scope="scope">
+            <el-button type="text" @click="RecordsDetail(scope.row.userId)">详情</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="打分人数"
+          align="center"
+          width="200"
+          prop="voteCount"
+          v-if="detaildata.activiyType=='score'"
+        ></el-table-column>
+        <!-- <el-table-column label="选手姓名" align="center" width="200" prop="eceltedName"></el-table-column> -->
+        <!-- <el-table-column label="添加时间" align="center" width="200" prop="voteTimes"></el-table-column> -->
       </el-table>
+
+      <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+        <el-table :data="gridData">
+          <el-table-column property="date" label="日期" width="150"></el-table-column>
+          <el-table-column property="name" label="姓名" width="200"></el-table-column>
+          <el-table-column property="address" label="地址"></el-table-column>
+        </el-table>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -224,6 +263,11 @@ export default {
   },
   data() {
     return {
+      // 弹窗控制显示隐藏
+      dialogTableVisible: false,
+      // 弹窗表格数据
+      gridData: [
+      ],
       changeSjForm: {},
       changeSjVisible: false,
       changeSjRules: {
@@ -463,7 +507,17 @@ export default {
         console.log("获取策略规则", response);
         this.StrategyRule = response.data.data;
       });
-    }
+    },
+    // 后台活动投票记录详情查询
+    RecordsDetail: function(userId) {
+      this.dialogTableVisible = true
+      this.quan
+      console.log(id)
+      api.ActivityvoteRecordsDetail(userId).then(response => {
+        console.log("投票详情列表", response);
+        this.gridData = response.data.data.list;
+      });
+    },
   }
 };
 </script>

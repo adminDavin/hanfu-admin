@@ -13,7 +13,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target:'http://localhost:9200',//小方
+        target:'http://192.168.1.106:9200',//小方
         // target:'http://192.168.1.101:9200',//王博朋
         changeOrigin: true,
         pathRewrite: {
@@ -21,7 +21,7 @@ module.exports = {
         }
       },
       '/user': {
-        target:'http://localhost:8082',//小方
+        target:'http://192.168.1.106:8082',//小方
         // target:'http://192.168.1.101:8082',//王博朋
         // target: 'http://192.168.1.233:8082',//小方
         // target:'http://localhost:8082',
@@ -33,7 +33,7 @@ module.exports = {
 
       '/order': {
         //  target:'http://192.168.1.101:9097',//王博朋
-        target:'http://localhost:9097',
+        target:'http://192.168.1.106:9097',
         changeOrigin: true,
         pathRewrite: {
           '^/order': '/'
