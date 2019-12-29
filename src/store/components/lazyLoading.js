@@ -58,16 +58,6 @@ const dynamicRouter = [
       title: '策略规则'
     }
   },
-
-  {
-    name: 'usercenter',
-    path: '/usercenter',
-    component: resolve => require(['@/components/usercenter/index.vue'], resolve),
-    meta: {
-      title: '用户中心'
-    }
-  },
-
   {
     name: 'Strategy',
     path: '/Strategy',
