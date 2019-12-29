@@ -333,6 +333,7 @@ export default {
   },
   data() {
     return {
+      formLabelWidth: 30,
       list1:'',// type 
       list: [],
       form: {

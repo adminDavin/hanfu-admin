@@ -28,7 +28,7 @@ const router = new VueRouter({
     {
       name: 'activityDetail',
       path: '/activityDetail',
-      component: resolve => require(['@/components/active/detail.vue'], resolve),
+      component: resolve => require(['@/components/active/activityManage/detail.vue'], resolve),
       meta: {
         title: '策略规则'
       }
@@ -61,7 +61,7 @@ const router = new VueRouter({
     {
       name: 'activeIndex',
       path: '/activeIndex',
-      component: resolve => require(['@/components/active/index.vue'], resolve),
+      component: resolve => require(['@/components/active/activityManage'], resolve),
       children:[
       {
         path: "pic",
@@ -80,7 +80,7 @@ const router = new VueRouter({
         component: resolve => require(['@/components/active/user'], resolve),
       },{
         path: "activityDetail",
-        component: resolve => require(['@/components/active/detail.vue'], resolve),
+        component: resolve => require(['@/components/active/activityManage/detail.vue'], resolve),
       },
       {
         path: "activityManage",

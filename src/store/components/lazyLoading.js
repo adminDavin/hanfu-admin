@@ -101,8 +101,8 @@ const dynamicRouter = [
   },
   {
 
-    path: '/awardIndex/activityDetail',
-    component: resolve => require(['@/components/active/detail.vue'], resolve),
+    path: '/activityDetail',
+    component: resolve => require(['@/components/active/activityManage/detail.vue'], resolve),
     meta: {
       title: '奖品'
     }
