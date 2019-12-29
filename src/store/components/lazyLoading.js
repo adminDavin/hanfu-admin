@@ -43,7 +43,7 @@ const dynamicRouter = [
 
   {
 
-    path: '/activeIndex/',
+    path: '/activeIndex',
     component: resolve => require(['@/components/active/index.vue'], resolve),
     meta: {
       title: '奖品'

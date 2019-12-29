@@ -61,7 +61,7 @@ const router = new VueRouter({
     {
       name: 'activeIndex',
       path: '/activeIndex',
-      component: resolve => require(['@/components/active/activityManage'], resolve),
+      component: resolve => require(['@/components/active/index.vue'], resolve),
       children:[
       {
         path: "pic",
