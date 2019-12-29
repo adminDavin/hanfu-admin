@@ -88,6 +88,17 @@ export default {
       console.log(event.name);
       this.$router.push(event.name);
     },
+  },
+  mounted() {
+    console.log("ddddddddddddddddddddd");
+    console.log(this.$route.path);
+    if (this.$route.path == "/activeIndex") {
+      this.activeName = '/activeIndex/activityManage';
+    } else {
+      this.activeName = this.$route.path;
+    }
+    this.$router.push(this.activeName);
+
   }
 }
 </script>

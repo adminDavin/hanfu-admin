@@ -1,6 +1,6 @@
 <template>
   <div class="realava">
-    <el-table :data="rewardData" style="margin-top: 30px;width: 100%;" height="500px">
+    <el-table :data="rewardData" style="margin-top: 30px;width: 100%;">
       <el-table-column label="序列号" align="center" type="index" width="200"></el-table-column>
       <el-table-column label="微信头像" align="center" width="200" prop="avatar">
         <template slot-scope="scope">
@@ -48,7 +48,6 @@
   
     </el-table>
     <el-pagination
-      background="true"
       @current-change="handleCurrentChange"
       layout="prev, pager, next"
       :total="total"
