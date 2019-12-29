@@ -14,7 +14,7 @@
           <el-upload
             class="avatar-uploader"
             :show-file-list="false"
-            action="http://39.100.86.77:9200/wareHouse/updateUserAvatar"
+            action="/api/wareHouse/updateUserAvatar"
             name="fileInfo"
             file="file"
             list-type="picture-card"

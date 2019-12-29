@@ -467,6 +467,23 @@ function ActivityvoteRecordsDetail(params) {
   return Axios.get("/api/activity/ActivityvoteRecordsDetail",params);
 }
 
+function updateUserAvatar(param) { 
+      console.log(file);
+      let fd = new FormData();
+      fd.append("file", param.fileInfo);
+      fd.append("userId", param.userId);
+      Axios
+        .post("/api/wareHouse/updateUserAvatar", fd, {
+          responseType: "arraybuffer"
+        })
+        .then(res => {
+          this.$message({
+            message: "上传成功",
+            type: "success"
+          });
+        });
+}
+
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -509,5 +526,6 @@ export default {
    VictoryCount:VictoryCount,
    updateSJ:updateSJ,
    sortStart:sortStart,
-   ActivityvoteRecordsDetail:ActivityvoteRecordsDetail
+   ActivityvoteRecordsDetail: ActivityvoteRecordsDetail,
+   updateUserAvatar: updateUserAvatar
 };
