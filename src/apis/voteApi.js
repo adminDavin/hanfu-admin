@@ -460,16 +460,11 @@ function sortStart(id){
 }
 
 // 后台活动投票记录详情查询
-function ActivityvoteRecordsDetail(userId) {
+function ActivityvoteRecordsDetail(params) {
   // console.log('12320',param)
   // console.log('12320',params)
-  let params = {
-    params: {
-      userId: userId,
-      activityId: param.pageSize
-    }
-  }
-  return Axios.get("/activity/ActivityvoteRecordsDetail",params);
+  
+  return Axios.get("/api/activity/ActivityvoteRecordsDetail",params);
 }
 
 export default {

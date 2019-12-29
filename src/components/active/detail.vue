@@ -60,7 +60,7 @@
 
           <br />
           <el-form-item style="margin-top: 20px;margin-left: 19%;">
-            <template slot-scope="scope">
+            <template slot-scope>
               <el-button type="primary" size="medium" style="width: 200px;" @click="add">添加</el-button>
             </template>
           </el-form-item>
@@ -94,7 +94,7 @@
           <br />
 
           <el-form-item style="margin-top: 20px;margin-left: 19%;">
-            <template slot-scope="scope">
+            <template slot-scope>
               <el-button type="primary" size="medium" style="width: 200px;" @click="add1">添加</el-button>
             </template>
           </el-form-item>
@@ -237,17 +237,87 @@
           prop="voteCount"
           v-if="detaildata.activiyType=='score'"
         ></el-table-column>
+        <el-table-column
+          label="操作"
+          align="center"
+          width="200"
+          v-if="detaildata.activiyType=='score'"
+        >
+          <template slot-scope="scope">
+            <el-button type="text" @click="Detail(scope.row.userId,0)">线上</el-button>
+            <el-button type="text" @click="Detail(scope.row.userId,1)">线下</el-button>
+          </template>
+        </el-table-column>
         <!-- <el-table-column label="选手姓名" align="center" width="200" prop="eceltedName"></el-table-column> -->
         <!-- <el-table-column label="添加时间" align="center" width="200" prop="voteTimes"></el-table-column> -->
       </el-table>
 
       <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
-        <el-table :data="gridData">
-          <el-table-column property="date" label="日期" width="150"></el-table-column>
-          <el-table-column property="name" label="姓名" width="200"></el-table-column>
-          <el-table-column property="address" label="地址"></el-table-column>
+        <el-table
+          v-loading="loading"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="rgba(0, 0, 0, 0.8)"
+          :data="gridData"
+        >
+          <el-table-column property="voteRealName" label="真实名称"></el-table-column>
+          <el-table-column property="voteNickName" label="微信名称"></el-table-column>
+          <el-table-column property="totalScore" label="投票数"></el-table-column>
+          <el-table-column property="voteTimes" label="日期"></el-table-column>
         </el-table>
       </el-dialog>
+
+      <el-dialog title="收货地址" :visible.sync="dialogTable">
+        <el-table :data="gridData">
+          <el-table-column property="voteRealName" label="评委"></el-table-column>
+          <el-table-column property="voteNickName" width="90" label="微信名称"></el-table-column>
+          <el-table-column property="socre[0]" label="A">
+            <input type="text" />
+          </el-table-column>
+          <el-table-column property="socre[1]" label="B"></el-table-column>
+          <el-table-column property="socre[2]" label="C"></el-table-column>
+          <el-table-column property="socre[3]" label="D"></el-table-column>
+          <el-table-column property="socre[4]" label="E"></el-table-column>
+          <el-table-column property="socre[5]" label="F"></el-table-column>
+          <el-table-column property="socre[6]" label="G"></el-table-column>
+          <!-- <el-table-column label="操作" align="center" v-if="detaildata.activiyType=='score'">
+            <template slot-scope="scope">
+              <el-button type="text" @click="dialogFormVisible = true">修改</el-button>
+            </template>
+          </el-table-column>-->
+          <el-table-column
+            label="操作"
+            align="center"
+            width="200"
+            v-if="detaildata.activiyType=='score'"
+          >
+            <template slot-scope="scope">
+              <el-button type="text" @click="FormVisible(scope)">修改</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column property="totalScore" label="合计"></el-table-column>
+          <el-table-column property="voteTimes" width="170" label="时间"></el-table-column>
+        </el-table>
+      </el-dialog>
+
+      <el-dialog title="" :visible.sync="dialogFormVisible4">
+        <el-form :model="list">
+          <el-form-item   label="A" :label-width="formLabelWidth">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item   label="B" :label-width="formLabelWidth">
+            <el-input v-model="form.region" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item   label="C" :label-width="formLabelWidth">
+            <el-input v-model="form.date1" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible4 = false">取 消</el-button>
+          <el-button type="primary" @click="queding">确 定</el-button>
+        </div>
+      </el-dialog>
+
     </div>
   </div>
 </template>
@@ -263,11 +333,20 @@ export default {
   },
   data() {
     return {
+      list1:'',// type 
+      list: [],
+      form: {
+        name: "",
+        region: "",
+        date1: "",
+      },
+      loading: true,
       // 弹窗控制显示隐藏
       dialogTableVisible: false,
+      dialogTable: false,
+      dialogFormVisible4:false,
       // 弹窗表格数据
-      gridData: [
-      ],
+      gridData: [],
       changeSjForm: {},
       changeSjVisible: false,
       changeSjRules: {
@@ -508,15 +587,59 @@ export default {
         this.StrategyRule = response.data.data;
       });
     },
-    // 后台活动投票记录详情查询
-    RecordsDetail: function(userId) {
-      this.dialogTableVisible = true
-      this.quan
-      console.log(id)
-      api.ActivityvoteRecordsDetail(userId).then(response => {
+    // 后台活动投票记录详情查询ID'  投票
+    RecordsDetail: function(userId, type) {
+      this.dialogTableVisible = true;
+       this.list1 = type
+      let params = {
+        params: {
+          activityId: this.quan.activityId,
+          userId: userId
+        }
+      };
+      // console.log("投票详情需要ID", this.quan);
+      api.ActivityvoteRecordsDetail(params).then(response => {
         console.log("投票详情列表", response);
-        this.gridData = response.data.data.list;
+        this.gridData = response.data.data;
       });
+    },
+    // 后台活动投票记录详情查询ID' 评价分
+    Detail: function(userId, type) {
+      this.list1 = type
+      this.dialogTable = true;
+      let params = {
+        params: {
+          activityId: this.quan.activityId,
+          userId: userId,
+          type: type
+        }
+      };
+      api.ActivityvoteRecordsDetail(params).then(response => {
+        console.log("评分详情列表", response);
+        this.gridData = response.data.data[1];
+        console.log("评分详情列表123456", this.gridData);
+      });
+    },
+      FormVisible: function(scope) {
+       this.list = scope.row.socre
+      this.dialogTable = false;
+      this.dialogFormVisible4 = true;
+
+      // console.log(scope)
+    },
+    // 修改 
+    queding:function(scope) {
+      this.dialogFormVisible4 = false;
+
+      console.log(scope)
+      let params = {
+        params: {
+          activityId: this.quan.activityId,
+          userId: userId,
+          type: type
+        }
+      };
+
     },
   }
 };
