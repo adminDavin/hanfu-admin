@@ -43,7 +43,7 @@ const dynamicRouter = [
 
   {
 
-    path: '/activeIndex',
+    path: '/activeIndex/',
     component: resolve => require(['@/components/active/index.vue'], resolve),
     meta: {
       title: '奖品'
@@ -75,9 +75,34 @@ const dynamicRouter = [
     }
   },
   {
+    name: 'activityManage',
+    path: '/activeIndex/activityManage',
+    component: resolve => require(['@/components/active/activityManage'], resolve),
+  },
+  {
+    name: 'activityStrategy',
+    path: '/activeIndex/activityStrategy',
+    component: resolve => require(['@/components/active/activityStrategy'], resolve),
+  },
+  {
+    name: 'company',
+    path: '/activeIndex/company',
+    component: resolve => require(['@/components/active/company.vue'], resolve),
+  },
+  {
+    name: 'user',
+    path: '/activeIndex/user',
+    component: resolve => require(['@/components/active/user.vue'], resolve),
+  },
+  {
+    name: 'pic',
+    path: '/activeIndex/pic',
+    component: resolve => require(['@/components/active/pictures.vue'], resolve),
+  },
+  {
 
-    path: '/awardIndex',
-    component: resolve => require(['@/components/award/index.vue'], resolve),
+    path: '/awardIndex/activityDetail',
+    component: resolve => require(['@/components/active/detail.vue'], resolve),
     meta: {
       title: '奖品'
     }

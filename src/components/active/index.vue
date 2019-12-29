@@ -7,6 +7,10 @@
   </div> -->
   <div style="padding: 20px 20px 0 40px; ">
     <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane v-for="item in tabList" :label="item.name" :name="item.path" :key="item.index"></el-tab-pane>
+    </el-tabs>
+    <router-view></router-view>
+    <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="活动管理" name="first" style="color:orange;">
         <activityManage></activityManage>
       </el-tab-pane>
@@ -22,7 +26,7 @@
       <el-tab-pane label="轮播图管理" name="fourth">
         <pic></pic>
       </el-tab-pane>
-    </el-tabs>
+    </el-tabs> -->
     <!-- <activeTable></activeTable> -->
   </div>
 
@@ -54,15 +58,35 @@ export default {
     return {
       collapse: false,
       selectedStone: 1,
-      activeName: "first",
+      activeName: '/activeIndex/activityManage',
+      tabList: [{
+        name: '活动管理',
+        path: '/activeIndex/activityManage'
+      }, {
+        name: '策略管理',
+        path: '/activeIndex/activityStrategy'
+      }, {
+        name: '公司管理',
+        path: '/activeIndex/company'
+
+      }, {
+        name: '用户管理',
+        path: '/activeIndex/user'
+
+      }, {
+        name: '轮播图管理',
+        path: '/activeIndex/pic'
+
+      }]
     }
   },
   methods: {
     selectedStoneHandler(res) {
       this.selectedStone = res;
     },
-    handleClick: function (tab, event) {
-      console.log(tab, event);
+    handleClick: function (event) {
+      console.log(event.name);
+      this.$router.push(event.name);
     },
   }
 }

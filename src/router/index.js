@@ -62,11 +62,31 @@ const router = new VueRouter({
       name: 'activeIndex',
       path: '/activeIndex',
       component: resolve => require(['@/components/active/index.vue'], resolve),
-      meta: {
-        title: '奖品'
-      }
+      children:[
+      {
+        path: "pic",
+        component: resolve => require(['@/components/active/pictures'], resolve),
+      },{
+        path: "activityStrategy",
+        component: resolve => require(['@/components/active/activityStrategy'], resolve),
+      },{
+        path: "company",
+        component: resolve => require(['@/components/active/company'], resolve),
+      },{
+        path: "pic",
+        component: resolve => require(['@/components/active/pictures.vue'], resolve),
+      },{
+        path: "user",
+        component: resolve => require(['@/components/active/user'], resolve),
+      },{
+        path: "activityDetail",
+        component: resolve => require(['@/components/active/detail.vue'], resolve),
+      },
+      {
+        path: "activityManage",
+        component: resolve => require(['@/components/active/activityManage'], resolve)
+      }]
     },
-
     {
       name: 'awardIndex',
       path: '/awardIndex',
