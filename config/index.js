@@ -8,11 +8,12 @@ module.exports = {
 
   dev: {
     // Paths
+    assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target:'http://192.168.1.106:9200',//小方
+        target:'http://localhost:9200',//小方
         // target:'http://192.168.1.101:9200',//王博朋
         changeOrigin: true,
         pathRewrite: {
@@ -20,7 +21,7 @@ module.exports = {
         }
       },
       '/user': {
-        target:'http://192.168.1.106:8082',//小方
+        target:'http://localhost:8082',//小方
         // target:'http://192.168.1.101:8082',//王博朋
         // target: 'http://192.168.1.233:8082',//小方
         // target:'http://localhost:8082',
@@ -72,11 +73,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-
-    /**
-     * Source Maps
-     */
+    assetsPublicPath: 'vote/',
 
     productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
