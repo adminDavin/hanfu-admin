@@ -28,7 +28,7 @@ const router = new VueRouter({
     {
       name: 'activityDetail',
       path: '/activityDetail',
-      component: resolve => require(['@/components/active/activityManage/detail.vue'], resolve),
+      component: resolve => require(['@/components/active/detail.vue'], resolve),
       meta: {
         title: '策略规则'
       }

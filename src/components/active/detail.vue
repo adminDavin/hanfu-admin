@@ -263,7 +263,7 @@
           <el-table-column property="voteRealName" label="真实名称"></el-table-column>
           <el-table-column property="voteNickName" label="微信名称"></el-table-column>
           <el-table-column property="totalScore" label="投票数"></el-table-column>
-          <el-table-column property="voteRealName" label="日期"></el-table-column>
+          <el-table-column property="voteTimes" label="日期"></el-table-column>
         </el-table>
       </el-dialog>
 
@@ -300,21 +300,27 @@
         </el-table>
       </el-dialog>
 
-      <el-dialog title :visible.sync="dialogFormVisible4">
+      <el-dialog title="" :visible.sync="dialogFormVisible4">
         <el-form :model="list">
-          <el-form-item label="A">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
+          <el-form-item label="A" :label-width="formLabelWidth">
+            <el-input v-model="list[0]" autocomplete="off" ></el-input>
           </el-form-item>
-          <el-form-item label="B">
-            <el-input v-model="form.region" autocomplete="off"></el-input>
+          <el-form-item label="B" :label-width="formLabelWidth" >
+            <el-input v-model="list[1]" autocomplete="off" ></el-input>
           </el-form-item>
-          <el-form-item label="C">
-            <el-input v-model="form.date1" autocomplete="off"></el-input>
+          <el-form-item label="C" :label-width="formLabelWidth">
+            <el-input v-model="list[2]" autocomplete="off" ></el-input>
+          </el-form-item>
+          <el-form-item label="D" :label-width="formLabelWidth">
+            <el-input v-model="list[3]" autocomplete="off" ></el-input>
+          </el-form-item>
+          <el-form-item label="E" :label-width="formLabelWidth">
+            <el-input v-model="list[4]" autocomplete="off" ></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible4 = false">取 消</el-button>
-          <el-button type="primary" @click="queding">确 定</el-button>
+          <el-button type="primary" @click="queding()">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -596,7 +602,7 @@ export default {
           userId: userId
         }
       };
-      // console.log("投票详情需要ID", this.quan);
+     // console.log("投票详情需要ID", this.quan);
       api.ActivityvoteRecordsDetail(params).then(response => {
         // console.log("投票详情列表", response);
         this.loading = false,
@@ -608,6 +614,7 @@ export default {
     Detail: function(userId, type) {
       this.list1 = type;
       this.dialogTable = true;
+       this.votetype = type
       let params = {
         params: {
           activityId: this.quan.activityId,
@@ -617,31 +624,40 @@ export default {
       };
       api.ActivityvoteRecordsDetail(params).then(response => {
         console.log("评分详情列表", response);
-        // this.loading = false,
+        this.zimulist = response.data.data[0];
         this.gridData = response.data.data[1];
         console.log("评分详情列表123456", this.gridData);
       });
     },
-    FormVisible: function(scope) {
-      this.list = scope.row.socre;
+    FormVisible: function (scope) {
+      console.log('123123', scope)
+      this.list = scope.row.socre
+      this.voteuserId = scope.row.userId;
+      this.voteelecterId = scope.row.electedId
+      console.log(this.list)
       this.dialogTable = false;
       this.dialogFormVisible4 = true;
 
       // console.log(scope)
     },
-    // 修改
-    queding: function(scope) {
+    // 修改 
+    queding: function () {
       this.dialogFormVisible4 = false;
 
-      console.log(scope);
+      // console.log(scope)
       let params = {
         params: {
           activityId: this.quan.activityId,
-          userId: userId,
-          type: type
+          userId: this.voteuserId,
+          electedId: this.voteelecterId,
+          type: this.votetype,
+          score: this.list
         }
       };
-    }
+      api.ActivityvoteRecordsUpdate(params).then(resP => {
+        this.getActivityRecord(this.quan.activityId);
+      })
+    },
   }
 };
 </script>

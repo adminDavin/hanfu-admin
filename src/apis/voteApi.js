@@ -473,6 +473,17 @@ function ActivityvoteRecordsDetail(params) {
   return Axios.get("/api/activity/ActivityvoteRecordsDetail",params);
 }
 
+function ActivityvoteRecordsUpdate(data) {
+  console.log(data)
+  let fd=new FormData();
+  fd.append('activityId',data.params.activityId);
+  fd.append('userId',data.params.userId);
+  fd.append('electedId',data.params.electedId);
+  fd.append('type',data.params.type);
+  fd.append('score',data.params.score);
+  return Axios.post("/api/activity/ActivityvoteRecordsUpdate",fd,{ responseType: 'arraybuffer' });
+}
+
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -516,5 +527,6 @@ export default {
    updateSJ:updateSJ,
    sortStart:sortStart,
    ActivityvoteRecordsDetail:ActivityvoteRecordsDetail,
-   getuser1:getuser1
+   getuser1:getuser1,
+   ActivityvoteRecordsUpdate:ActivityvoteRecordsUpdate
 };

@@ -352,7 +352,7 @@ export default {
       // console.log("投票详情需要ID", this.quan);
       api.ActivityvoteRecordsDetail(params).then(response => {
         console.log("投票详情列表", response);
-        this.gridData = response.data.data;
+        this.gridData = response.data.data[0];
       });
     },
     // 后台活动投票记录详情查询ID' 评价分
