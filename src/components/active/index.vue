@@ -10,24 +10,7 @@
       <el-tab-pane v-for="item in tabList" :label="item.name" :name="item.path" :key="item.index"></el-tab-pane>
     </el-tabs>
     <router-view></router-view>
-    <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="活动管理" name="first" style="color:orange;">
-        <activityManage></activityManage>
-      </el-tab-pane>
-      <el-tab-pane label="策略管理" name="second">
-        <activityStrategy></activityStrategy>
-      </el-tab-pane>
-      <el-tab-pane label="公司管理" name="third">
-        <company></company>
-      </el-tab-pane>
-      <el-tab-pane label="用户管理" name="five">
-        <user></user>
-      </el-tab-pane>
-      <el-tab-pane label="轮播图管理" name="fourth">
-        <pic></pic>
-      </el-tab-pane>
-    </el-tabs> -->
-    <!-- <activeTable></activeTable> -->
+
   </div>
 
 </div>

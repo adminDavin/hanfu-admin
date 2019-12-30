@@ -209,6 +209,12 @@ function getuser(param) {
   }
   return Axios.get("/user/user/userList",params);
 }
+//  获取用户列表 strategy. 使用的 
+function getuser1() {
+  // console.log('12320',param)
+  // console.log('12320',params)
+  return Axios.get("/user/user/userList");
+}
 // 修改规则值
 
 function creatrCode(params) {
@@ -467,23 +473,6 @@ function ActivityvoteRecordsDetail(params) {
   return Axios.get("/api/activity/ActivityvoteRecordsDetail",params);
 }
 
-function updateUserAvatar(param) { 
-      console.log(file);
-      let fd = new FormData();
-      fd.append("file", param.fileInfo);
-      fd.append("userId", param.userId);
-      Axios
-        .post("/api/wareHouse/updateUserAvatar", fd, {
-          responseType: "arraybuffer"
-        })
-        .then(res => {
-          this.$message({
-            message: "上传成功",
-            type: "success"
-          });
-        });
-}
-
 export default {
   getStrategyRuleByActive:getStrategyRuleByActive,
    addActivity:addActivity,
@@ -526,6 +515,6 @@ export default {
    VictoryCount:VictoryCount,
    updateSJ:updateSJ,
    sortStart:sortStart,
-   ActivityvoteRecordsDetail: ActivityvoteRecordsDetail,
-   updateUserAvatar: updateUserAvatar
+   ActivityvoteRecordsDetail:ActivityvoteRecordsDetail,
+   getuser1:getuser1
 };

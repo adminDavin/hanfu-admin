@@ -608,9 +608,9 @@
         console.log(this.templateSelection.ruleName)
       },
       userlist: function() {
-        api.getuser().then(response => {
+        api.getuser1().then(response => {
           console.log('用户列表', response);
-          this.rewardData = response.data.data;
+          this.rewardData = response.data.data.list;
         })
       },
       // 添加策略

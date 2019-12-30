@@ -20,7 +20,7 @@ module.exports = {
           '^/api': '/'
         }
       },
-      '/user': {
+      '/user': {/*  */
         target:'http://localhost:8082',//小方
         // target:'http://192.168.1.101:8082',//王博朋
         // target: 'http://192.168.1.233:8082',//小方
@@ -30,15 +30,6 @@ module.exports = {
           '^/user': '/'
         }
       },
-
-      '/order': {
-        //  target:'http://192.168.1.101:9097',//王博朋
-        target:'http://localhost:9097',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/order': '/'
-        }
-      }
 
     },
 
