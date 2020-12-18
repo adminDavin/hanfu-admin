@@ -15,7 +15,7 @@ function addStore(params) {
 function getStore(param) {
   console.log(param);
   let params = {
-    bossId: 1,
+    bossId: param.bossid,
   };
   if (param.stoneType !== '') {
     params.stoneType = param.stoneType;

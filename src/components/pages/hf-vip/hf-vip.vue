@@ -8,12 +8,18 @@
 
         <el-card class="box-card">
           <div style="margin-right:120px;">
-            <el-button class="unification" type="primary" style="float:right;" @click="draweradd = true">添加会员</el-button>
+            <el-button
+              class="unification"
+              type="primary"
+              style="float:right;"
+              @click="draweradd = true"
+            >添加会员</el-button>
           </div>
           <el-table :data="manage" stripe style="width: 100%">
-            <el-table-column prop="name" align="center" label="会员名"></el-table-column>
-            <el-table-column prop="phone" align="center" label="手机号"></el-table-column>
-            <el-table-column prop="levelName" align="center" label="会员等级"></el-table-column>
+            <el-table-column prop="userName" align="center" label="会员名"></el-table-column>
+            <!-- <el-table-column prop="phone" align="center" label="手机号"></el-table-column> -->
+            <el-table-column prop="day" align="center" label="会员天数"></el-table-column>
+            <!-- <el-table-column prop="levelName" align="center" label="会员等级"></el-table-column> -->
             <el-table-column align="center" label="操作">
               <template slot-scope="scope">
                 <el-button type="text" @click="deletevip(scope.row)">删除</el-button>
@@ -25,15 +31,20 @@
 
       <el-tab-pane label="特权管理">
         <el-card class="box-card">
-          <div >
+          <div>
             <div style="width:100%;">
               <div style="overflow:hidden;margin-bottom:30px;margin-right:120px;float:right;">
-                <el-button class="unification" type="primary" @click="drawer=true">添加等级</el-button>
+                <el-button class="unification" type="primary" @click="drawer=true">添加会员卡</el-button>
               </div>
               <el-table :data="levellist" stripe style @row-click="finddesnum">
-                <el-table-column prop="levelName" align="center" label="等级名称"></el-table-column>
-                <!-- <el-table-column prop="levelName" align="center" label="等级排序"></el-table-column> -->
-                <el-table-column prop="levelDescribe" align="center" label="等级描述"></el-table-column>
+                <el-table-column prop="vipName" align="center" label="会员卡名称"></el-table-column>
+                <el-table-column prop="vipPrice" align="center" label="价格">
+                   <template slot-scope="scope">
+                    <span >{{numFilter(scope.row.vipPrice/100)}}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="vipDay" align="center" label="时长"></el-table-column>
+                <el-table-column prop="lable" align="center" label="标签"></el-table-column>
                 <el-table-column align="center" label="操作">
                   <template slot-scope="scope">
                     <!-- <el-button type="text" @click="addmiao(scope.row)">添加等级描述</el-button> -->
@@ -43,16 +54,18 @@
                       size="small"
                       align="center"
                     >修改</el-button>
-                     <el-button
+                    <el-button
                       @click="privilege(scope.row)"
                       type="text"
                       size="small"
                       align="center"
                     >查看</el-button>
-                    <el-button type="text"
+                    <el-button
+                      type="text"
                       size="small"
                       align="center"
-                      @click="deleteEstate(scope.row)">删除</el-button>
+                      @click="deleteEstate(scope.row)"
+                    >删除</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -79,7 +92,7 @@
               </template>
                 </el-table-column>
               </el-table>
-            </div> -->
+            </div>-->
           </div>
         </el-card>
       </el-tab-pane>
@@ -120,9 +133,9 @@
           <el-button type="primary" @click="submitForm3('ruleForm3')">提交</el-button>
         </el-form-item>
       </el-form>
-    </el-drawer> -->
+    </el-drawer>-->
 
-    <el-dialog width="33%" title="添加等级" :visible.sync="drawer" center>
+    <el-dialog width="33%" title="添加会员卡" :visible.sync="drawer" center>
       <el-form
         :model="ruleForm"
         status-icon
@@ -131,13 +144,35 @@
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item label="等级名称" prop="name">
-          <el-input style="width:300px;" v-model="ruleForm.name" autocomplete="off"></el-input>
+        <el-form-item label="会员名称" prop="vipName">
+          <el-input style="width:300px;" v-model="ruleForm.vipName  " autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="等级描述" prop="name">
-          <el-input style="width:300px;" v-model="ruleForm.levelDescribe" autocomplete="off"></el-input>
+        <el-form-item label="价格" prop="price">
+          <el-input style="width:300px;" v-model="ruleForm.price2" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="等级">
+        <el-form-item label="天数" prop="vipDay">
+          <el-input style="width:300px;" v-model="ruleForm.vipDay" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label prop>
+          <el-upload
+            action
+            list-type="picture-card"
+            ref="upload"
+            multiple
+            :auto-upload="false"
+            :limit="2"
+            :on-success="handleSuccess"
+            :file-list="fileList"
+            :on-change="imgUpload"
+          >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <!-- <div slot="tip">只能上传jpg/png文件，且不超过500kb</div> -->
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="标签" prop="label">
+          <el-input style="width:300px;" v-model="ruleForm.label" autocomplete="off"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="等级">
           <el-select v-model="ruleForm.level" placeholder="请选择">
             <el-option
               v-for="item in options"
@@ -146,12 +181,12 @@
               :value="item.value"
             ></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item>-->
         <el-form-item>
           <!-- <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button> -->
         </el-form-item>
       </el-form>
-       <span slot="footer" class="dialog-footer">
+      <span slot="footer" class="dialog-footer">
         <el-button @click="drawer = false">取 消</el-button>
         <el-button type="primary" @click="submitForm('ruleForm')">保 存</el-button>
       </span>
@@ -166,7 +201,7 @@
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item label="等级名称" prop="levelName" style="margin-top:10px;">
+        <!-- <el-form-item label="等级名称" prop="levelName" style="margin-top:10px;">
           <el-select v-model="ruleForm1.levelName" placeholder="请选择" @change="getchang">
             <el-option
               v-for="item in levellist"
@@ -175,11 +210,14 @@
               :value="item.levelName"
             ></el-option>
           </el-select>
-        </el-form-item>
-        <el-form-item>
-          <!-- <el-button type="primary" @click="submitForm1('ruleForm1')">提交</el-button> -->
-        </el-form-item>
-      </el-form>
+        </el-form-item> -->
+        <!-- <el-form-item>
+          <el-button type="primary" @click="submitForm1('ruleForm1')">提交</el-button>
+        </el-form-item> -->
+          <el-form-item label="会员天数" prop="">
+            <el-input style="width:300px;" v-model="ruleForm1.day" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
 
       <el-table
         :data="userData"
@@ -201,8 +239,7 @@
       </span>
     </el-dialog>
 
-
-    <el-dialog width="33%" title="修改等级1" :visible.sync="leveledit" center>
+    <el-dialog width="33%" title="修改会员卡" :visible.sync="leveledit" center>
       <el-form
         :model="ruleForm2"
         status-icon
@@ -211,14 +248,33 @@
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item label="等级名称" prop="name">
-          <el-input style="width:300px;" v-model="ruleForm2.name" autocomplete="off"></el-input>
+         <el-form-item label="会员名称" prop="vipName">
+          <el-input style="width:300px;" v-model="ruleForm2.vipName" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="等级描述" prop="levelDescribe">
-          <el-input style="width:300px;" v-model="ruleForm2.levelDescribe" autocomplete="off"></el-input>
+        <el-form-item label="价格" prop="price">
+          <el-input style="width:300px;" v-model="ruleForm2.price2" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item>
-          <!-- <el-button type="primary" style="background:#A3A0FB;" @click="submitForm2('ruleForm2')">提交</el-button> -->
+        <el-form-item label="天数" prop="vipDay">
+          <el-input style="width:300px;" v-model="ruleForm2.vipDay" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label prop>
+          <el-upload
+            action
+            list-type="picture-card"
+            ref="upload"
+            multiple
+            :auto-upload="false"
+            :limit="2"
+            :on-success="handleSuccess"
+            :file-list="fileList2"
+            :on-change="imgUpload2"
+          >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <!-- <div slot="tip">只能上传jpg/png文件，且不超过500kb</div> -->
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="标签" prop="label">
+          <el-input style="width:300px;" v-model="ruleForm2.label" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -226,12 +282,13 @@
         <el-button type="primary" @click="submitForm2('ruleForm2')">提 交</el-button>
       </span>
     </el-dialog>
-
   </div>
 </template>
 <script>
+import axios from 'axios';
 // eslint-disable-next-line no-unused-vars
 import userCenterService from '@/service/userCenter.js';
+import serviceGoods from '@/service/goods.js';
 import constants from '@/store/constants.js';
 import vip from '@/service/vip.js';
 import store from '@/store';
@@ -240,6 +297,8 @@ export default {
   components: { hfsearch },
   data() {
     return {
+      fileList: [], // 图片
+      fileList2: [], // 图片
       options: [
         {
           value: '1',
@@ -274,17 +333,17 @@ export default {
         ],
       },
       rules: {
-        name: [
+        vipName: [
           {
             required: true,
-            message: '请输入等级名称',
+            message: '请输入名称',
             trigger: 'blur',
           },
         ],
-        levelDescribe: [
+        vipDay: [
           {
             required: true,
-            message: '请输入等级描述',
+            message: '请输入天数',
             trigger: 'blur',
           },
         ],
@@ -336,22 +395,27 @@ export default {
         ],
       },
       ruleForm: {
-        levelDescribe: '',
-        name: '',
+        price: '',
+        price2: '',
+        vipDay: '',
+        vipName: '',
+        fileId: '',
         level: '',
         bossId: '1',
       },
       ruleForm2: {
-        levelDescribe: '',
-        name: '',
-        id: '',
-        bossId: '1',
+        fileId: '',
+        label: '',
+        price: '',
+        price2: '',
+        vipDay: '',
+        vipId: '',
+        vipName: '1',
       },
       ruleForm1: {
-        levelName: '',
-        levelId: '',
+        bossId: '',
+        day: '',
         userId: [],
-        bossId: '1',
       },
       ruleForm3: {
         expireTime: '',
@@ -390,15 +454,90 @@ export default {
     };
   },
   methods: {
-    deleteEstate (row) {
+    numFilter(value) {
+      // 截取当前数据到小数点后两位
+      // eslint-disable-next-line no-magic-numbers
+      let realVal = parseFloat(value).toFixed(2);
+      return realVal;
+    },
+    checkLevel: function() {
+      let bossId = store.getUser().BSid;
+      vip.selectVipCard(bossId, (res) => {
+        console.log(res);
+        this.levellist = res.data.data;
+        // this.ruleForm3.levelId = this.levellist[0].id;
+        // vip.finddes(this.levellist[0].id, (res) => {
+        //   console.log(res);
+        //   this.miaodata = res.data.data;
+        // });
+      });
+    },
+    getlevel: function() {
+      let bossId = store.getUser().BSid;
+      vip.selectVipCard(bossId, (res) => {
+        console.log(res);
+        this.levellist = res.data.data;
+      });
+    },
+    handleSuccess(esponse, file, fileList) {
+      console.log('esponse', esponse);
+      console.log('file', file);
+      console.log('fileList', fileList);
+      this.ruleForm.fileId = esponse.data;
+    },
+    imgUpload(file) {
+      let fileName = file.name;
+      let regex = /(.jpg|.jpeg|.gif|.png|.bmp)$/;
+      if (regex.test(fileName.toLowerCase())) {
+        this.picUrl = URL.createObjectURL(file.raw);
+        this.uploadFile(file);
+      } else {
+        this.$message.error('请选择图片文件');
+      }
+    },
+    uploadFile(file) {
+      let fd = new FormData();
+      fd.append('file', file.raw);
+      // fd.append('id', this.imageId);
+      axios
+        .post('/api/api/product/goods/fileUpLoad', fd)
+        .then((res) => {
+          // this.acquire();
+          console.log('图片', res.data.data);
+          this.ruleForm.fileId = res.data.data;
+        });
+    },
+    imgUpload2(file) {
+      let fileName = file.name;
+      let regex = /(.jpg|.jpeg|.gif|.png|.bmp)$/;
+      if (regex.test(fileName.toLowerCase())) {
+        this.picUrl = URL.createObjectURL(file.raw);
+        this.uploadFile2(file);
+      } else {
+        this.$message.error('请选择图片文件');
+      }
+    },
+    uploadFile2(file) {
+      let fd = new FormData();
+      fd.append('file', file.raw);
+      // fd.append('id', this.imageId);
+      axios
+        .post('/api/api/product/goods/fileUpLoad', fd)
+        .then((res) => {
+          // this.acquire();
+          console.log('图片', res.data.data);
+          this.ruleForm2.fileId = res.data.data;
+        });
+    },
+    deleteEstate(row) {
       console.log(row);
-      vip.deleteUserMemberLevel(row.id, (res) => {
+      vip.deleteVipCard({vipId: row.id}, (res) => {
         console.log(res);
         this.getlevel();
       });
     },
     privilege() {
-      this.$router.push({path: '/hf-privilege', query: {}});
+      this.$router.push({ path: '/hf-privilege', query: {} });
     },
     childClick(tableData) {
       if (tableData === -1) {
@@ -407,11 +546,11 @@ export default {
         this.manage = tableData;
       }
     },
-    getchang: function(val) {
-      console.log(val);
-      this.ruleForm1.levelName = val;
-      console.log(this.ruleForm1);
-    },
+    // getchang: function(val) {
+    //   console.log(val);
+    //   this.ruleForm1.levelName = val;
+    //   console.log(this.ruleForm1);
+    // },
     formatTen: function(num) {
       // eslint-disable-next-line no-magic-numbers
       return num > 9 ? num + '' : '0' + num;
@@ -507,12 +646,21 @@ export default {
     editlevel: function(row) {
       console.log(row);
       this.leveledit = true;
-      this.ruleForm2.id = row.id;
-      this.ruleForm2.name = row.levelName;
+      this.ruleForm2.fileId = row.fileId;
+      this.ruleForm2.label = row.lable;
+      // eslint-disable-next-line no-magic-numbers
+      this.ruleForm2.price2 = (row.vipPrice / 100).toFixed(2);
+      this.ruleForm2.vipDay = row.vipDay;
+      this.ruleForm2.vipId = row.id;
+      this.ruleForm2.vipName = row.vipName;
+      this.fileList2 = [];
+      serviceGoods.getFileFileId(row.fileId, (res) => {
+        this.fileList2.push({ url: res.config.url });
+      });
     },
     deletevip: function(row) {
       console.log(row);
-      vip.deletevip(row.id, (res) => {
+      vip.deleteVip({userVipId: row.vipUserId}, (res) => {
         console.log(res);
         if (res.data.status === constants.SUCCESS_CODE) {
           this.$message({
@@ -530,36 +678,23 @@ export default {
       });
     },
     findvip: function() {
-      vip.findvip((res) => {
+      let bossId = store.getUser().BSid;
+      vip.selectVip(bossId, (res) => {
         console.log(res);
         this.manage = res.data.data;
         // this.levellist = res.data.data;
       });
     },
-    getlevel: function() {
-      vip.checkLevel((res) => {
-        console.log(res);
-        this.levellist = res.data.data;
-      });
-    },
-    checkLevel: function() {
-      vip.checkLevel((res) => {
-        console.log(res);
-        this.levellist = res.data.data;
-        this.ruleForm3.levelId = this.levellist[0].id;
-        vip.finddes(this.levellist[0].id, (res) => {
-          console.log(res);
-          this.miaodata = res.data.data;
-        });
-      });
-    },
+
+
     submitForm1(ruleForm1) {
       console.log(this.ruleForm1);
       this.$refs[ruleForm1].validate((valid) => {
         if (valid) {
+          this.ruleForm1.bossId = store.getUser().BSid;
           if (this.selectDdata.length > 0) {
             for (var i = 0; i < this.selectDdata.length; i++) {
-              this.ruleForm1.userId.push(this.selectDdata[i].id);
+              this.ruleForm1.userId = this.selectDdata[i].id;
             }
           }
           if (this.selectDdata.length === 0) {
@@ -578,7 +713,7 @@ export default {
             }
           }
           console.log(this.ruleForm1);
-          vip.addvip(this.ruleForm1, (res) => {
+          vip.addVip(this.ruleForm1, (res) => {
             console.log(res);
             // eslint-disable-next-line no-magic-numbers
             if (res.data.status === 200) {
@@ -605,7 +740,9 @@ export default {
         if (valid) {
           console.log(this.ruleForm);
           this.ruleForm.bossId = store.getUser().BSid;
-          vip.addLevel(this.ruleForm, (res) => {
+          // eslint-disable-next-line no-magic-numbers
+          this.ruleForm.price = this.ruleForm.price2 * 10000 / 100;
+          vip.addVipCard(this.ruleForm, (res) => {
             console.log(res);
             // eslint-disable-next-line no-magic-numbers
             if (res.data.status === 200) {
@@ -629,7 +766,9 @@ export default {
       this.$refs[ruleForm2].validate((valid) => {
         if (valid) {
           console.log(this.ruleForm2);
-          vip.editLevel(this.ruleForm2, (res) => {
+          // eslint-disable-next-line no-magic-numbers
+          this.ruleForm2.price = this.ruleForm2.price2 * 10000 / 100;
+          vip.updateVipCard(this.ruleForm2, (res) => {
             console.log(res);
             // eslint-disable-next-line no-magic-numbers
             if (res.data.status === 200) {

@@ -6,7 +6,7 @@ import store from '@/store';
 import router from '@/router';
 // 2. 请求头 token
 axios.defaults.headers.token = store.getUser().token;
-axios.defaults.headers.bossId = store.getUser().bossId;
+axios.defaults.headers.bossId = store.getUser().BSid;
 
 
 // 修改配置  加token
@@ -14,10 +14,10 @@ axios.defaults.headers.bossId = store.getUser().bossId;
 axios.interceptors.request.use((config) => {
     // 修改配置  加token
     let token = store.getUser().token;
-    let bossid = store.getUser().BSid;
+    // let bossid = store.getUser().BSid;
     if (token) {
         config.headers.token = token; // 将token放到请求头发送给服务器
-        config.headers.bossId = bossid; // 将token放到请求头发送给服务器
+        // config.headers.bossId = bossid; // 将token放到请求头发送给服务器
         return config;
     }
 }, (err) => Promise.reject(err));

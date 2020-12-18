@@ -5,37 +5,37 @@
     <div class="top-box">
       <div class="member-box member-image">
         <div class="member">会员数</div>
-        <div class="quantity">26485</div>
+        <div class="quantity">{{memberData.membersAll}}</div>
         <div class="dateline">
-          <span>日会员数：48687</span>
-          <span>月会员数：486876</span>
+          <span>日会员数：{{memberData.membersDay}}</span>
+          <span>月会员数：{{memberData.membersMouth}}</span>
         </div>
       </div>
 
       <div class="member-box visit-image">
         <div class="member">访问量</div>
-        <div class="quantity">264888463</div>
+        <div class="quantity">{{vistisData.browseCountsAll}}</div>
         <div class="dateline">
-          <span>日访问数：48687</span>
-          <span>月访问数：486876</span>
+          <span>日访问数：{{vistisData.browseCountsDay}}</span>
+          <span>月访问数：{{vistisData.browseCountsMouth}}</span>
         </div>
       </div>
 
       <div class="member-box order-image">
         <div class="member">订单量</div>
-        <div class="quantity">894687</div>
+        <div class="quantity">{{orderData.orderCountsAll}}</div>
         <div class="dateline">
-          <span>日订单量：48687</span>
-          <span>月订单量：486876</span>
+          <span>日订单量：{{orderData.orderCountsDay}}</span>
+          <span>月订单量：{{orderData.orderConutsMouth}}</span>
         </div>
       </div>
 
       <div class="member-box member-image">
         <div class="member">总收入</div>
-        <div class="quantity">8448648.89</div>
+        <div class="quantity">{{amountData.amountAll}}</div>
         <div class="dateline">
-          <span>日收入：48687646.00</span>
-          <span>月收入：48687646.00</span>
+          <span>日收入：{{amountData.amountDay}}</span>
+          <span>月收入：{{amountData.amountMouth}}</span>
         </div>
       </div>
     </div>
@@ -175,19 +175,19 @@
             <span>各品类占比</span>
           </div>
           <div class="classCycle-box">
-            <el-progress type="circle" :stroke-width="10" width="60" :percentage="22">s</el-progress>
+            <el-progress type="circle" :stroke-width="10" :width="60" :percentage="22">s</el-progress>
             <el-progress
               type="circle"
               :stroke-width="10"
               color="#4ECB73"
-              width="60"
+              :width="60"
               :percentage="22"
             ></el-progress>
             <el-progress
               type="circle"
               :stroke-width="10"
               color="#FBD437"
-              width="60"
+              :width="60"
               :percentage="22"
             ></el-progress>
           </div>
@@ -382,10 +382,19 @@
 
 <script>
 import echarts from 'echarts';
+import product from '@/service/product.js';
+// import store from '@/store';
 export default {
   name: '',
   data() {
     return {
+      amountData: '', // 金额数据
+      memberData: '', // 会员数
+      orderData: '', // 订单数量
+      orderTypeData: '', // 订单类型数据
+      vistisData: '', // 访问量
+
+
       currentPage3: 5,
       tableData: [
         {
@@ -466,8 +475,44 @@ export default {
     this.adminOverview();
     this.adminStatistics();
     this.adminRevenue();
+    this.findAmountData();
+    this.findMemberData();
+    this.findOrderData();
+    this.findOrderTypeData();
+    this.findVistisData();
   },
   methods: {
+    findAmountData () {
+      // let bossId = store.getUser().BSid;
+      product.findAmountData((res) => {
+        console.log('金额数据', res.data.data);
+        this.amountData = res.data.data;
+      });
+    },
+    findMemberData () {
+      product.findMemberData((res) => {
+        console.log('会员数', res.data.data);
+        this.memberData = res.data.data;
+      });
+    },
+    findOrderData () {
+      product.findOrderData((res) => {
+        console.log('订单数量', res.data.data);
+        this.orderData = res.data.data;
+      });
+    },
+    findOrderTypeData () {
+      product.findOrderTypeData((res) => {
+        console.log('订单类型数据', res.data.data);
+        this.orderTypeData = res.data.data;
+      });
+    },
+    findVistisData () {
+      product.findVistisData((res) => {
+        console.log('访问量', res.data.data);
+        this.vistisData = res.data.data;
+      });
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },

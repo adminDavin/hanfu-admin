@@ -308,6 +308,7 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
+import store from '@/store';
 import storeService from '@/service/store.js';
 import userCenterService from '@/service/userCenter.js';
 import constants from '@/store/constants.js';
@@ -584,9 +585,9 @@ export default {
       this.editdrawer = true;
       storeService.getStoreid(this.editid, (res) => {
         console.log(res);
-        this.editData.hfName = res.data.data.hfName;
-        console.log(this.editData.hfName);
-        this.editData.hfDesc = res.data.data.hfDesc;
+        this.editData.hfName = res.data.data.stoneName;
+        console.log(this.editData.stoneName);
+        this.editData.hfDesc = res.data.data.stoneDesc;
         this.editData.hfStatus = res.data.data.hfStatus;
         if (this.editData.hfStatus === 0) {
           this.radioye1 = '0';
@@ -655,7 +656,7 @@ export default {
       });
     },
     getStore: function () {
-      storeService.getStore({ bossid: this.bossid }, (res) => {
+      storeService.getStore({ bossid: store.getUser().BSid }, (res) => {
         console.log(res);
         this.storeData = res.data.data;
         this.storeId = this.storeData[0].id;

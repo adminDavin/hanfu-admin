@@ -17,7 +17,9 @@ async function getliststoneId(params, handleResult) {
 async function bianCoupon(params, handleResult) {
     quan.bianCoupon(params).then((res) => handleResult(res));
 }
-
+async function deletedDiscountCoupon(Id, handleResult) {
+    quan.deletedDiscountCoupon(Id).then((res) => handleResult(res));
+}
 
 export default {
     addCoupon: addCoupon,
@@ -25,5 +27,6 @@ export default {
     getlist: getlist,
     bianCoupon: bianCoupon,
     getliststoneId: getliststoneId,
+    deletedDiscountCoupon: deletedDiscountCoupon,
     // eslint-disable-next-line eol-last
 };

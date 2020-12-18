@@ -79,6 +79,13 @@
                   align="center"
                   @click="checkPersonDetail(scope.row)"
                 >修改</el-button>
+                <el-button
+                  type="text"
+                  class="ff3"
+                  @click="deleteProduct(scope.row)"
+                  size="small"
+                  align="center"
+                >删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -105,7 +112,7 @@
         status-icon
         :rules="rules"
         ref="ruleForm"
-        label-width="100px"
+        label-width="140px"
         class="demo-ruleForm"
       >
         <el-form-item label="名称" prop="discountCouponName">
@@ -217,7 +224,7 @@
         status-icon
         :rules="rules"
         ref="ruleForm1"
-        label-width="100px"
+        label-width="140px"
         class="demo-ruleForm"
       >
         <el-form-item label="名称" prop="discountCouponName">
@@ -464,6 +471,25 @@ export default {
     };
   },
   methods: {
+    deleteProduct(row) {
+      this.$confirm('确认删除吗？', '提示', {}).then(async () => {
+        console.log(row);
+        quan.deletedDiscountCoupon(row.id, (res) => {
+          console.log(res);
+          // eslint-disable-next-line no-magic-numbers
+          if (res.status === 200) {
+            this.$message({
+              message: '恭喜你，这是一条成功消息',
+              type: 'success',
+            });
+            this.getlist();
+          // eslint-disable-next-line no-magic-numbers
+          } else {
+            this.$message.error('操作错误');
+          }
+        });
+      });
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },

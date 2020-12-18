@@ -31,6 +31,18 @@ async function updateMessageInstance(params, handleResult) {
 async function getRefuse(id, handleResult) {
   news.getRefuse(id).then((res) => handleResult(res));
 }
+async function addMessage(params, handleResult) {
+  news.addMessage(params).then((res) => handleResult(res));
+}
+async function announcement(params, handleResult) {
+  news.announcement(params).then((res) => handleResult(res));
+}
+async function updateMessage(params, handleResult) {
+  news.updateMessage(params).then((res) => handleResult(res));
+}
+async function selectMessage(bossId, handleResult) {
+  news.selectMessage(bossId).then((res) => handleResult(res));
+}
 export default {
   getMessageContent: getMessageContent,
   getMessageContentType: getMessageContentType,
@@ -42,5 +54,9 @@ export default {
   getMessageInstanceList: getMessageInstanceList,
   updateMessageInstance: updateMessageInstance,
   getRefuse: getRefuse,
+  addMessage: addMessage,
+  announcement: announcement,
+  selectMessage: selectMessage,
+  updateMessage: updateMessage,
 };
 

@@ -202,6 +202,7 @@
 </template>
 
 <script>
+import store from '@/store';
 import serviceEvents from '@/service/eventsManage.js';
 import hfsearch from './hf-search.vue';
 export default {
@@ -402,7 +403,7 @@ export default {
     },
     // 获取所有商品
     setProducts() {
-      serviceEvents.selectAll((res) => {
+      serviceEvents.selectAll(store.getUser().BSid, (res) => {
         console.log('所有商品', res.data.data);
         this.gridData = res.data.data;
       });

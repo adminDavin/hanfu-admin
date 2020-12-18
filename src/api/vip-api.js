@@ -13,13 +13,13 @@ function addLevel(params) {
 function checkLevel() {
   return Axios.get('/api/api/user/hf-auth/findUserMemberLevel');
 }
-function addvip(params) {
-  let fd = new FormData();
-  console.log(params);
-  fd.append('levelId', params.levelId);
-  fd.append('userId', params.userId);
-  return Axios.post('/api/api/user/hf-auth/addUserMember', fd);
-}
+// function addvip(params) {
+//   let fd = new FormData();
+//   console.log(params);
+//   fd.append('levelId', params.levelId);
+//   fd.append('userId', params.userId);
+//   return Axios.post('/api/api/user/hf-auth/addUserMember', fd);
+// }
 function findvip() {
   return Axios.get('/api/api/user/hf-auth/findUserMember');
 }
@@ -65,10 +65,93 @@ function deleteUserMemberLevel(id) {
 function deleteMemberLevelDescribe(id) {
   return Axios.get('/api/api/user/hf-auth/deleteMemberLevelDescribe?id=' + id);
 }
+
+// ----------------------------------------新修改的会员------------------------------------------------
+// 添加会员卡
+function addVipCard(params) {
+  let fd = new FormData();
+  console.log(params);
+  fd.append('bossId', params.bossId);
+  fd.append('fileId', params.fileId);
+  fd.append('label', params.label);
+  fd.append('price', params.price);
+  fd.append('vipDay', params.vipDay);
+  fd.append('vipName', params.vipName);
+  return Axios.post('/api/api/user/vip/addVipCard', fd);
+}
+// 查询会员卡
+function selectVipCard(bossId) {
+  return Axios.get('/api/api/user/vip/selectVipCard?bossId=' + bossId);
+}
+// 删除会员卡
+function deleteVipCard(params) {
+  let fd = new FormData();
+  console.log(params);
+  fd.append('vipId', params.vipId);
+  return Axios.post('/api/api/user/vip/deleteVipCard', fd);
+}
+// 添加会员特权
+function addVipPrivilege(params) {
+  let fd = new FormData();
+  fd.append('bossId', params.bossId);
+  fd.append('fileId', params.fileId);
+  fd.append('privilegeName', params.privilegeName);
+  return Axios.post('/api/api/user/vip/addVipPrivilege', fd);
+}
+// 修改会员卡
+function updateVipCard(params) {
+  let fd = new FormData();
+  fd.append('fileId', params.fileId);
+  fd.append('label', params.label);
+  fd.append('price', params.price);
+  fd.append('vipDay', params.vipDay);
+  fd.append('vipId', params.vipId);
+  fd.append('vipName', params.vipName);
+  return Axios.post('/api/api/user/vip/updateVipCard', fd);
+}
+// 删除会员特权
+function deleteVipPrivilege(params) {
+  let fd = new FormData();
+  fd.append('privilegeId', params.privilegeId);
+  return Axios.post('/api/api/user/vip/deleteVipPrivilege', fd);
+}
+// 查询会员特权
+function selectVipPrivilege(params) {
+  let fd = new FormData();
+  fd.append('bossId', params.bossId);
+  return Axios.post('/api/api/user/vip/selectVipPrivilege', fd);
+}
+// 修改会员特权
+function updateVipPrivilege(params) {
+  let fd = new FormData();
+  fd.append('fileId', params.fileId);
+  fd.append('privilegeId', params.privilegeId);
+  fd.append('privilegeName', params.privilegeName);
+  return Axios.post('/api/api/user/vip/updateVipPrivilege', fd);
+}
+// 查询会员
+function selectVip(bossId) {
+  return Axios.get('/api/api/user/vip/selectVip?bossId=' + bossId);
+}
+// 添加会员
+function addVip(params) {
+  let fd = new FormData();
+  fd.append('bossId', params.bossId);
+  fd.append('day', params.day);
+  fd.append('userId', params.userId);
+  return Axios.post('/api/api/user/vip/addVip', fd);
+}
+// 添加会员
+function deleteVip(params) {
+  let fd = new FormData();
+  fd.append('userVipId', params.userVipId);
+  return Axios.post('/api/api/user/vip/deleteVip', fd);
+}
+// ---------------------------------------------------------------------------------------------------
 export default {
   addLevel: addLevel,
   checkLevel: checkLevel,
-  addvip: addvip,
+  // addvip: addvip,
   findvip: findvip,
   editLevel: editLevel,
   adddes: adddes,
@@ -77,4 +160,15 @@ export default {
   findvips: findvips,
   deleteUserMemberLevel: deleteUserMemberLevel,
   deleteMemberLevelDescribe: deleteMemberLevelDescribe,
+  addVipCard: addVipCard,
+  selectVipCard: selectVipCard,
+  deleteVipCard: deleteVipCard,
+  addVipPrivilege: addVipPrivilege,
+  deleteVipPrivilege: deleteVipPrivilege,
+  selectVipPrivilege: selectVipPrivilege,
+  updateVipCard: updateVipCard,
+  updateVipPrivilege: updateVipPrivilege,
+  selectVip: selectVip,
+  addVip: addVip,
+  deleteVip: deleteVip,
 };

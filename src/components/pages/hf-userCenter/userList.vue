@@ -25,6 +25,7 @@
          width:100%;align-items:center;flex-wrap:wrap;
         background:#fafafa;color:#666;font-size:12px;"
           >
+            <el-button style="float:right;" @click="dialogFormVisible = true" type="primary" round>修改</el-button>
             <div>商家姓名： {{jinben.bossName}}</div>
             <div style="margin-top:26px;">手机号： {{jinben.phone}}</div>
             <div style="margin-top:26px;">注册资本： {{jinben.registeredCapital}} 万</div>
@@ -34,6 +35,30 @@
             >经营范围： {{jinben.businessScope}}</div>
           </div>
         </el-card>
+
+
+        <el-dialog width="40%" title="编辑基本信息" :visible.sync="dialogFormVisible" center>
+          <el-form :model="jinben"  style="width:70%;"  status-icon label-width="160px"  class="demo-ruleForm">
+            <el-form-item label="商家姓名">
+              <el-input v-model="jinben.bossName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号">
+              <el-input v-model="jinben.phone" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="注册资本">
+              <el-input v-model="jinben.registeredCapital" autocomplete="off"></el-input>
+            </el-form-item>
+             <el-form-item label="经营范围">
+                <el-input style="min-height: 148px;" type="textarea" v-model="jinben.businessScope"></el-input>
+             </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer" >
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="updatefindBossInfo()">确 定</el-button>
+          </div>
+      </el-dialog>
+
+
       </el-tab-pane>
       <el-tab-pane label="店铺管理员列表" name="second">
         <el-card class="search-card">
@@ -123,6 +148,8 @@
 <script>
 import userCenterService from '@/service/userCenter.js';
 import hfsearch from '../hf-eventsManage/hf-search';
+import store from '@/store';
+
 export default {
   components: { hfsearch },
   data() {
@@ -134,6 +161,7 @@ export default {
       currentPage: 1, // 初始页
       pagesize: 10, // 每页的数据
       dialogVisible: false,
+      dialogFormVisible: false,
       userId: '',
       imageUrl: '',
       pictureVisible: false,
@@ -148,6 +176,17 @@ export default {
     };
   },
   methods: {
+    updatefindBossInfo () {
+      this.jinben.bossId = this.bossid;
+      userCenterService.updatefindBossInfo(this.jinben, (res) => {
+        console.log(res);
+        this.$message({
+          message: '修改成功',
+          type: 'success',
+        });
+        this.dialogFormVisible = false;
+      });
+    },
     childClick(tableData) {
       if (tableData === -1) {
         this.checkAdmin();
@@ -163,14 +202,14 @@ export default {
       }
     },
     bossinfor: function() {
-      userCenterService.bossinfor(this.bossid, (res) => {
+      userCenterService.bossinfor(store.getUser().BSid, (res) => {
         console.log(res);
         this.jinben = res.data.data;
         // this.Admindata = res.data.data;
       });
     },
     checkAdmin: function(tab) {
-      userCenterService.checkAdmin(this.bossid, (res) => {
+      userCenterService.checkAdmin(store.getUser().BSid, (res) => {
         console.log(res);
         this.Admindata = res.data.data;
       });
@@ -245,6 +284,8 @@ export default {
     this.checkUser();
     this.checkAdmin();
     this.bossinfor();
+    this.bossid = store.getUser().BSid;
+    console.log('bossid', store.getUser().BSid);
   },
 };
 </script>

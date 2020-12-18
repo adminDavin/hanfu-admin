@@ -243,7 +243,7 @@ export default {
     },
     setProducts() {
       this.loading = true;
-      serviceProduct.getProductListBoss((res) => {
+      serviceProduct.getProductListBoss(store.getUser().BSid, (res) => {
         this.tableData = res.data.data.list;
         this.loading = false;
       });

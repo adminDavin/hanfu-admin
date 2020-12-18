@@ -164,6 +164,7 @@
 
 <script>
 // import store from '@/store';
+import store from '@/store';
 import serviceEvents from '@/service/eventsManage.js';
 import serviceGoods from '@/service/goods.js';
 import axios from 'axios';
@@ -407,7 +408,7 @@ export default {
     },
     // 获取所有商品
     setProducts() {
-      serviceEvents.selectAll((res) => {
+      serviceEvents.selectAll(store.getUser().BSid, (res) => {
         console.log('所有商品', res);
         this.gridData = res.data.data;
       });

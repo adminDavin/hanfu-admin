@@ -84,7 +84,16 @@ function checkAdmins(param) {
 function bossinfor(bossId) {
     return Axios.get('/api/api/user/hf-auth/findBossInfo?bossId=' + bossId);
 }
-
+function updatefindBossInfo(params) {
+    let fd = new FormData();
+    console.log(params);
+    fd.append('bossId', params.bossId);
+    fd.append('capital', params.registeredCapital);
+    fd.append('name', params.bossName);
+    fd.append('phone', params.phone);
+    fd.append('scope', params.businessScope);
+    return Axios.post('/api/api/user/hf-auth/updatefindBossInfo', fd);
+}
 export default {
     addUser: addUser,
     checkUser: checkUser,
@@ -96,5 +105,6 @@ export default {
     checkAdmin: checkAdmin,
     checkAdmins: checkAdmins,
     bossinfor: bossinfor,
+    updatefindBossInfo: updatefindBossInfo,
     // eslint-disable-next-line eol-last
 };

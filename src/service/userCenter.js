@@ -36,7 +36,9 @@ async function bossinfor(bossId, handleResult) {
 async function getOrderDetail1(bossId, handleResult) {
     userCenter.getOrderDetail1(bossId).then((res) => handleResult(res));
 }
-
+async function updatefindBossInfo(params, handleResult) {
+    userCenter.updatefindBossInfo(params).then((res) => handleResult(res));
+}
 export default {
     addUser: addUser,
     checkUser: checkUser,
@@ -49,5 +51,6 @@ export default {
     checkAdmins: checkAdmins,
     bossinfor: bossinfor,
     getOrderDetail1: getOrderDetail1,
+    updatefindBossInfo: updatefindBossInfo,
     // eslint-disable-next-line eol-last
 };

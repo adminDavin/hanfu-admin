@@ -57,10 +57,14 @@ function getlist() {
 function getliststoneId(stoneId) {
     return axios.get('/api/api/product/discountCoupon/selectDiscountCoupon?stoneId=' + stoneId);
 }
+function deletedDiscountCoupon(Id) {
+    return axios.get('/api/api/product/discountCoupon/deletedDiscountCoupon?Id=' + Id);
+}
 export default {
     addCoupon: addCoupon,
     getScope: getScope,
     getlist: getlist,
     bianCoupon: bianCoupon,
     getliststoneId: getliststoneId,
+    deletedDiscountCoupon: deletedDiscountCoupon,
 };

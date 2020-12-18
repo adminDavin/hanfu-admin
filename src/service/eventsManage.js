@@ -37,8 +37,8 @@ async function select(name, handleResult) {
 }
 
 // 获取所有商品列表
-async function selectAll(handleResult) {
-  eventsManage.selectAll().then((res) => handleResult(res));
+async function selectAll(bossId, handleResult) {
+  eventsManage.selectAll(bossId).then((res) => handleResult(res));
 }
 // 添加秒杀商品接口
 async function ceateInsert(params, handleResult) {

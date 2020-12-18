@@ -261,6 +261,7 @@
 // import store from '@/store';
 import serviceEvents from '@/service/eventsManage.js';
 import hfsearch from './hf-search.vue';
+import store from '@/store';
 export default {
   components: { hfsearch },
   props: ['labelType'],
@@ -547,7 +548,7 @@ export default {
     },
     // 获取所有商品
     setProducts() {
-      serviceEvents.selectAll((res) => {
+      serviceEvents.selectAll(store.getUser().BSid, (res) => {
         console.log('所有商品', res);
         this.gridData = res.data.data;
       });

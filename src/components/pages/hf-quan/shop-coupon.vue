@@ -5,7 +5,13 @@
     </el-card>
 
     <el-card class="box-card">
-      <el-button class="unification" style="float: right;" size="small" type="primary" @click="drawer = true">+ 添加优惠券</el-button>
+      <el-button
+        class="unification"
+        style="float: right;"
+        size="small"
+        type="primary"
+        @click="drawer = true"
+      >+ 添加优惠券</el-button>
       <el-table
         stripe
         :data="list.slice((currentPage-1)*pagesize,currentPage*pagesize)"
@@ -66,6 +72,13 @@
               align="center"
               @click="checkPersonDetail(scope.row)"
             >修改</el-button>
+            <el-button
+              type="text"
+              class="ff3"
+              @click="deleteProduct(scope.row)"
+              size="small"
+              align="center"
+            >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -87,13 +100,13 @@
         status-icon
         :rules="rules"
         ref="ruleForm"
-        label-width="100px"
+        label-width="140px"
         class="demo-ruleForm"
       >
         <el-form-item label="名称" prop="discountCouponName">
           <el-input v-model="formquan.discountCouponName" style="width:230px;" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="所属店铺">
+        <el-form-item v-if="identity != 'stone'" label="所属店铺">
           <el-select v-model="formquan.stoneId" placeholder="请选择">
             <el-option v-for="item in options" :key="item.id" :label="item.hfName" :value="item.id"></el-option>
           </el-select>
@@ -200,7 +213,7 @@
         status-icon
         :rules="rules"
         ref="ruleForm1"
-        label-width="100px"
+        label-width="140px"
         class="demo-ruleForm"
       >
         <el-form-item label="名称" prop="discountCouponName">
@@ -320,6 +333,7 @@ export default {
   components: { hfsearch },
   data() {
     return {
+      identity: '',
       activeName: 'second',
       bossid: 1,
       zhuangval: '',
@@ -442,6 +456,25 @@ export default {
     };
   },
   methods: {
+    deleteProduct(row) {
+      this.$confirm('确认删除吗？', '提示', {}).then(async () => {
+        console.log(row);
+        quan.deletedDiscountCoupon(row.id, (res) => {
+          console.log(res);
+          // eslint-disable-next-line no-magic-numbers
+          if (res.status === 200) {
+            this.$message({
+              message: '恭喜你，这是一条成功消息',
+              type: 'success',
+            });
+            this.getlist();
+          // eslint-disable-next-line no-magic-numbers
+          } else {
+            this.$message.error('操作错误');
+          }
+        });
+      });
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -451,7 +484,6 @@ export default {
       } else {
         this.list = tableData;
       }
-
     },
 
     uptime1: function(val) {
@@ -582,6 +614,9 @@ export default {
             this.formquan.useLimit.minus = this.formquan.useLimit.minus * 100;
           }
           this.formquan.useLimit = JSON.stringify(this.formquan.useLimit);
+          if (store.getUser().identity === 'stone') {
+            this.formquan.stoneId = store.getUser().BSid;
+          }
           quan.addCoupon(this.formquan, (res) => {
             console.log('添加优惠券', res);
             if (res.data.status === constants.SUCCESS_CODE) {
@@ -656,7 +691,7 @@ export default {
     },
     getStore: function() {
       let bossid = store.getUser().BSid;
-      storeService.getStore(bossid, (res) => {
+      storeService.getStore({ bossid: bossid }, (res) => {
         console.log(res);
         this.options = res.data.data;
       });
@@ -669,31 +704,36 @@ export default {
     },
     getlist: function() {
       console.log(this.options);
-      let stoneId = 1;
+      let stoneId = 0;
+      if (store.getUser().identity === 'stone') {
+        stoneId = store.getUser().BSid;
+      }
       quan.getliststoneId(stoneId, (res) => {
         console.log(res);
         for (var i = 0; i < res.data.data.length; i++) {
           res.data.data[i].useLimit = JSON.parse(res.data.data[i].useLimit);
 
-          res.data.data[i].useLimit.full = (
+          res.data.data[
+            i
+          ].useLimit.full = // eslint-disable-next-line no-magic-numbers
+          (res.data.data[i].useLimit.full / 100)
             // eslint-disable-next-line no-magic-numbers
-            res.data.data[i].useLimit.full / 100
-          // eslint-disable-next-line no-magic-numbers
-          ).toFixed(2);
+            .toFixed(2);
           if (res.data.data[i].discountCouponType === 1) {
-
-            res.data.data[i].useLimit.minus = (
-            // eslint-disable-next-line no-magic-numbers
-              res.data.data[i].useLimit.minus / 100
-            // eslint-disable-next-line no-magic-numbers
-            ).toFixed(2);
+            res.data.data[
+              i
+            ].useLimit.minus = // eslint-disable-next-line no-magic-numbers
+            (res.data.data[i].useLimit.minus / 100)
+              // eslint-disable-next-line no-magic-numbers
+              .toFixed(2);
           } else {
             // eslint-disable-next-line no-magic-numbers
-            res.data.data[i].useLimit.minus = (
-            // eslint-disable-next-line no-magic-numbers
-              res.data.data[i].useLimit.minus / 10
-            // eslint-disable-next-line no-magic-numbers
-            ).toFixed(2);
+            res.data.data[
+              i
+            ].useLimit.minus = // eslint-disable-next-line no-magic-numbers
+            (res.data.data[i].useLimit.minus / 10)
+              // eslint-disable-next-line no-magic-numbers
+              .toFixed(2);
           }
         }
         this.list = res.data.data;
@@ -708,6 +748,7 @@ export default {
     this.getlist();
     this.formquan.bossId = store.getUser().BSid;
     this.formquan1.bossId = store.getUser().BSid;
+    this.identity = store.getUser().identity;
   },
 };
 </script>

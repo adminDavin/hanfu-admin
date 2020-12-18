@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable require-jsdoc */
 import Axios from './index';
+import axios from 'axios';
 // import store from '@/store';
 // http request拦截器 添加一个请求拦截器
 // Axios.interceptors.request.use(function (config) {
@@ -164,6 +165,40 @@ function addStoneProduct(params) {
     fd.append('userId', params.userId);
     return Axios.post('/api/api/product//hfProduct/addStoneProduct', fd);
 }
+// --------------------------------数据统计----------------------------------------------
+// 获取首页金额数据
+function findAmountData() {
+    return Axios.get('/api/api/product/home/findAmountData');
+}
+
+// 获取首页各类目占比
+// function findCategoryData() {
+//     return Axios.get('/api/api/product/home/findCategoryData');
+// }
+
+// 获取首页会员数
+function findMemberData() {
+    return Axios.get('/api/api/product/home/findMemberData');
+}
+
+// 获取首页订单数量
+function findOrderData() {
+    return Axios.get('/api/api/product/home/findOrderData');
+}
+
+// 获取首页订单类型数据
+function findOrderTypeData() {
+    return Axios.get('/api/api/product/home/findOrderTypeData');
+}
+// 获取首页销量排行数据
+function findSalesVolumeData() {
+    return Axios.get('/api/api/product/home/findSalesVolumeData?bossId=1');
+}
+// 获取首页访问量
+function findVistisData() {
+    return Axios.get('/api/api/product/home/findVistisData');
+}
+// -------------------------------------------------------------------------------------
 export default {
     getProductsByBossId: getProductsByBossId,
     ceateProduct: ceateProduct,
@@ -187,4 +222,12 @@ export default {
     bossAgreeApply: bossAgreeApply,
     getProductListBos: getProductListBos,
     addStoneProduct: addStoneProduct,
+
+    findAmountData: findAmountData,
+    // findCategoryData: findCategoryData,
+    findMemberData: findMemberData,
+    findOrderData: findOrderData,
+    findOrderTypeData: findOrderTypeData,
+    findSalesVolumeData: findSalesVolumeData,
+    findVistisData: findVistisData,
 };

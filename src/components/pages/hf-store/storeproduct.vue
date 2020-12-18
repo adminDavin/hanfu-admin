@@ -14,22 +14,14 @@
             :src="avatarUrl"
             alt
           />
-          <span style="margin-left: 20px"
-            >店铺名称:{{ storeinfor.stoneName }}</span
-          >
-          <span style="margin-left: 20px" v-if="storeinfor.hfStatus === 0"
-            >店铺状态:营业</span
-          >
+          <span style="margin-left: 20px">店铺名称:{{ storeinfor.stoneName }}</span>
+          <span style="margin-left: 20px" v-if="storeinfor.hfStatus === 0">店铺状态:营业</span>
           <span style="margin-left: 20px" v-if="storeinfor.hfStatus === 1">
             店铺状态:
             <text style="color: #a6a3fb">未营业</text>
           </span>
-          <span style="margin-left: 20px"
-            >店铺描述:{{ storeinfor.stoneDesc }}</span
-          >
-          <span style="margin-left: 20px"
-            >店铺地址:{{ storeinfor.address }}</span
-          >
+          <span style="margin-left: 20px">店铺描述:{{ storeinfor.stoneDesc }}</span>
+          <span style="margin-left: 20px">店铺地址:{{ storeinfor.address }}</span>
           <!-- <span style="margin-left: 20px;">{{storeinfor.hfDesc}}</span>
       <span style="margin-left: 20px;">支付时间:{{storeinfor.hfStatus}}</span>
           <span style="margin-left: 20px;">订单状态:{{zhuang}}</span>-->
@@ -67,11 +59,8 @@
                   <div>支付订单数</div>
                   <i
                     style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >{{ liulan.orderCountsDay }}</i
-                  >
-                  <div style="font-size: 10px">
-                    昨日:{{ liulan.orderCountsYestday }}
-                  </div>
+                  >{{ liulan.orderCountsDay }}</i>
+                  <div style="font-size: 10px">昨日:{{ liulan.orderCountsYestday }}</div>
                 </div>
                 <div
                   style="
@@ -83,13 +72,8 @@
                   "
                 >
                   <div>支付人数</div>
-                  <i
-                    style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >4</i
-                  >
-                  <div style="font-size: 10px">
-                    昨日：{{ liulan.paymentConutsYestday }}
-                  </div>
+                  <i style="font-size: 13px; margin-top: 2px; margin-bottom: 2px">4</i>
+                  <div style="font-size: 10px">昨日：{{ liulan.paymentConutsYestday }}</div>
                 </div>
                 <div
                   style="
@@ -101,13 +85,8 @@
                   "
                 >
                   <div>浏览量</div>
-                  <i
-                    style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >6</i
-                  >
-                  <div style="font-size: 10px">
-                    昨日：{{ liulan.browseCountsYestday }}
-                  </div>
+                  <i style="font-size: 13px; margin-top: 2px; margin-bottom: 2px">6</i>
+                  <div style="font-size: 10px">昨日：{{ liulan.browseCountsYestday }}</div>
                 </div>
               </div>
             </div>
@@ -138,11 +117,8 @@
                   <div>支付订单数</div>
                   <i
                     style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >{{ liulan.orderCountsDay }}</i
-                  >
-                  <div style="font-size: 10px">
-                    昨日{{ liulan.orderConutsMouth }}
-                  </div>
+                  >{{ liulan.orderCountsDay }}</i>
+                  <div style="font-size: 10px">昨日{{ liulan.orderConutsMouth }}</div>
                 </div>
                 <div
                   style="
@@ -156,11 +132,8 @@
                   <div>支付人数</div>
                   <i
                     style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >{{ liulan.paymentConutsMouth }}</i
-                  >
-                  <div style="font-size: 10px">
-                    昨日：{{ liulan.paymentConutsYestday }}
-                  </div>
+                  >{{ liulan.paymentConutsMouth }}</i>
+                  <div style="font-size: 10px">昨日：{{ liulan.paymentConutsYestday }}</div>
                 </div>
                 <div
                   style="
@@ -174,11 +147,8 @@
                   <div>浏览量</div>
                   <i
                     style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >{{ liulan.browseCountsMouth }}</i
-                  >
-                  <div style="font-size: 10px">
-                    昨日：{{ liulan.browseCountsYestday }}
-                  </div>
+                  >{{ liulan.browseCountsMouth }}</i>
+                  <div style="font-size: 10px">昨日：{{ liulan.browseCountsYestday }}</div>
                 </div>
               </div>
             </div>
@@ -204,8 +174,7 @@
                   style="color: #67c23a"
                   type="text"
                   round
-                  >提现</el-button
-                >
+                >提现</el-button>
               </div>
               <div style="font-size: 12px; display: flex">
                 <div
@@ -218,10 +187,7 @@
                   "
                 >
                   <div>全部</div>
-                  <i
-                    style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >{{ check.all }}元</i
-                  >
+                  <i style="font-size: 13px; margin-top: 2px; margin-bottom: 2px">{{ check.all }}元</i>
                 </div>
                 <div
                   style="
@@ -235,8 +201,7 @@
                   <div>待支付</div>
                   <i
                     style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >{{ check.payment }}元</i
-                  >
+                  >{{ check.payment }}元</i>
                 </div>
                 <div
                   style="
@@ -250,8 +215,7 @@
                   <div>待处理</div>
                   <i
                     style="font-size: 13px; margin-top: 2px; margin-bottom: 2px"
-                    >{{ check.process }}元</i
-                  >
+                  >{{ check.process }}元</i>
                 </div>
               </div>
             </div>
@@ -282,15 +246,17 @@
             <el-table-column type="index"></el-table-column>
             <el-table-column prop="createTime" label="日期"></el-table-column>
             <el-table-column prop="actualPrice" label="金额">
-              <template slot-scope="scope"
-                >{{ scope.row.chargeOffType == "order" ? " + " : " - " }}
-                {{ scope.row.actualPrice }}</template
-              >
+              <template slot-scope="scope">
+                {{ scope.row.chargeOffType == "order" ? " + " : " - " }}
+                {{ scope.row.actualPrice }}
+              </template>
             </el-table-column>
             <el-table-column prop="chargeOffType" label="类型">
-              <template slot-scope="scope">{{
+              <template slot-scope="scope">
+                {{
                 scope.row.chargeOffType == "order" ? "订单" : ""
-              }}</template>
+                }}
+              </template>
             </el-table-column>
           </el-table>
         </el-card>
@@ -305,11 +271,8 @@
                 style="float: right; margin-left: 10px"
                 type="primary"
                 @click="Added"
-                >新增店铺商品</el-button
-              >
-              <el-button style="float: right" type="primary" @click="add = true"
-                >添加店铺商品</el-button
-              >
+              >新增店铺商品</el-button>
+              <el-button style="float: right" type="primary" @click="add = true">添加店铺商品</el-button>
             </div>
             <el-table
               :data="list"
@@ -318,87 +281,34 @@
               ref="table"
               @row-click="getproductgood"
             >
-              <el-table-column
-                type="index"
-                align="center"
-                label="选择"
-                width="50"
-              ></el-table-column>
-              <el-table-column
-                align="center"
-                prop="productName"
-                label="商品名称"
-              ></el-table-column>
-              <el-table-column
-                align="center"
-                prop="productDesc"
-                label="商品描述"
-              ></el-table-column>
+              <el-table-column type="index" align="center" label="选择" width="50"></el-table-column>
+              <el-table-column align="center" prop="productName" label="商品名称"></el-table-column>
+              <el-table-column align="center" prop="productDesc" label="商品描述"></el-table-column>
             </el-table>
           </el-card>
           <el-card class="box-card" style="width: 50%; margin-left: 20px">
             <div slot="header" class="clearfix">
               <span>物品列表</span>
             </div>
-            <el-table
-              :data="listwu"
-              stripe
-              style="width: 100%"
-              ref="table"
-              @row-click="getproductgood"
-            >
-              <el-table-column
-                prop="goodsId"
-                label="序号"
-                width="50"
-                align="center"
-              ></el-table-column>
-              <el-table-column
-                prop="goodsName"
-                label="物品名称"
-                align="center"
-              ></el-table-column>
-              <el-table-column
-                prop="goodsDesc"
-                label="物品描述"
-                align="center"
-              ></el-table-column>
-              <el-table-column
-                prop="brandName"
-                label="生产厂家"
-                align="center"
-              ></el-table-column>
+            <el-table :data="listwu" stripe style="width: 100%" ref="table">
+              <el-table-column prop="goodsId" label="序号" width="50" align="center"></el-table-column>
+              <el-table-column prop="goodsName" label="物品名称" align="center"></el-table-column>
+              <el-table-column prop="goodsDesc" label="物品描述" align="center"></el-table-column>
+              <el-table-column prop="brandName" label="生产厂家" align="center"></el-table-column>
               <el-table-column prop="sellPrice" label="售卖价格" align="center">
                 <template slot-scope="scope">
-                  <el-input
-                    style="text-align: center"
-                    v-model="scope.row.sellPrice"
-                  ></el-input>
+                  <el-input style="text-align: center" v-model="scope.row.sellPrice"></el-input>
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="createTime"
-                width="180"
-                label="创建时间"
-                align="center"
-              ></el-table-column>
-              <el-table-column
-                prop="modifyTime"
-                width="180"
-                label="更新时间"
-                align="center"
-              ></el-table-column>
+              <el-table-column prop="createTime" width="180" label="创建时间" align="center"></el-table-column>
+              <el-table-column prop="modifyTime" width="180" label="更新时间" align="center"></el-table-column>
               <el-table-column align="center" label="操作" fixed="right">
                 <template slot-scope="scope">
-                  <el-button type="text" @click="updatagood(scope.row)"
-                    >保存</el-button
-                  >
+                  <el-button type="text" @click="updatagood(scope.row)">保存</el-button>
                 </template>
               </el-table-column>
             </el-table>
-            <el-button @click="drawer = true" type="primary"
-              >添加物品</el-button
-            >
+            <el-button @click="drawer = true" type="primary">添加物品</el-button>
           </el-card>
         </div>
       </el-tab-pane>
@@ -409,40 +319,19 @@
             type="primary"
             style="float: right; margin-bottom: 10px"
             @click="dialogVisible = true"
-            >添加店铺成员</el-button
-          >
+          >添加店铺成员</el-button>
           <el-table :data="Person" stripe style="width: 100%">
-            <el-table-column
-              align="center"
-              prop="userId"
-              label="用户id"
-            ></el-table-column>
-            <el-table-column
-              align="center"
-              prop="userName"
-              label="姓名"
-            ></el-table-column>
-            <el-table-column
-              align="center"
-              prop="realName"
-              label="昵称"
-            ></el-table-column>
-            <el-table-column
-              align="center"
-              prop="storeRoleName"
-              label="角色"
-            ></el-table-column>
+            <el-table-column align="center" prop="userId" label="用户id"></el-table-column>
+            <el-table-column align="center" prop="userName" label="姓名"></el-table-column>
+            <el-table-column align="center" prop="realName" label="昵称"></el-table-column>
+            <el-table-column align="center" prop="storeRoleName" label="角色"></el-table-column>
             <el-table-column label="是否参与核销" align="center">
               <template slot-scope="scope">
                 <div v-if="scope.row.isCancel === 1">是</div>
                 <div v-if="scope.row.isCancel === 0">否</div>
               </template>
             </el-table-column>
-            <el-table-column
-              align="center"
-              prop="userPhone"
-              label="手机号"
-            ></el-table-column>
+            <el-table-column align="center" prop="userPhone" label="手机号"></el-table-column>
             <el-table-column align="center" prop="hfDesc" label="操作">
               <template slot-scope="scope">
                 <el-button
@@ -450,8 +339,7 @@
                   size="small"
                   align="center"
                   @click="checkPersonDetail(scope.row)"
-                  >查看</el-button
-                >
+                >查看</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -466,22 +354,9 @@
               ref="table"
               @row-click="currentChange"
             >
-              <el-table-column
-                type="selection"
-                align="center"
-                label="选择"
-                width="50"
-              ></el-table-column>
-              <el-table-column
-                align="center"
-                prop="nickName"
-                label="用户名"
-              ></el-table-column>
-              <el-table-column
-                align="center"
-                prop="phone"
-                label="手机号"
-              ></el-table-column>
+              <el-table-column type="selection" align="center" label="选择" width="50"></el-table-column>
+              <el-table-column align="center" prop="nickName" label="用户名"></el-table-column>
+              <el-table-column align="center" prop="phone" label="手机号"></el-table-column>
             </el-table>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取 消</el-button>
@@ -489,31 +364,16 @@
             </span>
           </el-dialog>
 
-          <el-dialog
-            title="查看"
-            width="40%"
-            :visible.sync="draweruser"
-            :with-header="false"
-          >
+          <el-dialog title="查看" width="40%" :visible.sync="draweruser" :with-header="false">
             <div class="p20" style="margin: 0 auto">
               <div>
-                <span style="font-size: 13px; margin-right: 12px"
-                  >是否参与核销</span
-                >
-                <el-radio v-model="radio" label="0" @change="changestatus"
-                  >否</el-radio
-                >
-                <el-radio v-model="radio" label="1" @change="changestatus"
-                  >是</el-radio
-                >
+                <span style="font-size: 13px; margin-right: 12px">是否参与核销</span>
+                <el-radio v-model="radio" label="0" @change="changestatus">否</el-radio>
+                <el-radio v-model="radio" label="1" @change="changestatus">是</el-radio>
               </div>
               <div style="margin-top: 40px">
                 <span style="font-size: 13px">设置成员角色：</span>
-                <el-select
-                  v-model="value3"
-                  placeholder="请选择"
-                  @change="roleval"
-                >
+                <el-select v-model="value3" placeholder="请选择" @change="roleval">
                   <el-option
                     v-for="item in StoreRole"
                     :key="item.roleName"
@@ -528,24 +388,16 @@
       </el-tab-pane>
       <el-tab-pane label="账号管理" name="account">
         <el-card class="box-card">
-          <el-button
-            type="primary"
-            @click="Visible = true"
-            style="float: right"
-            >添加账号</el-button
-          >
+          <el-button type="primary" @click="Visible = true" style="float: right">添加账号</el-button>
           <el-table :data="tableData2" border style="width: 100%">
-            <el-table-column
-              prop="accountCode"
-              label="手机号"
-            ></el-table-column>
+            <el-table-column prop="accountCode" label="手机号"></el-table-column>
             <el-table-column prop="accountRole" label="账号类型">
               <template slot-scope="scope">
                 <div>
                   {{
-                    scope.row.accountRole == "Super Admin"
-                      ? "超管账号"
-                      : "普通账号"
+                  scope.row.accountRole == "Super Admin"
+                  ? "超管账号"
+                  : "普通账号"
                   }}
                 </div>
               </template>
@@ -563,14 +415,8 @@
                   :disabled="scope.row.isDeleted == '0'"
                   type="text"
                   @click="handleEdit(scope.$index, scope.row)"
-                  >下线</el-button
-                >
-                <el-button
-                  size="mini"
-                  type="text"
-                  @click="binding(scope.$index, scope.row)"
-                  >绑定</el-button
-                >
+                >下线</el-button>
+                <el-button size="mini" type="text" @click="binding(scope.$index, scope.row)">绑定</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -578,12 +424,7 @@
       </el-tab-pane>
     </el-tabs>
 
-    <el-dialog
-      title="新增子账户信息"
-      :visible.sync="Visible"
-      width="30%"
-      center
-    >
+    <el-dialog title="新增子账户信息" :visible.sync="Visible" width="30%" center>
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -594,10 +435,10 @@
       >
         <!-- <el-form-item label="用户昵称" prop="name">
               <el-input v-model="ruleForm.name"></el-input>
-          </el-form-item>-->
+        </el-form-item>-->
         <!-- <el-form-item label="密码" prop="pass">
               <el-input v-model="ruleForm.pass"></el-input>
-          </el-form-item>-->
+        </el-form-item>-->
         <el-form-item label="手机号" prop="authKey">
           <el-input v-model="ruleForm.authKey"></el-input>
         </el-form-item>
@@ -612,11 +453,9 @@
               >{{ item.email }}</el-radio
             >
           </el-radio-group>
-        </el-form-item> -->
+        </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')"
-            >立即创建</el-button
-          >
+          <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -646,7 +485,7 @@
             >确 定</el-button
           >
         </span>
-      </el-dialog> -->
+      </el-dialog>-->
     </el-dialog>
     <el-dialog title="绑定" :visible.sync="bindingVisible" width="40%" center>
       <el-transfer
@@ -666,7 +505,7 @@
     <el-dialog center title="店铺商品" :visible.sync="add">
       <!-- <el-select v-model="warehouseId" @change="warehouse" placeholder="请选择">
         <el-option v-for="item in options" :key="item.hfName" :label="item.hfName" :value="item.id"></el-option>
-      </el-select> -->
+      </el-select>-->
 
       <el-table
         @selection-change="handleSelectionChange"
@@ -677,43 +516,20 @@
         highlight-current-row
         ref="multipleTable"
       >
-        <el-table-column
-          align="center"
-          label="序号"
-          type="index"
-        ></el-table-column>
-        <el-table-column
-          align="center"
-          prop="productName"
-          label="物品名称"
-        ></el-table-column>
-        <el-table-column
-          align="center"
-          prop="productDesc"
-          label="物品描述"
-          show-overflow-tooltip
-        ></el-table-column>
+        <el-table-column align="center" label="序号" type="index"></el-table-column>
+        <el-table-column align="center" prop="productName" label="物品名称"></el-table-column>
+        <el-table-column align="center" prop="productDesc" label="物品描述" show-overflow-tooltip></el-table-column>
         <!-- <el-table-column align="center" prop="quantity" label="物品数量"></el-table-column> -->
-        <el-table-column
-          align="center"
-          prop="categoryName"
-          label="物品类目"
-        ></el-table-column>
+        <el-table-column align="center" prop="categoryName" label="物品类目"></el-table-column>
         <!-- <el-table-column align="center" prop="category" label="申请数量">
           <template slot-scope="scope">
             <el-input placeholder="请输入" :min="1" type="number" v-model.number="scope.row.count"></el-input>
           </template>
-        </el-table-column> -->
+        </el-table-column>-->
         <!-- <el-table-column prop="lastModifier" label="最近一次操作人" align="center"></el-table-column> -->
         <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
-            <el-button
-              class="a6a"
-              @click="apply(scope.row)"
-              type="primary"
-              size="small"
-              >添加</el-button
-            >
+            <el-button class="a6a" @click="apply(scope.row)" type="primary" size="small">添加</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -723,12 +539,7 @@
       </span>-->
     </el-dialog>
 
-    <el-dialog
-      title="申请提现"
-      width="40%"
-      center
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="申请提现" width="40%" center :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="提现账号">
           <el-input class="account" v-model="form.account"></el-input>
@@ -968,6 +779,11 @@ export default {
     };
   },
   methods: {
+    takestore() {
+      let data = store.getUser();
+      this.ruleForm.BSid = data.BSid;
+      this.ruleForm.LastUser = data.id;
+    },
     // --------------------添加账号---------------------------
 
     submitForm(formName) {
@@ -1043,7 +859,7 @@ export default {
       this.formroleId.id = row.id;
       let params = {
         id: row.id,
-        type: 'boss',
+        type: 'stone',
       };
       juris.selectAccountRole(params, (res) => {
         console.log('获取弹窗已选角色', res);
@@ -1090,7 +906,7 @@ export default {
       });
     },
     selectAccount() {
-      api.selectAccount({storeId: this.stoneId}, (res) => {
+      api.selectAccount({ storeId: this.stoneId }, (res) => {
         console.log(res);
         this.tableData2 = res.data.data;
       });
@@ -1129,14 +945,14 @@ export default {
       this.$refs.mychild.SubmitGoods('formName');
     },
     // -----------------------------------------------------------------------------------------------------
-    checkPerson: function () {
+    checkPerson: function() {
       console.log(this.$route.query.id);
       storeService.checkPerson(this.$route.query.id, (res) => {
         console.log(res);
         this.Person = res.data.data;
       });
     },
-    checkPersonDetail: function (row) {
+    checkPersonDetail: function(row) {
       console.log(row);
       this.radio = row.isCancel;
       this.roledata.userId = row.userId;
@@ -1150,7 +966,7 @@ export default {
       this.draweruser = true;
       this.getStoreRole();
     },
-    checkUser: function () {
+    checkUser: function() {
       userCenterService.checkUser((res) => {
         // console.log(res.data.data);
         this.userData = res.data.data.list;
@@ -1165,7 +981,7 @@ export default {
       this.selectDdata = val;
     },
     // eslint-disable-next-line no-empty-function
-    currentChange: function (row) {
+    currentChange: function(row) {
       console.log(row);
       // this.persondata.personid = row.id;
       this.$refs.table.toggleRowSelection(row);
@@ -1232,7 +1048,7 @@ export default {
         }
       });
     },
-    roleval: function (qqq) {
+    roleval: function(qqq) {
       console.log(qqq);
       for (var i = 0; i < this.StoreRole.length; i++) {
         if (this.StoreRole[i].roleName === qqq) {
@@ -1257,7 +1073,7 @@ export default {
         }
       });
     },
-    changestatus: function (e) {
+    changestatus: function(e) {
       console.log(e);
       this.cancle.isCancel = e;
       this.cancle.stoneId = this.$route.query.id;
@@ -1279,7 +1095,7 @@ export default {
         }
       });
     },
-    getStoreRole: function () {
+    getStoreRole: function() {
       storeService.getStoreRole(this.stoneId, (res) => {
         console.log(res);
         this.StoreRole = res.data.data;
@@ -1295,7 +1111,7 @@ export default {
       this.Detailed();
     },
     // 获取店铺头像
-    getStonePicture: function () {
+    getStonePicture: function() {
       storeService.getStonePicture(this.$route.query.id, (res) => {
         console.log('店铺头像', res);
         // this.StoreRole = res.data.data;
@@ -1342,12 +1158,13 @@ export default {
         this.liulan = data;
       });
     },
-    updatagood: function (row) {
+    updatagood: function(row) {
       console.log(row);
       this.updata.stoneId = this.$route.query.id;
       this.updata.userId = this.content.id;
       this.updata.id = row.goodsId;
-      this.updata.sellPrice = row.sellPrice;
+      // eslint-disable-next-line no-magic-numbers
+      this.updata.sellPrice = (row.sellPrice * 10000) / 100;
       console.log(this.updata);
       storeService.updatagood(this.updata, (res) => {
         console.log(res);
@@ -1376,7 +1193,7 @@ export default {
         }
       });
     },
-    getproductgood: function (aaa) {
+    getproductgood: function(aaa) {
       console.log(aaa);
       this.productid = aaa.id + '';
       this.productName = aaa.productName;
@@ -1391,7 +1208,7 @@ export default {
         this.listwu = data;
       });
     },
-    submit: function () {
+    submit: function() {
       // this.product.productIds = [];
       if (this.selectDdata.length > 0) {
         for (var i = 0; i < this.selectDdata.length; i++) {
@@ -1446,7 +1263,7 @@ export default {
       //   this.tableData = res.data.data.list;
       // });
     },
-    getstoneproduct: function () {
+    getstoneproduct: function() {
       console.log(this.id);
       storeService.getstoneproduct(this.id, (res) => {
         console.log('店铺商品', res);
@@ -1466,11 +1283,11 @@ export default {
               // eslint-disable-next-line no-magic-numbers
             }
             this.listwu = data;
-          }
+          },
         );
       });
     },
-    getStoreid: function () {
+    getStoreid: function() {
       console.log(this.id);
       storeService.getStoreid(this.id, (res) => {
         console.log(res);
@@ -1512,6 +1329,7 @@ export default {
     this.getProductListBos();
     this.selectAccount();
     this.selectRoleCode();
+    this.takestore();
   },
 };
 </script>

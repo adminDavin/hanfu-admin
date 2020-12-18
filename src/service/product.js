@@ -6,8 +6,8 @@ async function getProductsByBossId(handleResult) {
   product.getProductsByBossId(bossId).then((res) => handleResult(res));
 }
 
-async function getProductListBoss(handleResult) {
-  let bossId = 1;
+async function getProductListBoss(bossId, handleResult) {
+  // let bossId = 1;
   product.getProductListBoss(bossId).then((res) => handleResult(res));
 }
 async function productNameListBos(inquire, handleResult) {
@@ -89,6 +89,36 @@ async function getProductListBos(bossId, handleResult) {
 async function addStoneProduct(params, handleResult) {
   product.addStoneProduct(params).then((res) => handleResult(res));
 }
+// --------------------------------数据统计----------------------------------------------
+async function findAmountData(handleResult) {
+  product.findAmountData().then((res) => handleResult(res));
+}
+// 获取首页各类目占比
+// async function findCategoryData(bossId, handleResult) {
+//   product.findCategoryData(bossId).then((res) => handleResult(res));
+// }
+// 获取首页会员数
+async function findMemberData(handleResult) {
+  product.findMemberData().then((res) => handleResult(res));
+}
+
+// 获取首页订单数量
+async function findOrderData(handleResult) {
+  product.findOrderData().then((res) => handleResult(res));
+}
+// 获取首页订单类型数据
+async function findOrderTypeData(handleResult) {
+  product.findOrderTypeData().then((res) => handleResult(res));
+}
+// 获取首页销量排行数据
+async function findSalesVolumeData(handleResult) {
+  product.findSalesVolumeData().then((res) => handleResult(res));
+}
+// 获取首页销量排行数据
+async function findVistisData(handleResult) {
+  product.findVistisData().then((res) => handleResult(res));
+}
+// -------------------------------------------------------------------------------------
 export default {
   getProductsByBossId: getProductsByBossId,
   deleteById: deleteById,
@@ -112,4 +142,12 @@ export default {
   bossAgreeApply: bossAgreeApply,
   getProductListBos: getProductListBos,
   addStoneProduct: addStoneProduct,
+
+  findAmountData: findAmountData,
+  // findCategoryData: findCategoryData,
+  findMemberData: findMemberData,
+  findOrderData: findOrderData,
+  findOrderTypeData: findOrderTypeData,
+  findSalesVolumeData: findSalesVolumeData,
+  findVistisData: findVistisData,
 };

@@ -252,12 +252,12 @@ export default {
       });
     },
     // 获取仓库
-    depot() {
-      serviceGoods.listWareHouse((res) => {
-        console.log('获取仓库', res);
-        this.options = res.data.data;
-      });
-    },
+    // depot() {
+    //   serviceGoods.listWareHouse((res) => {
+    //     console.log('获取仓库', res);
+    //     this.options = res.data.data;
+    //   });
+    // },
     // 添加一行物品规格值
     handleAdd() {
       let row = {

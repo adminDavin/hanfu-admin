@@ -8,11 +8,16 @@ import ElementUI from 'element-ui';
 import './assets/font/iconfont.css';
 import './styles/index.less';
 
+import Tinymce from 'tinymce';
+
+import './assets/skins/ui/oxide/skin.css';
+
 // 简单配置axios
 import axios from 'axios';
 Vue.use(ElementUI);
 
 Vue.prototype.$http = axios;
+Vue.prototype.$tinymce = Tinymce;
 
 Vue.config.productionTip = false;
 

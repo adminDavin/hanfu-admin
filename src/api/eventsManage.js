@@ -20,8 +20,8 @@ function seniorityBinding(params) {
   return Axios.post('/api/api/product/hfProductActivity/intoActivityProduct', fd);
 }
 // 获取所有商品列表
-function selectAll() {
-  return Axios.get('/api/api/product/hfProduct/getProductsForRotation?quantity=10');
+function selectAll(bossId) {
+  return Axios.get('/api/api/product/hfProduct/getProductsForRotation?quantity=10&bossId=' + bossId);
 }
 
 // 查询活动商品列表信息

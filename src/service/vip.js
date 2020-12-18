@@ -7,8 +7,8 @@ async function addLevel(params, handleResult) {
 async function checkLevel (handleResult) {
   vip.checkLevel().then((res) => handleResult(res));
 }
-async function addvip(params, handleResult) {
-  vip.addvip(params).then((res) => handleResult(res));
+async function addVip(params, handleResult) {
+  vip.addVip(params).then((res) => handleResult(res));
 }
 async function findvip(handleResult) {
   vip.findvip().then((res) => handleResult(res));
@@ -34,10 +34,42 @@ async function deleteUserMemberLevel(id, handleResult) {
 async function deleteMemberLevelDescribe(id, handleResult) {
   vip.deleteUserMemberLevel(id).then((res) => handleResult(res));
 }
+
+
+async function addVipCard(params, handleResult) {
+  vip.addVipCard(params).then((res) => handleResult(res));
+}
+async function selectVipCard(bossId, handleResult) {
+  vip.selectVipCard(bossId).then((res) => handleResult(res));
+}
+async function deleteVipCard(params, handleResult) {
+  vip.deleteVipCard(params).then((res) => handleResult(res));
+}
+async function addVipPrivilege(params, handleResult) {
+  vip.addVipPrivilege(params).then((res) => handleResult(res));
+}
+async function deleteVipPrivilege(params, handleResult) {
+  vip.deleteVipPrivilege(params).then((res) => handleResult(res));
+}
+async function selectVipPrivilege(params, handleResult) {
+  vip.selectVipPrivilege(params).then((res) => handleResult(res));
+}
+async function updateVipCard(params, handleResult) {
+  vip.updateVipCard(params).then((res) => handleResult(res));
+}
+async function updateVipPrivilege(params, handleResult) {
+  vip.updateVipPrivilege(params).then((res) => handleResult(res));
+}
+async function selectVip(params, handleResult) {
+  vip.selectVip(params).then((res) => handleResult(res));
+}
+async function deleteVip(params, handleResult) {
+  vip.deleteVip(params).then((res) => handleResult(res));
+}
 export default {
   addLevel: addLevel,
   checkLevel: checkLevel,
-  addvip: addvip,
+  addVip: addVip,
   findvip: findvip,
   editLevel: editLevel,
   adddes: adddes,
@@ -46,5 +78,16 @@ export default {
   findvips: findvips,
   deleteUserMemberLevel: deleteUserMemberLevel,
   deleteMemberLevelDescribe: deleteMemberLevelDescribe,
+
+  addVipCard: addVipCard,
+  selectVipCard: selectVipCard,
+  deleteVipCard: deleteVipCard,
+  addVipPrivilege: addVipPrivilege,
+  deleteVipPrivilege: deleteVipPrivilege,
+  selectVipPrivilege: selectVipPrivilege,
+  updateVipCard: updateVipCard,
+  updateVipPrivilege: updateVipPrivilege,
+  selectVip: selectVip,
+  deleteVip: deleteVip,
 };
 

@@ -46,6 +46,34 @@ function updateMessageInstance(params) {
 function getRefuse(id) {
   return Axios.get('/api/api/user/user/getRefuse?id=' + id);
 }
+function addMessage(params) {
+  let fd = new FormData();
+  fd.append('bossId', params.bossId);
+  if (params.file) {
+    fd.append('file', params.file);
+  }
+  fd.append('headline', params.headline);
+  fd.append('secondDesc', params.secondDesc);
+  return Axios.post('/api/api/user/Chat/addMessage', fd);
+}
+function updateMessage(params) {
+  let fd = new FormData();
+  fd.append('headline', params.headline);
+  if (params.file) {
+    fd.append('file', params.file);
+  }
+  fd.append('id', params.id);
+  fd.append('secondDesc', params.secondDesc);
+  return Axios.post('/api/api/user/Chat/updateMessage', fd);
+}
+function announcement(params) {
+  let fd = new FormData();
+  fd.append('message', params.message);
+  return Axios.post('/api/api/user/Chat/announcement', fd);
+}
+function selectMessage(bossId) {
+  return Axios.get('/api/api/user/Chat/selectMessage?bossId=' + bossId);
+}
 export default {
   getMessageContent: getMessageContent,
   getMessageContentType: getMessageContentType,
@@ -57,4 +85,8 @@ export default {
   getMessageInstanceList: getMessageInstanceList,
   updateMessageInstance: updateMessageInstance,
   getRefuse: getRefuse,
+  addMessage: addMessage,
+  announcement: announcement,
+  updateMessage: updateMessage,
+  selectMessage: selectMessage,
 };
