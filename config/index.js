@@ -5,6 +5,7 @@
 const path = require("path");
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? '/Master/' : '/',
   dev: {
     // Paths
     assetsRoot: path.resolve(__dirname, "../dist"),
@@ -41,8 +42,8 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: '172.26.16.97', // can be overwritten by process.env.HOST
-    // host: "localhost", // can be overwritten by process.env.HOST
+    // host: '172.26.16.97', // can be overwritten by process.env.HOST
+    host: "localhost", // can be overwritten by process.env.HOST
     port: 3000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
