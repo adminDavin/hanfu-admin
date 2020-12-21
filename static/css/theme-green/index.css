@@ -1,4 +1,4 @@
-@charset "UTF-8";.el-input__suffix,.el-tree.is-dragging .el-tree-node__content
+/* @charset "UTF-8";.el-input__suffix,.el-tree.is-dragging .el-tree-node__content
 *{pointer-events:none}.el-pagination--small .arrow.disabled,.el-table .hidden-columns,
 .el-table td.is-hidden>*,.el-table th.is-hidden>*,.el-table--hidden{visibility:hidden}@font-face{font-family:element-icons;
 src:url(fonts/element-icons.woff) format("woff"),url(fonts/element-icons.ttf) format("truetype");
@@ -98,4 +98,4 @@ el-tabs--bottom .el-tabs__item.is-bottom:last-child, .el-tabs--bottom .el-tabs__
         height: 32px;
         line-height: 32px;
         width: 100px;
-    }
+    } */

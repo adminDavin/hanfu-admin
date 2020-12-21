@@ -1,18 +1,18 @@
 import Axios from "axios";
 
 // 添加奖品
-function addWard(params) {
+function addWard (params) {
   console.log(1111);
   console.log(params)
   let fd = new FormData();
-  console.log(params.awardName,params.empNum)
+  console.log(params.awardName, params.empNum)
   fd.append('awardName', params.awardName);
   fd.append('empNum', params.empNum);
   return Axios.post("/api/users/addAwardInfo", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
-function EvaluationTemplate(params) {
+function EvaluationTemplate (params) {
   console.log(1111);
   console.log(params)
   let fd = new FormData();
@@ -27,32 +27,32 @@ function EvaluationTemplate(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
-function checkTemplateWeight(data) {
+function checkTemplateWeight (data) {
   console.log(data)
-    let params = {
-      params: {
-        activityId:data.activityId,
-        type: data.type
-      }
+  let params = {
+    params: {
+      activityId: data.activityId,
+      type: data.type
     }
+  }
 
-  return Axios.get("/api/strategy/findEvaluationTemplateWeight",params);
+  return Axios.get("/api/strategy/findEvaluationTemplateWeight", params);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
-function checkTemplateWeight1(data) {
+function checkTemplateWeight1 (data) {
   console.log(data)
-    let params = {
-      params: {
-        activityId:data.activityId,
-        type: data.type
-      }
+  let params = {
+    params: {
+      activityId: data.activityId,
+      type: data.type
     }
+  }
 
-  return Axios.get("/api/strategy/findEvaluationTemplateWeight",params);
+  return Axios.get("/api/strategy/findEvaluationTemplateWeight", params);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 添加奖品
-function getDepartment(params) {
+function getDepartment (params) {
   //   let params = {
   //     params: {
   //       id: 192,
@@ -64,25 +64,25 @@ function getDepartment(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除参与人
-function deleteperson(num) {
+function deleteperson (num) {
   console.log(num)
   let params = {
     params: {
-      userId:num.id,
+      userId: num.id,
       activityId: num.activityId,
     }
   }
   console.log(params)
-  return Axios.get("/api/wareHouse/deleteActivityUser",params);
+  return Axios.get("/api/wareHouse/deleteActivityUser", params);
 }
 // 获取规则值类型
-function getStrategyType() {
+function getStrategyType () {
 
- return Axios.get("/api/strategy/listStrategyRule");
+  return Axios.get("/api/strategy/listStrategyRule");
 
 
 }
-function addStrategy(params) {
+function addStrategy (params) {
 
   let fd = new FormData();
   fd.append('id', 1);
@@ -96,8 +96,8 @@ function addStrategy(params) {
 }
 // 添加策略规则
 
-function addStrategyRule(params) {
-console.log(params);
+function addStrategyRule (params) {
+  console.log(params);
   let fd = new FormData();
   // fd.append('id', 1);
   fd.append('requestId', 1);
@@ -112,7 +112,7 @@ console.log(params);
 }
 
 // 删除活动策略
-function deleteActivityStrategy(params) {
+function deleteActivityStrategy (params) {
   let fd = new FormData();
   fd.append('activityStrategyId', params.id);
   // fd.append('empNum', params.empNum);
@@ -120,7 +120,7 @@ function deleteActivityStrategy(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除策略规则
-function deleteStrategyRule(params) {
+function deleteStrategyRule (params) {
   let fd = new FormData();
   fd.append('strategyRuleId', params.id);
   // fd.append('empNum', params.empNum);
@@ -128,7 +128,7 @@ function deleteStrategyRule(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 //获取投票结果
-function getResult(params) {
+function getResult (params) {
   // let fd = new FormData();
   // fd.append('activityId', params.activityId);
   // fd.append('ruleId', params.ruleId);
@@ -142,7 +142,7 @@ function getResult(params) {
 }
 // 设置活动规则
 
-function setActivityRules(params) {
+function setActivityRules (params) {
   let fd = new FormData();
   console.log(params)
   fd.append('activityId', params.activityId);
@@ -156,7 +156,7 @@ function setActivityRules(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除活动
-function deleteActivity(id) {
+function deleteActivity (id) {
   let fd = new FormData();
   fd.append('activityId ', id);
   // fd.append('empNum', params.empNum);
@@ -164,20 +164,20 @@ function deleteActivity(id) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除策略
-function delectestrategy(id) {
+function delectestrategy (id) {
   let fd = new FormData();
   fd.append('activityStrategyId ', id);
   // fd.append('empNum', params.empNum);
   return Axios.post("/api/activity/deleteActivityStrategy", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
-function getActivityDetail(id) {
-    let params = {
-      params: {
-        activityId: id,
-      }
+function getActivityDetail (id) {
+  let params = {
+    params: {
+      activityId: id,
     }
-  return Axios.get("/api/wareHouse/findActivityResult",params);
+  }
+  return Axios.get("/api/wareHouse/findActivityResult", params);
 }
 // /strategy/delterUserEvaluationTemplate
 
@@ -185,11 +185,11 @@ function getActivityDetail(id) {
 
 
 
-function addActivity(params) {
-console.log(params)
+function addActivity (params) {
+  console.log(params)
   let fd = new FormData();
-  fd.append('activityName ',  params.activityName);
-  fd.append('activityDesc', params.activityDesc );
+  fd.append('activityName ', params.activityName);
+  fd.append('activityDesc', params.activityDesc);
   fd.append('activiyType', params.activiyType);
   fd.append('activityStatus', params.activityStatus);
   fd.append('userId', 1);
@@ -198,26 +198,27 @@ console.log(params)
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });?pageNum=1&pageSize=20
 }
 // 获取用户列表
-function getuser(param) {
+function getuser (param) {
   // console.log('12320',param)
   // console.log('12320',params)
   let params = {
     params: {
       pageNum: param.pageNum,
-      pageSize: param.pageSize
+      pageSize: param.pageSize,
+      time: 1,
     }
   }
-  return Axios.get("/user/user/userList",params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/user/user/userList", params);
 }
 //  获取用户列表 strategy. 使用的 
-function getuser1() {
+function getuser1 () {
   // console.log('12320',param)
   // console.log('12320',params)
-  return Axios.get("/user/user/userList");
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/user/user/userList");
 }
 // 修改规则值
 
-function creatrCode(params) {
+function creatrCode (params) {
   console.log(params)
   let fd = new FormData();
   fd.append('usersId', params.id);
@@ -225,7 +226,7 @@ function creatrCode(params) {
   return Axios.post("/api/wareHouse/creatrCode", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
-function updateStrategyRule(params) {
+function updateStrategyRule (params) {
   console.log(params);
   let fd = new FormData();
   fd.append('ruleValue ', params.ruleValue);
@@ -236,50 +237,50 @@ function updateStrategyRule(params) {
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 //查询活动
-function getActivity() {
+function getActivity () {
   return Axios.get("/api/activity/listActivity");
 }
 //获取参与人
-function getPerson(id) {
+function getPerson (id) {
   let params = {
     params: {
       activityId: id,
     }
   }
-  return Axios.get("/api/wareHouse/listActivityUser",params);
+  return Axios.get("/api/wareHouse/listActivityUser", params);
 }
 
 // 获取策略
-function getStrategy() {
+function getStrategy () {
 
   return Axios.get("/api/activity/listActivityStrategy");
 
 }
 // 获取活动实体规则
-function getActiveShi() {
+function getActiveShi () {
 
   return Axios.get("/api/activity/listActivityStrategyInstance");
 
 }
 // 获取策略规则
-function getStrategyRule(id) {
+function getStrategyRule (id) {
 
-    let params = {
-      params: {
-        strategyId: id,
+  let params = {
+    params: {
+      strategyId: id,
 
-      }
     }
+  }
 
   return Axios.get("/api/wareHouse/findStrategyRule", params);
 }
 
 // 添加活动的参与者
-function addpreson(params) {
-console.log(params)
+function addpreson (params) {
+  console.log(params)
   let fd = new FormData();
   fd.append('activityId ', params.activityId);
-  fd.append('ruleInstanceId',  params.ruleId);
+  fd.append('ruleInstanceId', params.ruleId);
   fd.append('userIds', params.userIds);
 
   // fd.append('empNum', params.empNum);
@@ -287,7 +288,7 @@ console.log(params)
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 开启活动
-function start(id) {
+function start (id) {
   let fd = new FormData();
   fd.append('activityId ', id);
 
@@ -295,42 +296,38 @@ function start(id) {
 
 }
 // 开启活动
-function addCompany(data) {
+function addCompany (data) {
   let fd = new FormData();
   fd.append('companyInfo ', data.companyInfo);
   fd.append('companyName ', data.companyName);
   return Axios.post("/api/strategy/addCompany", fd);
 
 }
-function login(data){
+function login (data) {
   console.log(data)
   let params = {
-      params: {
-        authKey: data.authKey,
-        authType:2,
-        passwd:data.passwd
-      }
+    params: {
+      authKey: data.authKey,
+      authType: 2,
+      passwd: data.passwd
     }
+  }
 
-  return Axios.get("/user/user/login", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/user/user/login", params);
 }
-function erCode(phone){
-  console.log(phone)
-  let params = {
-      params: {
-        phone: phone,
-      }
-    }
+function erCode (phone) {
+  let fd = new FormData();
+  fd.append('phone ', phone);
 
-  return Axios.get("/user/user/code", params);
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/user/user/code", fd);
 }
 //统计投票结果
-function count(params) {
+function count (params) {
 
   let fd = new FormData();
   fd.append('activityId ', params.activityId);
-  fd.append('ruleId ',  params.ruleId);
-  fd.append('ruleInstanceId', params.ruleInstanceId );
+  fd.append('ruleId ', params.ruleId);
+  fd.append('ruleInstanceId', params.ruleInstanceId);
   fd.append('userIds', params.userIds);
   // fd.append('empNum', params.empNum);
   return Axios.post("/api/wareHouse/statisticsTicket", fd, { responseType: 'arraybuffer' });
@@ -363,170 +360,170 @@ function count(params) {
 //   return Axios.get("/order/order/queryDetail", params);
 // }
 // 根据活动id查策略规则
-function getStrategyRuleByActive(id){
+function getStrategyRuleByActive (id) {
   console.log(id)
   let params = {
-      params: {
-        activityId: id,
+    params: {
+      activityId: id,
 
-      }
     }
+  }
 
   return Axios.get("/api/activity/listActivityStrategyInstance", params);
 }
 // 根据活动id查策略规则
-function checkcompany(){
+function checkcompany () {
   return Axios.get("/api/strategy/findCompany");
 }
 // 根据活动id查评分模板
-function findUserTemplate(data){
+function findUserTemplate (data) {
 
   let params = {
-      params: {
-        activityId:data.activityId,
-        type:data.type
-      }
+    params: {
+      activityId: data.activityId,
+      type: data.type
     }
+  }
 
   return Axios.get("/api/strategy/findUserEvaluationTemplate", params);
 }
 
-function deleteuser(id){
+function deleteuser (id) {
 
   let params = {
-      params: {
-        userId:id
-      }
+    params: {
+      userId: id
     }
+  }
 
-  return Axios.get("/user/user/deleteUser", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/user/user/deleteUser", params);
 }
-function updateDepartment(params) {
+function updateDepartment (params) {
 
   let fd = new FormData();
 
-  fd.append('companyId', params.companyId );
+  fd.append('companyId', params.companyId);
   fd.append('departmentName', params.departmentName);
   // fd.append('empNum', params.empNum);
   return Axios.post("/api/wareHouse/updateDepartment", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
-function findDepartment(id){
+function findDepartment (id) {
 
   let params = {
-      params: {
-        companyId:id
-      }
+    params: {
+      companyId: id
     }
+  }
 
   return Axios.get("/api/strategy/findDepartmentByCompanyId", params);
 }
 //投票记录
-function ActivityvoteRecords(id){
+function ActivityvoteRecords (id) {
   let params = {
-      params: {
-        activityId:id
-      }
+    params: {
+      activityId: id
     }
-  
+  }
+
   return Axios.get("/api/activity/ActivityvoteRecords", params);
 }
 //删除事迹
-function deleteSJ(id){
+function deleteSJ (id) {
   let params = {
     params: {
-      id:id
+      id: id
     }
   }
-return Axios.get("/api/strategy/delterUserEvaluationTemplate", params);
+  return Axios.get("/api/strategy/delterUserEvaluationTemplate", params);
 }
 //设置晋级人数
-function VictoryCount(data){
-  let fd=new FormData();
-  fd.append('count',data.count);
-  fd.append('activityId',data.activityId);
+function VictoryCount (data) {
+  let fd = new FormData();
+  fd.append('count', data.count);
+  fd.append('activityId', data.activityId);
   return Axios.post("/api/wareHouse/setActivityVictoryCount", fd, { responseType: 'arraybuffer' });
 }
 
-function updateSJ(data){
-  let fd=new FormData();
-  fd.append('id',data.evaluateTemplateId);
-  fd.append('evaluateType',data.evaluateType);
-  fd.append('evaluateWeight',data.evaluateWeight);
-  fd.append('remarks',data.remarks);
-  fd.append('isDeleted',0);
+function updateSJ (data) {
+  let fd = new FormData();
+  fd.append('id', data.evaluateTemplateId);
+  fd.append('evaluateType', data.evaluateType);
+  fd.append('evaluateWeight', data.evaluateWeight);
+  fd.append('remarks', data.remarks);
+  fd.append('isDeleted', 0);
   return Axios.post("/api/strategy/updateUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
 }
 
-function sortStart(id){
+function sortStart (id) {
   let fd = new FormData();
   fd.append('activityId ', id);
   return Axios.post("/api/wareHouse/startActivityResult", fd);
 }
 
 // 后台活动投票记录详情查询
-function ActivityvoteRecordsDetail(params) {
+function ActivityvoteRecordsDetail (params) {
   // console.log('12320',param)
   // console.log('12320',params)
-  
-  return Axios.get("/api/activity/ActivityvoteRecordsDetail",params);
+
+  return Axios.get("/api/activity/ActivityvoteRecordsDetail", params);
 }
 
-function ActivityvoteRecordsUpdate(data) {
+function ActivityvoteRecordsUpdate (data) {
   console.log(data)
-  let fd=new FormData();
-  fd.append('activityId',data.params.activityId);
-  fd.append('userId',data.params.userId);
-  fd.append('electedId',data.params.electedId);
-  fd.append('type',data.params.type);
-  fd.append('score',data.params.score);
-  return Axios.post("/api/activity/ActivityvoteRecordsUpdate",fd,{ responseType: 'arraybuffer' });
+  let fd = new FormData();
+  fd.append('activityId', data.params.activityId);
+  fd.append('userId', data.params.userId);
+  fd.append('electedId', data.params.electedId);
+  fd.append('type', data.params.type);
+  fd.append('score', data.params.score);
+  return Axios.post("/api/activity/ActivityvoteRecordsUpdate", fd, { responseType: 'arraybuffer' });
 }
 
 export default {
-  getStrategyRuleByActive:getStrategyRuleByActive,
-   addActivity:addActivity,
-   addWard:addWard,
-   getDepartment:getDepartment,
-   addStrategy:addStrategy,
-   getStrategy:getStrategy,
-   getActivity:getActivity,
-   addStrategyRule:addStrategyRule,
-   getuser:getuser,
-   deleteActivity:deleteActivity,
-   getStrategyRule:getStrategyRule,
-   deleteStrategyRule:deleteStrategyRule,
-   deleteActivityStrategy:deleteActivityStrategy,
-   setActivityRules:setActivityRules,
-   getActiveShi:getActiveShi,
-   addpreson:addpreson,
-   count:count,
-   updateStrategyRule:updateStrategyRule,
-   getActivityDetail:getActivityDetail,
-   creatrCode:creatrCode,
-   getPerson:getPerson,
-   getStrategyType:getStrategyType,
-   deleteperson:deleteperson,
-   start:start,
-   EvaluationTemplate:EvaluationTemplate,
-   erCode:erCode,
-   login:login,
-   findUserTemplate:findUserTemplate,
-   addCompany:addCompany,
-   checkcompany:checkcompany,
-   checkTemplateWeight:checkTemplateWeight,
-   delectestrategy:delectestrategy,
-   deleteuser:deleteuser,
-   updateDepartment:updateDepartment,
-   findDepartment:findDepartment,
-   checkTemplateWeight1:checkTemplateWeight1,
-   ActivityvoteRecords:ActivityvoteRecords,
-   deleteSJ:deleteSJ,
-   VictoryCount:VictoryCount,
-   updateSJ:updateSJ,
-   sortStart:sortStart,
-   ActivityvoteRecordsDetail:ActivityvoteRecordsDetail,
-   getuser1:getuser1,
-   ActivityvoteRecordsUpdate:ActivityvoteRecordsUpdate
+  getStrategyRuleByActive: getStrategyRuleByActive,
+  addActivity: addActivity,
+  addWard: addWard,
+  getDepartment: getDepartment,
+  addStrategy: addStrategy,
+  getStrategy: getStrategy,
+  getActivity: getActivity,
+  addStrategyRule: addStrategyRule,
+  getuser: getuser,
+  deleteActivity: deleteActivity,
+  getStrategyRule: getStrategyRule,
+  deleteStrategyRule: deleteStrategyRule,
+  deleteActivityStrategy: deleteActivityStrategy,
+  setActivityRules: setActivityRules,
+  getActiveShi: getActiveShi,
+  addpreson: addpreson,
+  count: count,
+  updateStrategyRule: updateStrategyRule,
+  getActivityDetail: getActivityDetail,
+  creatrCode: creatrCode,
+  getPerson: getPerson,
+  getStrategyType: getStrategyType,
+  deleteperson: deleteperson,
+  start: start,
+  EvaluationTemplate: EvaluationTemplate,
+  erCode: erCode,
+  login: login,
+  findUserTemplate: findUserTemplate,
+  addCompany: addCompany,
+  checkcompany: checkcompany,
+  checkTemplateWeight: checkTemplateWeight,
+  delectestrategy: delectestrategy,
+  deleteuser: deleteuser,
+  updateDepartment: updateDepartment,
+  findDepartment: findDepartment,
+  checkTemplateWeight1: checkTemplateWeight1,
+  ActivityvoteRecords: ActivityvoteRecords,
+  deleteSJ: deleteSJ,
+  VictoryCount: VictoryCount,
+  updateSJ: updateSJ,
+  sortStart: sortStart,
+  ActivityvoteRecordsDetail: ActivityvoteRecordsDetail,
+  getuser1: getuser1,
+  ActivityvoteRecordsUpdate: ActivityvoteRecordsUpdate
 };
