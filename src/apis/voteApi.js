@@ -8,7 +8,7 @@ function addWard (params) {
   console.log(params.awardName, params.empNum)
   fd.append('awardName', params.awardName);
   fd.append('empNum', params.empNum);
-  return Axios.post("/api/users/addAwardInfo", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/users/addAwardInfo", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
@@ -23,7 +23,7 @@ function EvaluationTemplate (params) {
   fd.append('parentTemplateId', params.parentTemplateId);
   fd.append('remarks', params.remarks);
 
-  return Axios.post("/api/strategy/addUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/addUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
@@ -36,7 +36,7 @@ function checkTemplateWeight (data) {
     }
   }
 
-  return Axios.get("/api/strategy/findEvaluationTemplateWeight", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/findEvaluationTemplateWeight", params);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 function checkTemplateWeight1 (data) {
@@ -48,7 +48,7 @@ function checkTemplateWeight1 (data) {
     }
   }
 
-  return Axios.get("/api/strategy/findEvaluationTemplateWeight", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/findEvaluationTemplateWeight", params);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 添加奖品
@@ -60,7 +60,7 @@ function getDepartment (params) {
   //     }
   //   }
 
-  return Axios.get("/api/users/getEmpAllDept");
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/users/getEmpAllDept");
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除参与人
@@ -73,12 +73,12 @@ function deleteperson (num) {
     }
   }
   console.log(params)
-  return Axios.get("/api/wareHouse/deleteActivityUser", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/deleteActivityUser", params);
 }
 // 获取规则值类型
 function getStrategyType () {
 
-  return Axios.get("/api/strategy/listStrategyRule");
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/listStrategyRule");
 
 
 }
@@ -91,7 +91,7 @@ function addStrategy (params) {
   fd.append('strategyName', params.strategyName);
   // fd.append('strategyStatus', params.strategyStatus);
   fd.append('strategyType', params.strategyType);
-  return Axios.post("/api/wareHouse/addActivityStrategy", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/addActivityStrategy", fd, { responseType: 'arraybuffer' });
 
 }
 // 添加策略规则
@@ -107,7 +107,7 @@ function addStrategyRule (params) {
   // fd.append('ruleValue', params.ruleType);//规则值
   fd.append('ruleType', params.ruleValueType);//规则值类型
   fd.append('strategyId', params.strategyId);
-  return Axios.post("/api/wareHouse/addStrategyRule", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/addStrategyRule", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
@@ -116,7 +116,7 @@ function deleteActivityStrategy (params) {
   let fd = new FormData();
   fd.append('activityStrategyId', params.id);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/activity/deleteActivityStrategy", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/activity/deleteActivityStrategy", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除策略规则
@@ -124,7 +124,7 @@ function deleteStrategyRule (params) {
   let fd = new FormData();
   fd.append('strategyRuleId', params.id);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/strategy/deleteStrategyRule", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/deleteStrategyRule", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 //获取投票结果
@@ -137,7 +137,7 @@ function getResult (params) {
   // fd.append('ruleSDesc', params.ruleSDesc);
   // fd.append('ruleValue', params.ruleValue);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/wareHouse/statisticsTicket", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/statisticsTicket", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 设置活动规则
@@ -152,7 +152,7 @@ function setActivityRules (params) {
   // fd.append('ruleSDesc', params.ruleSDesc);
   // fd.append('ruleValue', params.ruleValue);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/wareHouse/addActivityUser", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/addActivityUser", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除活动
@@ -160,7 +160,7 @@ function deleteActivity (id) {
   let fd = new FormData();
   fd.append('activityId ', id);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/activity/deleteActivity", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/activity/deleteActivity", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 删除策略
@@ -168,7 +168,7 @@ function delectestrategy (id) {
   let fd = new FormData();
   fd.append('activityStrategyId ', id);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/activity/deleteActivityStrategy", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/activity/deleteActivityStrategy", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 function getActivityDetail (id) {
@@ -177,7 +177,7 @@ function getActivityDetail (id) {
       activityId: id,
     }
   }
-  return Axios.get("/api/wareHouse/findActivityResult", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/findActivityResult", params);
 }
 // /strategy/delterUserEvaluationTemplate
 
@@ -194,7 +194,7 @@ function addActivity (params) {
   fd.append('activityStatus', params.activityStatus);
   fd.append('userId', 1);
   fd.append('strategyId', params.strategyId);
-  return Axios.post("/api/wareHouse/addActivity", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/addActivity", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });?pageNum=1&pageSize=20
 }
 // 获取用户列表
@@ -223,7 +223,7 @@ function creatrCode (params) {
   let fd = new FormData();
   fd.append('usersId', params.id);
   fd.append('activityId', params.activityId);
-  return Axios.post("/api/wareHouse/creatrCode", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/creatrCode", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 function updateStrategyRule (params) {
@@ -233,12 +233,12 @@ function updateStrategyRule (params) {
   fd.append('activityId ', params.activityId);
   fd.append('ruleInstanceId', params.ruleInstanceId);
 
-  return Axios.post("/api/wareHouse/setActivityRules", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/setActivityRules", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 //查询活动
 function getActivity () {
-  return Axios.get("/api/activity/listActivity");
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/activity/listActivity");
 }
 //获取参与人
 function getPerson (id) {
@@ -247,19 +247,19 @@ function getPerson (id) {
       activityId: id,
     }
   }
-  return Axios.get("/api/wareHouse/listActivityUser", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/listActivityUser", params);
 }
 
 // 获取策略
 function getStrategy () {
 
-  return Axios.get("/api/activity/listActivityStrategy");
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/activity/listActivityStrategy");
 
 }
 // 获取活动实体规则
 function getActiveShi () {
 
-  return Axios.get("/api/activity/listActivityStrategyInstance");
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/activity/listActivityStrategyInstance");
 
 }
 // 获取策略规则
@@ -272,7 +272,7 @@ function getStrategyRule (id) {
     }
   }
 
-  return Axios.get("/api/wareHouse/findStrategyRule", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/findStrategyRule", params);
 }
 
 // 添加活动的参与者
@@ -284,7 +284,7 @@ function addpreson (params) {
   fd.append('userIds', params.userIds);
 
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/wareHouse/addActivityUser", fd);
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/addActivityUser", fd);
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // 开启活动
@@ -292,7 +292,7 @@ function start (id) {
   let fd = new FormData();
   fd.append('activityId ', id);
 
-  return Axios.post("/api/wareHouse/startActivity", fd);
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/startActivity", fd);
 
 }
 // 开启活动
@@ -300,7 +300,7 @@ function addCompany (data) {
   let fd = new FormData();
   fd.append('companyInfo ', data.companyInfo);
   fd.append('companyName ', data.companyName);
-  return Axios.post("/api/strategy/addCompany", fd);
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/addCompany", fd);
 
 }
 function login (data) {
@@ -330,7 +330,7 @@ function count (params) {
   fd.append('ruleInstanceId', params.ruleInstanceId);
   fd.append('userIds', params.userIds);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/wareHouse/statisticsTicket", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/statisticsTicket", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 // function bianProduct() {
@@ -369,11 +369,11 @@ function getStrategyRuleByActive (id) {
     }
   }
 
-  return Axios.get("/api/activity/listActivityStrategyInstance", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/activity/listActivityStrategyInstance", params);
 }
 // 根据活动id查策略规则
 function checkcompany () {
-  return Axios.get("/api/strategy/findCompany");
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/findCompany");
 }
 // 根据活动id查评分模板
 function findUserTemplate (data) {
@@ -385,7 +385,7 @@ function findUserTemplate (data) {
     }
   }
 
-  return Axios.get("/api/strategy/findUserEvaluationTemplate", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/findUserEvaluationTemplate", params);
 }
 
 function deleteuser (id) {
@@ -405,7 +405,7 @@ function updateDepartment (params) {
   fd.append('companyId', params.companyId);
   fd.append('departmentName', params.departmentName);
   // fd.append('empNum', params.empNum);
-  return Axios.post("/api/wareHouse/updateDepartment", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/updateDepartment", fd, { responseType: 'arraybuffer' });
   // return Axios.post("/api/users/addAwardInfo",{awardName:'孙王大',empNum:'孙王大' });
 }
 
@@ -417,7 +417,7 @@ function findDepartment (id) {
     }
   }
 
-  return Axios.get("/api/strategy/findDepartmentByCompanyId", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/findDepartmentByCompanyId", params);
 }
 //投票记录
 function ActivityvoteRecords (id) {
@@ -427,7 +427,7 @@ function ActivityvoteRecords (id) {
     }
   }
 
-  return Axios.get("/api/activity/ActivityvoteRecords", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/activity/ActivityvoteRecords", params);
 }
 //删除事迹
 function deleteSJ (id) {
@@ -436,14 +436,14 @@ function deleteSJ (id) {
       id: id
     }
   }
-  return Axios.get("/api/strategy/delterUserEvaluationTemplate", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/delterUserEvaluationTemplate", params);
 }
 //设置晋级人数
 function VictoryCount (data) {
   let fd = new FormData();
   fd.append('count', data.count);
   fd.append('activityId', data.activityId);
-  return Axios.post("/api/wareHouse/setActivityVictoryCount", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/setActivityVictoryCount", fd, { responseType: 'arraybuffer' });
 }
 
 function updateSJ (data) {
@@ -453,13 +453,13 @@ function updateSJ (data) {
   fd.append('evaluateWeight', data.evaluateWeight);
   fd.append('remarks', data.remarks);
   fd.append('isDeleted', 0);
-  return Axios.post("/api/strategy/updateUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/updateUserEvaluationTemplate", fd, { responseType: 'arraybuffer' });
 }
 
 function sortStart (id) {
   let fd = new FormData();
   fd.append('activityId ', id);
-  return Axios.post("/api/wareHouse/startActivityResult", fd);
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/startActivityResult", fd);
 }
 
 // 后台活动投票记录详情查询
@@ -467,7 +467,7 @@ function ActivityvoteRecordsDetail (params) {
   // console.log('12320',param)
   // console.log('12320',params)
 
-  return Axios.get("/api/activity/ActivityvoteRecordsDetail", params);
+  return Axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/activity/ActivityvoteRecordsDetail", params);
 }
 
 function ActivityvoteRecordsUpdate (data) {
@@ -478,7 +478,7 @@ function ActivityvoteRecordsUpdate (data) {
   fd.append('electedId', data.params.electedId);
   fd.append('type', data.params.type);
   fd.append('score', data.params.score);
-  return Axios.post("/api/activity/ActivityvoteRecordsUpdate", fd, { responseType: 'arraybuffer' });
+  return Axios.post("https://swcloud.tjsichuang.cn:1445/api/activity/activity/ActivityvoteRecordsUpdate", fd, { responseType: 'arraybuffer' });
 }
 
 export default {
