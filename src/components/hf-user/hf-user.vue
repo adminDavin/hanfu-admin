@@ -10,8 +10,6 @@
             <el-input v-model="form.nickName" ></el-input>
           </el-col>
         </el-form-item>
-        </el-form-item>
-
         <el-form-item label="名字"  >
           <el-col :span="10">
             <el-input v-model="form.realName"></el-input>
@@ -132,7 +130,6 @@
           <el-col :span="10">
             <el-input v-model="address.contact" ></el-input>
           </el-col>
-        </el-form-item>
         </el-form-item>
 
        <el-form-item label="电话号码" style="width:1780px;">
@@ -295,7 +292,6 @@
               <el-col :span="10">
                 <el-input v-model="address1.contact" ></el-input>
               </el-col>
-            </el-form-item>
             </el-form-item>
 
            <el-form-item label="电话号码" style="width:1780px;">

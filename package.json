@@ -13,14 +13,15 @@
     "@ckeditor/ckeditor5-build-classic": "^11.2.0",
     "@ckeditor/ckeditor5-build-decoupled-document": "^11.2.0",
     "@ckeditor/ckeditor5-vue": "^1.0.0-beta.1",
-    "ajv": "^6.12.4",
-    "axios": "^0.18.0",
-    "element-ui": "^2.13.2",
+    "ajv": "^6.5.3",
+    "axios": "^0.19.0",
+    "element-ui": "^2.13.0",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.27.0",
     "vue": "^2.6.12",
     "vue-router": "^3.4.3",
-    "vuex-persist": "^1.8.0"
+    "vuex-persist": "^1.8.0",
+    "webpack-dev-server": "^2.9.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -60,7 +61,6 @@
     "vue-template-compiler": "^2.6.12",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
