@@ -54,7 +54,7 @@ export default {
     lun: function(index) {
       console.log(index);
       axios
-        .get("/api/strategy/deletelunbotu?fileId=" + this.pic[index].id)
+        .get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/deletelunbotu?fileId=" + this.pic[index].id)
         .then(response => {
           console.log("删除轮播图", response);
           if (response.data.status == 200) {
@@ -78,7 +78,7 @@ export default {
       let fd = new FormData();
       fd.append("file", file.raw);
       axios
-        .post("/api/strategy/addlunbotu", fd, {
+        .post("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/addlunbotu", fd, {
           responseType: "arraybuffer"
         })
         .then(res => {
@@ -93,13 +93,13 @@ export default {
     },
 
     initGoodsFiles() {
-      // console.log(this.goods.id);
-      axios.get("/api/strategy/findlunbotu").then(response => {
+      console.log(this.goods.id);
+      axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/findlunbotu").then(response => {
         console.log("获取轮播图", response);
         if (response.data.data.length > 0) {
           for (var i = 0; i < response.data.data.length; i++) {
             response.data.data[i].img =
-              "/api/wareHouse/getFile?fileId=" + response.data.data[i].id;
+              "https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/getFile?fileId=" + response.data.data[i].id;
           }
         }
         this.pic = response.data.data;
