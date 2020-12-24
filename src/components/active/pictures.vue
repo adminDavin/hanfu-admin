@@ -93,7 +93,7 @@ export default {
     },
 
     initGoodsFiles() {
-      console.log(this.goods.id);
+      // console.log(this.goods.id);
       axios.get("https://swcloud.tjsichuang.cn:1445/api/activity/strategy/findlunbotu").then(response => {
         console.log("获取轮播图", response);
         if (response.data.data.length > 0) {
