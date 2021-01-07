@@ -252,7 +252,7 @@
         <!-- <el-table-column label="添加时间" align="center" width="200" prop="voteTimes"></el-table-column> -->
       </el-table>
 
-      <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+      <el-dialog title="详情" :visible.sync="dialogTableVisible">
         <el-table
           v-loading="loading"
           element-loading-text="拼命加载中"
@@ -267,8 +267,13 @@
         </el-table>
       </el-dialog>
 
-      <el-dialog title="收货地址" :visible.sync="dialogTable">
-        <el-table :data="gridData">
+      <el-dialog title="评分" :visible.sync="dialogTable">
+        <el-table 
+         v-loading="loading2"
+         element-loading-text="拼命加载中"
+         element-loading-spinner="el-icon-loading"
+         element-loading-background="rgba(0, 0, 0, 0.8)"
+         :data="gridData">
           <el-table-column property="voteRealName" label="评委"></el-table-column>
           <el-table-column property="voteNickName" width="90" label="微信名称"></el-table-column>
           <el-table-column property="socre[0]" label="A">
@@ -302,19 +307,19 @@
 
       <el-dialog title="" :visible.sync="dialogFormVisible4">
         <el-form :model="list">
-          <el-form-item label="A" :label-width="formLabelWidth">
+          <el-form-item label="A">
             <el-input v-model="list[0]" autocomplete="off" ></el-input>
           </el-form-item>
-          <el-form-item label="B" :label-width="formLabelWidth" >
+          <el-form-item label="B" >
             <el-input v-model="list[1]" autocomplete="off" ></el-input>
           </el-form-item>
-          <el-form-item label="C" :label-width="formLabelWidth">
+          <el-form-item label="C">
             <el-input v-model="list[2]" autocomplete="off" ></el-input>
           </el-form-item>
-          <el-form-item label="D" :label-width="formLabelWidth">
+          <el-form-item label="D">
             <el-input v-model="list[3]" autocomplete="off" ></el-input>
           </el-form-item>
-          <el-form-item label="E" :label-width="formLabelWidth">
+          <el-form-item label="E">
             <el-input v-model="list[4]" autocomplete="off" ></el-input>
           </el-form-item>
         </el-form>
@@ -346,6 +351,7 @@ export default {
         date1: ""
       },
       loading: true,
+      loading2: true,
       // 弹窗控制显示隐藏
       dialogTableVisible: false,
       dialogTable: false,
@@ -606,6 +612,7 @@ export default {
       api.ActivityvoteRecordsDetail(params).then(response => {
         // console.log("投票详情列表", response);
         this.loading = false,
+      
         this.gridData = response.data.data[0];
         console.log("投票详情列表", this.gridData);
       });
@@ -626,8 +633,10 @@ export default {
         console.log("评分详情列表", response);
         this.zimulist = response.data.data[0];
         this.gridData = response.data.data[1];
+        this.loading2 = false,
         console.log("评分详情列表123456", this.gridData);
       });
+      this.getActivityRecord(this.quan.activityId)
     },
     FormVisible: function (scope) {
       console.log('123123', scope)
