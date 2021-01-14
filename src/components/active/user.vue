@@ -14,7 +14,7 @@
           <el-upload
             class="avatar-uploader"
             :show-file-list="false"
-            action="/api/wareHouse/updateUserAvatar"
+            action="https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/updateUserAvatar"
             name="fileInfo"
             file="file"
             list-type="picture-card"
