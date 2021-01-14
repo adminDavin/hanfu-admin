@@ -134,7 +134,7 @@ export default {
         for (var i = 0; i < this.rewardData.length; i++) {
           if (this.rewardData[i].fileId) {
             this.rewardData[i].img =
-              "/api/wareHouse/getFile?fileId=" + this.rewardData[i].fileId;
+              "https://swcloud.tjsichuang.cn:1445/api/activity/wareHouse/getFile?fileId=" + this.rewardData[i].fileId;
           } else {
           }
         }
